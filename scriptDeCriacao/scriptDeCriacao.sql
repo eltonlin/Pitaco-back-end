@@ -17,6 +17,17 @@ faixa_salarial int not null,
 pontuacao int not null, 
 PRIMARY KEY(usuario_final));
 
+CREATE TABLE endereco (
+    id_endereco INT AUTO_INCREMENT,
+    usuario_final VARCHAR(30) NOT NULL,
+    rua VARCHAR(30) NOT NULL,
+    cep CHAR(8) NOT NULL,
+    bairro VARCHAR(30) NOT NULL,
+    complemento VARCHAR(255),
+    PRIMARY KEY (id_endereco),
+    FOREIGN KEY (usuario_final)
+        REFERENCES usuario_final (usuario_final)
+);
 
 create table interesse(
 id_interesse int not NULL AUTO_INCREMENT,
