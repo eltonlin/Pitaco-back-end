@@ -86,14 +86,4 @@ foreign key (id_opcao) REFERENCES opcao(id_opcao),
 foreign key (usuario_final) REFERENCES usuario_final(usuario_final)
 );
 
-
-
-
-
-id_opcao int not null,
-usuario_final varchar(30) not null,
-primary key(id_resposta),
-foreign key (usuario_final) REFERENCES usuario_final(usuario_final),
-foreign key (id_opcao) REFERENCES opcao(id_opcao)
-)
  

@@ -1,0 +1,22 @@
+{
+  "name": "pitaco-back-end",
+  "version": "1.0.0",
+  "description": "RESTFul pitaco",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eltonlin/Pitaco-back-end.git"
+  },
+  "keywords": [
+    "RESTful"
+  ],
+  "author": "elton santos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eltonlin/Pitaco-back-end/issues"
+  },
+  "homepage": "https://github.com/eltonlin/Pitaco-back-end#readme"
+}
