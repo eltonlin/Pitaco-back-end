@@ -86,4 +86,12 @@ foreign key (id_opcao) REFERENCES opcao(id_opcao),
 foreign key (usuario_final) REFERENCES usuario_final(usuario_final)
 );
 
+
+
+
+insert into usuario_final values ("Elton", "1234", "Elton Linconl", "12345678989", 1235, 0 );
+
+
+
+
  

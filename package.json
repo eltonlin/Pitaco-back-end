@@ -18,5 +18,13 @@
   "bugs": {
     "url": "https://github.com/eltonlin/Pitaco-back-end/issues"
   },
-  "homepage": "https://github.com/eltonlin/Pitaco-back-end#readme"
+  "homepage": "https://github.com/eltonlin/Pitaco-back-end#readme",
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  },
+  "dependencies": {
+    "consign": "^0.1.6",
+    "express": "^4.16.4",
+    "mysql": "^2.16.0"
+  }
 }
