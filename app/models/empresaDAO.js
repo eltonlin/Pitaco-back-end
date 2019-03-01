@@ -1,14 +1,23 @@
-var dbConnection = require('../../config/dbConnection');
+var connection = require('../../config/dbConnection');
 
-var conection = dbConnection();
-
-api = {} 
-
-api.listarEmpresas = function(){
-    conection.query('select * from empresas;', function(err, res){
-        console.log(res);
-    })
-}
+var empresaDAO = function(empresa){
+    this.nome_empresa = empresa.nome_empresa;
+    this.cnpj = empresa.cnpj;
+    this.usuario_master = empresa.usuario_master;
+} ;
 
 
-module.exports = api;
+empresaDAO.listarEmpresas = function getAllEmpresas(result){   
+    connection.query('select * from empresa', function(err, res){
+        if(err){
+            console.log(err);
+            result(null, err);
+        }
+        else{
+            console.log('tasks : ', res);  
+            result(null, res);
+        }
+    });
+};
+
+module.exports = empresaDAO;

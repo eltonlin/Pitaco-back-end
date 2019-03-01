@@ -1,5 +1,5 @@
-var empresaDAO = require('../models/empresaDAO');
+var empresaController = require('../controllers/empresa.js');
 
 module.exports = function(app){
-    app.get('/empresas', empresaDAO.listarEmpresas);
+    app.get('/empresas',  empresaController.todasEmpresas);
 };
