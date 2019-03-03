@@ -2,6 +2,7 @@ create database pitaco;
 
 use pitaco;
 
+
 create table usuario_master(
 usuario_master VARCHAR(30) NOT NULL,
 senha varchar(30) NOT NULL,
@@ -55,11 +56,14 @@ foreign key (usuario_master) REFERENCES usuario_master(usuario_master)
 create table questionario(
 id_questionario int not null auto_increment,
 descricao_questionario varchar(100) not null, 
-pontuacao_questionario int not null,
+pontuacao_questionario int,
 usuario_master varchar(30) not null,
+id_empresa int not null,
 primary key(id_questionario),
-foreign key (usuario_master) REFERENCES usuario_master(usuario_master)
+foreign key (usuario_master) REFERENCES usuario_master(usuario_master),
+foreign key (id_empresa) REFERENCES empresa(id_empresa)
 );
+
 
 create table pergunta(
 id_pergunta int not null auto_increment,
@@ -85,13 +89,5 @@ CONSTRAINT PK_respostas PRIMARY KEY (id_opcao, usuario_final),
 foreign key (id_opcao) REFERENCES opcao(id_opcao),
 foreign key (usuario_final) REFERENCES usuario_final(usuario_final)
 );
-
-
-
-
-insert into usuario_final values ("Elton", "1234", "Elton Linconl", "12345678989", 1235, 0 );
-
-
-
 
  
