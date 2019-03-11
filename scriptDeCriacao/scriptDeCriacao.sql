@@ -91,3 +91,8 @@ CONSTRAINT PK_respostas PRIMARY KEY (id_opcao, usuario_final),
 FOREIGN KEY (id_opcao) REFERENCES opcao(id_opcao),
 FOREIGN KEY (usuario_final) REFERENCES usuario_final(usuario_final)
 );
+
+
+/*                           usuário final, senha,     Nome,           CPF,   faixa sal., pontuação */       
+INSERT INTO usuario_final VALUES ("Elton", "1234", "Elton Linconl", "12345678989", 1235, 0 );
+
