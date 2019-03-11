@@ -1,21 +1,21 @@
-create database pitaco;
+CREATE DATABASE pitaco;
 
-use pitaco;
+USE pitaco;
 
 
-create table usuario_master(
+CREATE TABLE usuario_master(
 usuario_master VARCHAR(30) NOT NULL,
-senha varchar(30) NOT NULL,
-nome varchar(100) NOT NULL,
+senha VARCHAR(30) NOT NULL,
+nome VARCHAR(100) NOT NULL,
 PRIMARY KEY(usuario_master));
 
-create table usuario_final(
+CREATE TABLE usuario_final(
 usuario_final VARCHAR(30) NOT NULL,
-senha varchar(30) NOT NULL,
-nome varchar(100) NOT NULL,
-cpf varchar(11) NOT NULL,
-faixa_salarial int not null,
-pontuacao int not null, 
+senha VARCHAR(30) NOT NULL,
+nome VARCHAR(100) NOT NULL,
+cpf VARCHAR(11) NOT NULL,
+faixa_salarial INT NOT NULL,
+pontuacao INT NOT NULL, 
 PRIMARY KEY(usuario_final));
 
 CREATE TABLE endereco (
@@ -30,64 +30,62 @@ CREATE TABLE endereco (
         REFERENCES usuario_final (usuario_final)
 );
 
-create table interesse(
-id_interesse int not NULL AUTO_INCREMENT,
+CREATE TABLE interesse(
+id_interesse INT NOT NULL AUTO_INCREMENT,
 descricao VARCHAR(150) NOT NULL,
 PRIMARY KEY(id_interesse)
 );
 
-create table usuario_final_interesse(
+CREATE TABLE usuario_final_interesse(
  usuario_final VARCHAR(30) NOT NULL,
- id_interesse int not null, 
+ id_interesse INT NOT NULL, 
  CONSTRAINT PK_usuario_final_interesse PRIMARY KEY (usuario_final, id_interesse),
- foreign key (usuario_final) REFERENCES usuario_final(usuario_final),
- foreign key (id_interesse) REFERENCES interesse(id_interesse)
+ FOREIGN KEY (usuario_final) REFERENCES usuario_final(usuario_final),
+ FOREIGN KEY (id_interesse) REFERENCES interesse(id_interesse)
 );
 
-create table empresa(
-id_empresa int not null auto_increment ,
-nome_empresa varchar(100) not null,
-cnpj varchar(14) not null,
-usuario_master varchar(30) not null,
-primary KEY (ID_empresa),
-foreign key (usuario_master) REFERENCES usuario_master(usuario_master)
+CREATE TABLE empresa(
+id_empresa INT NOT NULL auto_increment ,
+nome_empresa VARCHAR(100) NOT NULL,
+cnpj VARCHAR(14) NOT NULL,
+usuario_master VARCHAR(30) NOT NULL,
+PRIMARY KEY (ID_empresa),
+FOREIGN KEY (usuario_master) REFERENCES usuario_master(usuario_master)
 );
 
-create table questionario(
-id_questionario int not null auto_increment,
-descricao_questionario varchar(100) not null, 
-pontuacao_questionario int,
-usuario_master varchar(30) not null,
-id_empresa int not null,
-primary key(id_questionario),
-foreign key (usuario_master) REFERENCES usuario_master(usuario_master),
-foreign key (id_empresa) REFERENCES empresa(id_empresa)
+CREATE TABLE questionario(
+id_questionario INT NOT NULL auto_increment,
+descricao_questionario VARCHAR(100) NOT NULL, 
+pontuacao_questionario INT,
+usuario_master VARCHAR(30) NOT NULL,
+id_empresa INT NOT NULL,
+PRIMARY KEY(id_questionario),
+FOREIGN KEY (usuario_master) REFERENCES usuario_master(usuario_master),
+FOREIGN KEY (id_empresa) REFERENCES empresa(id_empresa)
 );
 
 
-create table pergunta(
-id_pergunta int not null auto_increment,
-descricao_pergunta varchar(500),
-tipo_pergunta varchar(1),
-id_questionario int not null,
-primary key (id_pergunta),
-foreign key(id_questionario) REFERENCES questionario(id_questionario) 
+CREATE TABLE pergunta(
+id_pergunta INT NOT NULL auto_increment,
+descricao_pergunta VARCHAR(500),
+tipo_pergunta VARCHAR(1),
+id_questionario INT NOT NULL,
+PRIMARY KEY (id_pergunta),
+FOREIGN KEY(id_questionario) REFERENCES questionario(id_questionario) 
 );
 
-create table opcao(
-id_opcao int not null auto_increment,
-descricao_opcao varchar(100),
-id_pergunta int not null,
-primary key (id_opcao),
-foreign key(id_pergunta) REFERENCES pergunta(id_pergunta)
+CREATE TABLE opcao(
+id_opcao INT NOT NULL auto_increment,
+descricao_opcao VARCHAR(100),
+id_pergunta INT NOT NULL,
+PRIMARY KEY (id_opcao),
+FOREIGN KEY(id_pergunta) REFERENCES pergunta(id_pergunta)
 );
 
-create table respostas(
-id_opcao int not null,
-usuario_final varchar(30) not null,
+CREATE TABLE respostas(
+id_opcao INT NOT NULL,
+usuario_final VARCHAR(30) NOT NULL,
 CONSTRAINT PK_respostas PRIMARY KEY (id_opcao, usuario_final),
-foreign key (id_opcao) REFERENCES opcao(id_opcao),
-foreign key (usuario_final) REFERENCES usuario_final(usuario_final)
+FOREIGN KEY (id_opcao) REFERENCES opcao(id_opcao),
+FOREIGN KEY (usuario_final) REFERENCES usuario_final(usuario_final)
 );
-
- 
