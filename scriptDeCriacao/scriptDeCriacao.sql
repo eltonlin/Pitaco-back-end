@@ -7,7 +7,8 @@ CREATE TABLE usuario_master(
 usuario_master VARCHAR(30) NOT NULL,
 senha VARCHAR(30) NOT NULL,
 nome VARCHAR(100) NOT NULL,
-PRIMARY KEY(usuario_master));
+PRIMARY KEY(usuario_master)
+);
 
 CREATE TABLE usuario_final(
 usuario_final VARCHAR(30) NOT NULL,
@@ -16,18 +17,19 @@ nome VARCHAR(100) NOT NULL,
 cpf VARCHAR(11) NOT NULL,
 faixa_salarial INT NOT NULL,
 pontuacao INT NOT NULL, 
-PRIMARY KEY(usuario_final));
+PRIMARY KEY(usuario_final)
+);
 
 CREATE TABLE endereco (
-    id_endereco INT AUTO_INCREMENT,
-    usuario_final VARCHAR(30) NOT NULL,
-    rua VARCHAR(30) NOT NULL,
-    cep CHAR(8) NOT NULL,
-    bairro VARCHAR(30) NOT NULL,
-    complemento VARCHAR(255),
-    PRIMARY KEY (id_endereco),
-    FOREIGN KEY (usuario_final)
-        REFERENCES usuario_final (usuario_final)
+id_endereco INT AUTO_INCREMENT,
+usuario_final VARCHAR(30) NOT NULL,
+rua VARCHAR(30) NOT NULL,
+cep CHAR(8) NOT NULL,
+bairro VARCHAR(30) NOT NULL,
+complemento VARCHAR(255),
+PRIMARY KEY (id_endereco),
+FOREIGN KEY (usuario_final)
+REFERENCES usuario_final (usuario_final)
 );
 
 CREATE TABLE interesse(
@@ -37,11 +39,11 @@ PRIMARY KEY(id_interesse)
 );
 
 CREATE TABLE usuario_final_interesse(
- usuario_final VARCHAR(30) NOT NULL,
- id_interesse INT NOT NULL, 
- CONSTRAINT PK_usuario_final_interesse PRIMARY KEY (usuario_final, id_interesse),
- FOREIGN KEY (usuario_final) REFERENCES usuario_final(usuario_final),
- FOREIGN KEY (id_interesse) REFERENCES interesse(id_interesse)
+usuario_final VARCHAR(30) NOT NULL,
+id_interesse INT NOT NULL, 
+CONSTRAINT PK_usuario_final_interesse PRIMARY KEY (usuario_final, id_interesse),
+FOREIGN KEY (usuario_final) REFERENCES usuario_final(usuario_final),
+FOREIGN KEY (id_interesse) REFERENCES interesse(id_interesse)
 );
 
 CREATE TABLE empresa(
