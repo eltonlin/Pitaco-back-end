@@ -90,4 +90,13 @@ foreign key (id_opcao) REFERENCES opcao(id_opcao),
 foreign key (usuario_final) REFERENCES usuario_final(usuario_final)
 );
 
+create table questionario_interesse(
+ id_questionario int not null,
+ id_interesse int not null, 
+ CONSTRAINT PK_questionario_interesse PRIMARY KEY (id_questionario, id_interesse),
+ foreign key (id_questionario) REFERENCES questionario(id_questionario),
+ foreign key (id_interesse) REFERENCES interesse(id_interesse)
+);
+
+
  
