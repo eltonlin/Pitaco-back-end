@@ -14,7 +14,7 @@ CREATE TABLE usuario_final(
 usuario_final VARCHAR(30) NOT NULL,
 senha VARCHAR(30) NOT NULL,
 nome VARCHAR(100) NOT NULL,
-cpf VARCHAR(11) NOT NULL,
+cpf CHAR(11) NOT NULL,
 faixa_salarial INT NOT NULL,
 pontuacao INT NOT NULL, 
 PRIMARY KEY(usuario_final)
