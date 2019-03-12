@@ -15,7 +15,8 @@ senha varchar(30) NOT NULL,
 nome varchar(100) NOT NULL,
 cpf varchar(11) NOT NULL,
 faixa_salarial int not null,
-pontuacao int not null, 
+pontuacao int,
+data_nascimento date not null, 
 PRIMARY KEY(usuario_final));
 
 CREATE TABLE endereco (
@@ -59,9 +60,11 @@ descricao_questionario varchar(100) not null,
 pontuacao_questionario int,
 usuario_master varchar(30) not null,
 id_empresa int not null,
+id_interesse int not null,
 primary key(id_questionario),
 foreign key (usuario_master) REFERENCES usuario_master(usuario_master),
-foreign key (id_empresa) REFERENCES empresa(id_empresa)
+foreign key (id_empresa) REFERENCES empresa(id_empresa),
+foreign key (id_interesse) REFERENCES interesse(id_interesse)
 );
 
 
@@ -88,14 +91,6 @@ usuario_final varchar(30) not null,
 CONSTRAINT PK_respostas PRIMARY KEY (id_opcao, usuario_final),
 foreign key (id_opcao) REFERENCES opcao(id_opcao),
 foreign key (usuario_final) REFERENCES usuario_final(usuario_final)
-);
-
-create table questionario_interesse(
- id_questionario int not null,
- id_interesse int not null, 
- CONSTRAINT PK_questionario_interesse PRIMARY KEY (id_questionario, id_interesse),
- foreign key (id_questionario) REFERENCES questionario(id_questionario),
- foreign key (id_interesse) REFERENCES interesse(id_interesse)
 );
 
 
