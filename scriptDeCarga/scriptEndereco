@@ -1,0 +1,9 @@
+INSERT INTO endereco VALUES ( , "Fernando", "Rua do Hospicio 111", "50060080", "Boa Vista", "Apt 605"),
+                            ( , "Renato", "Rua do Beira Rio 777", "50070080", "Beira Rio", "Apt 900"),
+                            ( , "Rafael", "Rua da Torre 555", "55060080", "Torre", "Apt 505"),
+                            ( , "Juliane", "Rua da Boa Viagem 131", "30060080", "Boa Viagem", "Apt 305"),
+                            ( , "Jedesson", "Rua do Camaragibe 411", "50060089", "Camaragibe", "Apt 105"),
+                            ( , "Adriano", "Rua do Cabo 333", "57060080", "Cabo", "Apt 205"),
+                            ( , "João", "Rua do Zero 110", "51160080", "Bairro Zero", "Apt 600"),
+                            ( , "Elton", "Rua do Jordão 777", "77060080", "Jordão", "Apt 675"),
+                            ( , "Fernando", "Rua do Hospicio 111", "50060080", "Boa Vista", "Apt 605");
