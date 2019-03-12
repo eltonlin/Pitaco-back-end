@@ -1,26 +1,32 @@
 
 const cadastrarLoginDao = require('../models/cadastrarLoginDao')
-module.exports.cadastroLogin=function(req,res){
-    var today = new Date();
-    var users={
-        "name":req.body.name,
-        "email":req.body.email,
-        "password":req.body.password,
-        "created_at":today,
-        "updated_at":today
-    }
-    connection.query('INSERT INTO users SET ?',users, function (error, results, fields) {
-      if (error) {
-        res.json({
-            status:false,
-            message:'there are some error with query'
-        })
-      }else{
-          res.json({
-            status:true,
-            data:results,
-            message:'user registered sucessfully'
-        })
-      }
-    });
-}
+
+    
+    exports.inserirUsuario = function(req, res) {
+      console.log(req.body);
+      var cadastrarLogin = new cadastrarLoginDao(req.body);
+  
+      if(!cadastrarLogin.usuario_final)
+          res.status(400).send({error: true, message : 'Campo de usuário é obrigatório'});    
+      if(!cadastrarLogin.senha)
+          res.status(400).send({error: true, message : 'Campo de senha é obrigatória'});       
+      if(!cadastrarLogin.nome)
+          res.status(400).send({error: true, message : 'Campo de nome é obrigatório'}); 
+          if(!cadastrarLogin.faixa_salarial)
+          res.status(400).send({error: true, message : 'Campo de faixa salarial é obrigatório'}); 
+          if(!cadastrarLogin.rua)
+          res.status(400).send({error: true, message : 'Campo de rua é obrigatório'}); 
+          if(!cadastrarLogin.bairro)
+          res.status(400).send({error: true, message : 'Campo de bairro é obrigatório'}); 
+          if(!cadastrarLogin.complemento)
+          res.status(400).send({error: true, message : 'Campo de complemento é obrigatório'}); 
+          if(!cadastrarLogin.cep)
+          res.status(400).send({error: true, message : 'Campo de cep é obrigatório'}); 
+      
+          cadastrarLoginDao.inserirUsuario(cadastrarLogin, function(err, result){
+          if(err)
+              res.send(err);
+          res.status(200).json(result);
+      })
+  };
+    
