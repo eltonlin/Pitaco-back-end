@@ -16,7 +16,8 @@ senha VARCHAR(30) NOT NULL,
 nome VARCHAR(100) NOT NULL,
 cpf CHAR(11) NOT NULL,
 faixa_salarial INT NOT NULL,
-pontuacao INT NOT NULL, 
+pontuacao INT NOT NULL,
+data_nascimento DATE NOT NULL,  
 PRIMARY KEY(usuario_final)
 );
 
@@ -61,9 +62,11 @@ descricao_questionario VARCHAR(100) NOT NULL,
 pontuacao_questionario INT,
 usuario_master VARCHAR(30) NOT NULL,
 id_empresa INT NOT NULL,
+id_interesse INT NOT NULL,
 PRIMARY KEY(id_questionario),
 FOREIGN KEY (usuario_master) REFERENCES usuario_master(usuario_master),
 FOREIGN KEY (id_empresa) REFERENCES empresa(id_empresa)
+FOREIGN KEY (id_interesse) REFERENCES interesse(id_interesse)
 );
 
 
