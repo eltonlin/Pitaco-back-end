@@ -7,7 +7,7 @@ var loginDAO = function(login){
     
 } ;
 
-loginDao.consultarLogin = function(result){  
+loginDAO.consultarLogin = function(result){  
 connection.query('SELECT * FROM usuario_final WHERE usuario_final = ?',[usuario_final], function (error, results, fields) {
     if (error) {
         res.json({

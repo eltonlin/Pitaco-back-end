@@ -5,5 +5,7 @@ module.exports = function(app){
         .post('/pergunta', perguntaController.inserirPergunta);
     
     app.get('/pergunta/:id_pergunta', perguntaController.consultarPerguntaPorId);
+
+    app.get('/pergunta/:id_questionario', perguntaController.consultarPerguntasPorQuestionario)
     
 };

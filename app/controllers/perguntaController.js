@@ -8,6 +8,22 @@ exports.consultarTodasPerguntas = function(req, res){
     })    
 };
 
+
+exports.consultarPerguntasPorQuestionario = function(req, res){
+    const id_questionario = req.params.id_questionario;
+
+    if(!id_questionario)
+        res.status(400).send({error : true, message:'O id do questionário é obrigatório'})
+
+    perguntaDAO.consultarPerguntasPorQuestionario(function(id_questionario, err, perguntas){
+        if (err)
+            res.send(err);                
+        res.json(perguntas);
+    })    
+};
+
+
+
 exports.inserirPergunta = function(req, res) {
     console.log(req.body);
     var pergunta = new perguntaDAO(req.body);

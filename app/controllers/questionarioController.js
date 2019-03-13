@@ -8,6 +8,17 @@ exports.consultarTodosQuestionarios = function(req, res){
     })    
 };
 
+
+exports.consultarPerguntasPorQuestionario = function(req, res){
+    const id_questionario = req.params.id_questionario;   
+
+    questionarioDAO.consultarPerguntasPorQuestionario(id_questionario,function(err, questionarios){
+        if (err)
+            res.send(err);                
+        res.json(questionarios);
+    })    
+};
+
 exports.inserirQuestionario = function(req, res) {
     console.log(req.body);
     var questionario = new questionarioDAO(req.body);
