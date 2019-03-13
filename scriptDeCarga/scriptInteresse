@@ -1,11 +1,12 @@
-INSERT INTO interesse VALUES ("Musica", "Falar sobre musicas"),
-                             ("Esporte", "Falar sobre esportes"),
-                             ("Carros", "Falar sobre carros"),
-                             ("Filmes", "Falar sobre filmes"),
-                             ("Comida", "Falar sobre comidas"),
-                             ("Bebida", "Falar sobre bebidas"),
-                             ("Politica", "Falar sobre politica"),
-                             ("Eletroeletronicos", "Falar sobre eletronicos"),
-                             ("Viagens", "Falar sobre viagens"),
-                             ("Educacao", "Falar sobre educacao"),
-                             ("Fofoca", "Falar sobre vida alheia");
+INSERT INTO interesse (descricao)
+                      VALUES ("Musica"),
+                             ("Esporte"),
+                             ("Carros"),
+                             ("Filmes"),
+                             ("Comida"),
+                             ("Bebida"),
+                             ("Politica"),
+                             ("Eletroeletronicos"),
+                             ("Viagens"),
+                             ("Educacao"),
+                             ("Fofoca");
