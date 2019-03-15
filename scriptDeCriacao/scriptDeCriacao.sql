@@ -4,33 +4,32 @@ USE pitaco;
 
 
 CREATE TABLE usuario_master(
-usuario_master VARCHAR(30) NOT NULL,
+login_master VARCHAR(30) NOT NULL,
 senha VARCHAR(30) NOT NULL,
 nome VARCHAR(100) NOT NULL,
-PRIMARY KEY(usuario_master)
+PRIMARY KEY(login_master)
 );
 
 CREATE TABLE usuario_final(
-usuario_final VARCHAR(30) NOT NULL,
+login_usuario VARCHAR(30) NOT NULL,
 senha VARCHAR(30) NOT NULL,
 nome VARCHAR(100) NOT NULL,
 cpf CHAR(11) NOT NULL,
 faixa_salarial INT NOT NULL,
 pontuacao INT NOT NULL,
 data_nascimento DATE NOT NULL,  
-PRIMARY KEY(usuario_final)
+PRIMARY KEY(login_usuario)
 );
 
 CREATE TABLE endereco (
 id_endereco INT AUTO_INCREMENT,
-usuario_final VARCHAR(30) NOT NULL,
+login_usuario VARCHAR(30) NOT NULL,
 rua VARCHAR(30) NOT NULL,
 cep CHAR(8) NOT NULL,
 bairro VARCHAR(30) NOT NULL,
 complemento VARCHAR(255),
 PRIMARY KEY (id_endereco),
-FOREIGN KEY (usuario_final)
-REFERENCES usuario_final (usuario_final)
+FOREIGN KEY (login_usuario) REFERENCES usuario_final (login_usuario)
 );
 
 CREATE TABLE interesse(
@@ -40,10 +39,10 @@ PRIMARY KEY(id_interesse)
 );
 
 CREATE TABLE usuario_final_interesse(
-usuario_final VARCHAR(30) NOT NULL,
+login_usuario VARCHAR(30) NOT NULL,
 id_interesse INT NOT NULL, 
-CONSTRAINT PK_usuario_final_interesse PRIMARY KEY (usuario_final, id_interesse),
-FOREIGN KEY (usuario_final) REFERENCES usuario_final(usuario_final),
+CONSTRAINT PK_usuario_final_interesse PRIMARY KEY (login_usuario, id_interesse),
+FOREIGN KEY (login_usuario) REFERENCES usuario_final(login_usuario),
 FOREIGN KEY (id_interesse) REFERENCES interesse(id_interesse)
 );
 
@@ -53,7 +52,7 @@ nome_empresa VARCHAR(100) NOT NULL,
 cnpj VARCHAR(14) NOT NULL,
 usuario_master VARCHAR(30) NOT NULL,
 PRIMARY KEY (ID_empresa),
-FOREIGN KEY (usuario_master) REFERENCES usuario_master(usuario_master)
+FOREIGN KEY (login_master) REFERENCES usuario_master(login_master)
 );
 
 CREATE TABLE questionario(
@@ -64,7 +63,7 @@ usuario_master VARCHAR(30) NOT NULL,
 id_empresa INT NOT NULL,
 id_interesse INT NOT NULL,
 PRIMARY KEY(id_questionario),
-FOREIGN KEY (usuario_master) REFERENCES usuario_master(usuario_master),
+FOREIGN KEY (login_master) REFERENCES usuario_master(login_master),
 FOREIGN KEY (id_empresa) REFERENCES empresa(id_empresa)
 FOREIGN KEY (id_interesse) REFERENCES interesse(id_interesse)
 );
@@ -90,9 +89,9 @@ FOREIGN KEY(id_pergunta) REFERENCES pergunta(id_pergunta)
 CREATE TABLE respostas(
 id_opcao INT NOT NULL,
 usuario_final VARCHAR(30) NOT NULL,
-CONSTRAINT PK_respostas PRIMARY KEY (id_opcao, usuario_final),
+CONSTRAINT PK_respostas PRIMARY KEY (id_opcao, login_usuario),
 FOREIGN KEY (id_opcao) REFERENCES opcao(id_opcao),
-FOREIGN KEY (usuario_final) REFERENCES usuario_final(usuario_final)
+FOREIGN KEY (login_usuario) REFERENCES usuario_final(login_usuario)
 );
 
 
