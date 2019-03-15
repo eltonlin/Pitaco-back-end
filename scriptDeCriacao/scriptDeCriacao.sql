@@ -50,8 +50,8 @@ CREATE TABLE empresa(
 id_empresa INT NOT NULL auto_increment ,
 nome_empresa VARCHAR(100) NOT NULL,
 cnpj VARCHAR(14) NOT NULL,
-usuario_master VARCHAR(30) NOT NULL,
-PRIMARY KEY (ID_empresa),
+login_master VARCHAR(30) NOT NULL,
+PRIMARY KEY (id_empresa),
 FOREIGN KEY (login_master) REFERENCES usuario_master(login_master)
 );
 
@@ -59,12 +59,12 @@ CREATE TABLE questionario(
 id_questionario INT NOT NULL auto_increment,
 descricao_questionario VARCHAR(100) NOT NULL, 
 pontuacao_questionario INT,
-usuario_master VARCHAR(30) NOT NULL,
+login_master VARCHAR(30) NOT NULL,
 id_empresa INT NOT NULL,
 id_interesse INT NOT NULL,
 PRIMARY KEY(id_questionario),
 FOREIGN KEY (login_master) REFERENCES usuario_master(login_master),
-FOREIGN KEY (id_empresa) REFERENCES empresa(id_empresa)
+FOREIGN KEY (id_empresa) REFERENCES empresa(id_empresa),
 FOREIGN KEY (id_interesse) REFERENCES interesse(id_interesse)
 );
 
@@ -88,7 +88,7 @@ FOREIGN KEY(id_pergunta) REFERENCES pergunta(id_pergunta)
 
 CREATE TABLE respostas(
 id_opcao INT NOT NULL,
-usuario_final VARCHAR(30) NOT NULL,
+login_usuario VARCHAR(30) NOT NULL,
 CONSTRAINT PK_respostas PRIMARY KEY (id_opcao, login_usuario),
 FOREIGN KEY (id_opcao) REFERENCES opcao(id_opcao),
 FOREIGN KEY (login_usuario) REFERENCES usuario_final(login_usuario)
@@ -110,16 +110,16 @@ INSERT INTO usuario_master VALUES ("fernando_master", "2233", "Fernando Araujo")
 #FIM DO INSERT DA TABELA USUARIO_MASTER----------------------------------------------------------
 
 #INSERT NA TABELA USUARIO_FINAL------------------------------------------------------------------
-INSERT INTO usuario_final VALUES ("jose_garcia", "2233", "Jose Garcia", "08912471507", 1500, 7 ),
-                                 ("renata_maria", "5678", "Renata Maria", "98726347123", 3000, 2 ),
-                                 ("lidia_fernandes", "1434", "Lidia Fernandes", "12233445566", 1200, 10 ),
-                                 ("carla_perez", "1993", "Carla Perez", "93846173451", 7000, 5 ),
-                                 ("kinho_jed", "4321", "Kinho Jed", "92873112385", 2500, 3 ),
-                                 ("mario_costa", "4533", "Mario Costa", "32141234998", 5000, 4 ),
-                                 ("cristiano_ronaldo", "4533", "Cristiano Ronaldo", "09876358998", 2130, 77 ),
-                                 ("neymar_junior", "4533", "Neymar Junior", "32188772298", 9999, 99 ),
-                                 ("rui_costa", "4533", "Rui Costa", "14589923778", 1234, 40 ),
-                                 ("steve_rodgers", "4533", "Steve Rodgers", "92198723045", 4321, 50 );
+INSERT INTO usuario_final VALUES ("jose_garcia", "2233", "Jose Garcia", "08912471507", 1500, 7, "1990-02-08" ),
+                                 ("renata_maria", "5678", "Renata Maria", "98726347123", 3000, 2, "1990-02-28" ),
+                                 ("lidia_fernandes", "1434", "Lidia Fernandes", "12233445566", 1200, 10, "1992-08-13" ),
+                                 ("carla_perez", "1993", "Carla Perez", "93846173451", 7000, 5, "1989-08-08" ),
+                                 ("kinho_jed", "4321", "Kinho Jed", "92873112385", 2500, 3, "1993-05-30" ),
+                                 ("mario_costa", "4533", "Mario Costa", "32141234998", 5000, 4, "1994-07-09" ),
+                                 ("cristiano_ronaldo", "4533", "Cristiano Ronaldo", "09876358998", 2130, 77, "1987-03-05" ),
+                                 ("neymar_junior", "4533", "Neymar Junior", "32188772298", 9999, 99, "1981-11-18"),
+                                 ("rui_costa", "4533", "Rui Costa", "14589923778", 1234, 40, "1992-12-18" ),
+                                 ("steve_rodgers", "4533", "Steve Rodgers", "92198723045", 4321, 50, "1970-04-07" );
 #FIM DO INSERT NA TABELA USUARIO_FINAL--------------------------------------------------------------
 
 #INSERT NA TABELA ENDERECO--------------------------------------------------------------------------
@@ -130,10 +130,10 @@ INSERT INTO endereco (login_usuario, rua, cep, bairro, complemento)
                      ("carla_perez", "Rua do Tchan 131", "30060080", "Boa Viagem", "Apt 305"),
                      ("kinho_jed", "Rua do Camaragibe 411", "50060089", "Camaragibe", "Apt 105"),
                      ("mario_costa", "Rua das Costas 333", "57037080", "Cohab", "Apt 205"),
-                     ("cristiano_ronaldo", "Rua Portugal 110", "91160080", "Jordao, "Apt 600"),
-                     ("neymar_junior", "Rua Marquezine 10", "67145080", "Paris, "Apt 100"),
-                     ("rui_costa", "Rua Dali 70", "5116876", "Portuga, "Apt 129"),
-                     ("steve_rodgers", "Rua Avengers 110", "98760080", "USA, "Apt 777");
+                     ("cristiano_ronaldo", "Rua Portugal 110", "91160080", "Jordao", "Apt 600"),
+                     ("neymar_junior", "Rua Marquezine 10", "67145080", "Paris", "Apt 100"),
+                     ("rui_costa", "Rua Dali 70", "5116876", "Portuga", "Apt 129"),
+                     ("steve_rodgers", "Rua Avengers 110", "98760080", "USA", "Apt 777");
 #FIM DO INSERT NA TABELA ENDERECO--------------------------------------------------------------------------
 
 #INSERT NA TABELA INTERESSE--------------------------------------------------------------------------------
@@ -168,8 +168,8 @@ INSERT INTO usuario_final_interesse VALUES ("jose_garcia", 8),
 #FIM DO INSERT NA TABELA USUARIO_FINAL_INTERESSE--------------------------------------------------------------------------------
 
 #INSERT NA TABELA EMPRESA---------------------------------------------------------------------------------------------
-NSERT INTO empresa (nome_empresa, cnpj, usuario_master)
-            VALUES ("Cervejaria Buteco","12312284567365","fernando_master"),
+INSERT INTO empresa (nome_empresa, cnpj, login_master)
+            VALUES ("Cervejaria Buteco","12312289997365","fernando_master"),
                    ("Lanche Bicicleta Unibratec","12312284567365","renato_master"),
                    ("Music Shopping","12008284567365","rafael_master"),
                    ("Crossfit da Morte","12312908567365","juliane_master"),
@@ -178,18 +178,21 @@ NSERT INTO empresa (nome_empresa, cnpj, usuario_master)
                    ("Motoca 123","99912284567365","elton_master"),
                    ("Master Yi Jungle","87431291228365","elton_master"),
                    ("Testa a dor","98712384567365","rafael_master"),
-                   ("Motoca 123","91212284653365","fernando_master"),;
+                   ("Dota 2","91212284653365","fernando_master");
 #FIM DO INSERT NA TABELA EMPRESA---------------------------------------------------------------------------------------------
 
 #INSERT NA TABELA QUESTIONARIO---------------------------------------------------------------------------------------------
-INSERT INTO questionario (descricao_questionario, pontuacao_questionario, usuario_master, id_empresa, id_interesse)
+INSERT INTO questionario (descricao_questionario, pontuacao_questionario, login_master, id_empresa, id_interesse)
                   VALUES ("Sobre Bebidas", 1000, "fernando_master", 1, 6),
                          ("Sobre Comida", 700, "renato_master", 2, 5),
-                         ("Sobre Música", 900, "rafael_master", 4, 1),
-                         ("Sobre Esportes", 500, "juliane Master", 5, 2),
-                         ("Sobre Carros", 300, "jedesson_master", 7, 3),
+                         ("Sobre Música", 900, "rafael_master", 3, 1),
+                         ("Sobre Esportes", 500, "juliane_master", 4, 2),
+                         ("Sobre Carros", 300, "jedesson_master", 5, 3),
                          ("Sobre Livros", 400, "adriano_master", 6, 14),
-                         ("Sobre Jogos", 300, "elton_master", 8, 10);
+                         ("Sobre Jogos", 300, "elton_master", 7, 10),
+                         ("Sobre Jogos", 250, "elton_master", 8, 10),
+                         ("Teste", 550, "rafael_master", 9, 9),
+                         ("Sobre Jogos", 999, "fernando_master", 10, 12);
 #FIM DO INSERT NA TABELA QUESTIONARIO-----------------------------------------------------------------------------------------
 
 #INSERT NA TABELA PERGUNTA----------------------------------------------------------------------------------------
