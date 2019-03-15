@@ -124,7 +124,7 @@ INSERT INTO usuario_final VALUES ("jose_garcia", "2233", "Jose Garcia", "0891247
 
 #INSERT NA TABELA ENDERECO--------------------------------------------------------------------------
 INSERT INTO endereco (login_usuario, rua, cep, bairro, complemento)
-		          VALUES ("jose_garcia", "Rua do Jose Garcia 111", "50060080", "Boa Vista", "Apt 605"),
+              VALUES ("jose_garcia", "Rua do Jose Garcia 111", "50060080", "Boa Vista", "Apt 605"),
                      ("renata_maria", "Rua da Renata Maria 777", "50070080", "Beira Rio", "Apt 900"),
                      ("lidia_fernandes", "Rua da Lidia 555", "55060080", "Torre", "Apt 505"),
                      ("carla_perez", "Rua do Tchan 131", "30060080", "Boa Viagem", "Apt 305"),
