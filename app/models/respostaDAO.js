@@ -2,7 +2,7 @@ var connection = require('../../config/dbConnection');
 
 var respostaDAO = function(resposta){
     this.id_opcao  = resposta.id_opcao;
-    this.usuario_final = resposta.usuario_final;
+    this.login_final = resposta.login_final;
 } ;
 
 

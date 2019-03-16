@@ -2,13 +2,13 @@ var connection = require('../../config/dbConnection');
 
 
 var loginDAO = function(login){
-    this.usuario_final = login.usuario_final;
+    this.login_final = login.login_final;
     this.senha = login.senha;
     
 } ;
 
 loginDAO.consultarLogin = function(result){  
-connection.query('SELECT * FROM usuario_final,senha WHERE usuario_final = ? and WHERE senha = ?',[usuario_final],[senha], function (error, results, fields) {
+connection.query('SELECT * FROM login_final,senha WHERE login_final = ? and WHERE senha = ?',[login_final],[senha], function (error, results, fields) {
     if (error) {
         res.json({
           status:false,

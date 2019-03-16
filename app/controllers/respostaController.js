@@ -7,8 +7,8 @@ exports.inserirResposta = function(req, res) {
 
     if(!resposta.id_opcao)
         res.status(400).send({error: true, message : 'A opção é obrigatório'});  
-    if(!resposta.usuario_final)
-        res.status(400).send({error: true, message : 'O usuario_final é obrigatório'}); 
+    if(!resposta.login_final)
+        res.status(400).send({error: true, message : 'O login_final é obrigatório'}); 
     
     respostaDAO.inserirResposta(resposta, function(err, result){
         if(err)

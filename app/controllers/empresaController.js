@@ -16,8 +16,8 @@ exports.inserirEmpresa = function(req, res) {
         res.status(400).send({error: true, message : 'O cnpj é obrigatório'});    
     if(!empresa.nome_empresa)
         res.status(400).send({error: true, message : 'O nome da empresa é obrigatório'});       
-    if(!empresa.usuario_master)
-        res.status(400).send({error: true, message : 'O usuario_master é obrigatório'}); 
+    if(!empresa.login_master)
+        res.status(400).send({error: true, message : 'O login_master é obrigatório'}); 
     
     empresaDao.inserirEmpresa(empresa, function(err, result){
         if(err)

@@ -4,7 +4,7 @@ var questionarioDAO = function(questionario){
     this.descricao_questionario = questionario.descricao_questionario;
     this.id_empresa = questionario.id_empresa;
     this.pontuacao_questionario = questionario.pontuacao_questionario;
-    this.usuario_master = questionario.usuario_master
+    this.login_master = questionario.login_master
 } ;
 
 

@@ -3,7 +3,7 @@ var connection = require('../../config/dbConnection');
 var empresaDAO = function(empresa){
     this.nome_empresa = empresa.nome_empresa;
     this.cnpj = empresa.cnpj;
-    this.usuario_master = empresa.usuario_master;
+    this.login_master = empresa.login_master;
 } ;
 
 

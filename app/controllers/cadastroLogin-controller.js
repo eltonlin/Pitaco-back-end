@@ -6,7 +6,7 @@ const cadastrarLoginDao = require('../models/cadastrarLoginDao')
       console.log(req.body);
       var cadastrarLogin = new cadastrarLoginDao(req.body);
   
-      if(!cadastrarLogin.usuario_final)
+      if(!cadastrarLogin.login_final)
           res.status(400).send({error: true, message : 'Campo de usuário é obrigatório'});    
       if(!cadastrarLogin.senha)
           res.status(400).send({error: true, message : 'Campo de senha é obrigatória'});       

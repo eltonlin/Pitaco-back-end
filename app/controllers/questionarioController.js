@@ -9,16 +9,6 @@ exports.consultarTodosQuestionarios = function(req, res){
 };
 
 
-exports.consultarPerguntasPorQuestionario = function(req, res){
-    const id_questionario = req.params.id_questionario;   
-
-    questionarioDAO.consultarPerguntasPorQuestionario(id_questionario,function(err, questionarios){
-        if (err)
-            res.send(err);                
-        res.json(questionarios);
-    })    
-};
-
 exports.inserirQuestionario = function(req, res) {
     console.log(req.body);
     var questionario = new questionarioDAO(req.body);
@@ -27,8 +17,8 @@ exports.inserirQuestionario = function(req, res) {
         res.status(400).send({error: true, message : 'A descriçäo do questionario é obrigatório'});    
     if(!questionario.id_empresa)
         res.status(400).send({error: true, message : 'A empresa é obrigatória'});       
-    if(!questionario.usuario_master)
-        res.status(400).send({error: true, message : 'O usuario_master é obrigatório'}); 
+    if(!questionario.login_master)
+        res.status(400).send({error: true, message : 'O login_master é obrigatório'}); 
     
     questionarioDAO.inserirQuestionario(questionario, function(err, result){
         if(err)

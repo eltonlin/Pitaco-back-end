@@ -2,7 +2,7 @@
 var connection = require('../../config/dbConnection');
 
 var cadastrarLoginDao = function(usuario_final){
-    this.usuario_final  = usuario_final.usuario_final ;
+    this.usuario_final  = usuario_final.login_final ;
     this.senha  = usuario_final.senha ;
     this.nome = usuario_final.nome;
     this.cpf = usuario_final.cpf;
