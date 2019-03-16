@@ -21,5 +21,5 @@ const cadastrarLoginDao = require('../models/cadastrarLoginDao')
               res.send(err);
           res.status(200).json(result);
       })
-  };
+    };
     
