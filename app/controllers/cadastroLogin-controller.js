@@ -14,14 +14,7 @@ const cadastrarLoginDao = require('../models/cadastrarLoginDao')
           res.status(400).send({error: true, message : 'Campo de nome é obrigatório'}); 
           if(!cadastrarLogin.faixa_salarial)
           res.status(400).send({error: true, message : 'Campo de faixa salarial é obrigatório'}); 
-          if(!cadastrarLogin.rua)
-          res.status(400).send({error: true, message : 'Campo de rua é obrigatório'}); 
-          if(!cadastrarLogin.bairro)
-          res.status(400).send({error: true, message : 'Campo de bairro é obrigatório'}); 
-          if(!cadastrarLogin.complemento)
-          res.status(400).send({error: true, message : 'Campo de complemento é obrigatório'}); 
-          if(!cadastrarLogin.cep)
-          res.status(400).send({error: true, message : 'Campo de cep é obrigatório'}); 
+        
       
           cadastrarLoginDao.inserirUsuario(cadastrarLogin, function(err, result){
           if(err)

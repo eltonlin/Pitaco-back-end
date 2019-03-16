@@ -8,7 +8,7 @@ var loginDAO = function(login){
 } ;
 
 loginDAO.consultarLogin = function(result){  
-connection.query('SELECT * FROM usuario_final WHERE usuario_final = ?',[usuario_final], function (error, results, fields) {
+connection.query('SELECT * FROM usuario_final,senha WHERE usuario_final = ? and WHERE senha = ?',[usuario_final],[senha], function (error, results, fields) {
     if (error) {
         res.json({
           status:false,
