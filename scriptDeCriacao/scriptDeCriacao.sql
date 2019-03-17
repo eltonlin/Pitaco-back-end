@@ -25,6 +25,7 @@ CREATE TABLE endereco (
 id_endereco INT AUTO_INCREMENT,
 login_usuario VARCHAR(30) NOT NULL,
 rua VARCHAR(30) NOT NULL,
+cidade VARCHAR(50) NOT NULL,
 cep CHAR(8) NOT NULL,
 bairro VARCHAR(30) NOT NULL,
 complemento VARCHAR(255),
@@ -123,17 +124,17 @@ INSERT INTO usuario_final VALUES ("jose_garcia", "2233", "Jose Garcia", "0891247
 #FIM DO INSERT NA TABELA USUARIO_FINAL--------------------------------------------------------------
 
 #INSERT NA TABELA ENDERECO--------------------------------------------------------------------------
-INSERT INTO endereco (login_usuario, rua, cep, bairro, complemento)
-              VALUES ("jose_garcia", "Rua do Jose Garcia 111", "50060080", "Boa Vista", "Apt 605"),
-                     ("renata_maria", "Rua da Renata Maria 777", "50070080", "Beira Rio", "Apt 900"),
-                     ("lidia_fernandes", "Rua da Lidia 555", "55060080", "Torre", "Apt 505"),
-                     ("carla_perez", "Rua do Tchan 131", "30060080", "Boa Viagem", "Apt 305"),
-                     ("kinho_jed", "Rua do Camaragibe 411", "50060089", "Camaragibe", "Apt 105"),
-                     ("mario_costa", "Rua das Costas 333", "57037080", "Cohab", "Apt 205"),
-                     ("cristiano_ronaldo", "Rua Portugal 110", "91160080", "Jordao", "Apt 600"),
-                     ("neymar_junior", "Rua Marquezine 10", "67145080", "Paris", "Apt 100"),
-                     ("rui_costa", "Rua Dali 70", "5116876", "Portuga", "Apt 129"),
-                     ("steve_rodgers", "Rua Avengers 110", "98760080", "USA", "Apt 777");
+INSERT INTO endereco (login_usuario, rua, cidade, cep, bairro, complemento)
+              VALUES ("jose_garcia", "Rua do Jose Garcia 111" , "Recife", "50060080", "Boa Vista", "Apt 605"),
+                     ("renata_maria", "Rua da Renata Maria 777", "Recife", "50070080", "Beira Rio", "Apt 900"),
+                     ("lidia_fernandes", "Rua da Lidia 555", "Recife", "55060080", "Torre", "Apt 505"),
+                     ("carla_perez", "Rua do Tchan 131", "Recife", "30060080", "Boa Viagem", "Apt 305"),
+                     ("kinho_jed", "Rua do Camaragibe 411", "Recife", "50060089", "Camaragibe", "Apt 105"),
+                     ("mario_costa", "Rua das Costas 333", "Recife", "57037080", "Cohab", "Apt 205"),
+                     ("cristiano_ronaldo", "Rua Portugal 110", "Recife", "91160080", "Jordao", "Apt 600"),
+                     ("neymar_junior", "Rua Marquezine 10", "Recife", "67145080", "Paris", "Apt 100"),
+                     ("rui_costa", "Rua Dali 70", "5116876", "Recife", "Portuga", "Apt 129"),
+                     ("steve_rodgers", "Rua Avengers 110", "Recife", "98760080", "USA", "Apt 777");
 #FIM DO INSERT NA TABELA ENDERECO--------------------------------------------------------------------------
 
 #INSERT NA TABELA INTERESSE--------------------------------------------------------------------------------

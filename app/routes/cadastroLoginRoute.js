@@ -2,6 +2,6 @@ var cadastroLoginController = require('../controllers/cadastroLogin-controller.j
 
 module.exports = function(app){
     
-        app.post('/usuario_final', cadastroLoginController.inserirUsuario);
+        app.post('/usuario_final/login', cadastroLoginController.inserirUsuario);
       
 };
