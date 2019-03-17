@@ -13,6 +13,7 @@ PRIMARY KEY(login_master)
 CREATE TABLE usuario_final(
 login_usuario VARCHAR(30) NOT NULL,
 senha VARCHAR(30) NOT NULL,
+confirma_senha VARCHAR(30) NOT NULL,
 nome VARCHAR(100) NOT NULL,
 cpf CHAR(11) NOT NULL,
 faixa_salarial INT NOT NULL,
@@ -27,6 +28,7 @@ login_usuario VARCHAR(30) NOT NULL,
 rua VARCHAR(30) NOT NULL,
 cep CHAR(8) NOT NULL,
 bairro VARCHAR(30) NOT NULL,
+cidade VARCHAR(30) NOT NULL,
 complemento VARCHAR(255),
 PRIMARY KEY (id_endereco),
 FOREIGN KEY (login_usuario) REFERENCES usuario_final (login_usuario)
