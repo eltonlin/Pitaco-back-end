@@ -1,27 +1,25 @@
-
-const cadastrarLoginDao = require('../models/cadastrarLoginDao')
+const enderecoDao = require('../models/enderecoDao')
 
     
-    exports.inserirUsuario = function(req, res) {
+    exports.inserirEndereco = function(req, res) {
       console.log(req.body);
-      var cadastrarLogin = new cadastrarLoginDao(req.body);
+      var cadEndereco = new enderecoDao(req.body);
   
-      if(!cadastrarLogin.login_final)
+      if(!cadEndereco.rua)
           res.status(400).send({error: true, message : 'Campo de usuário é obrigatório'});    
-      if(!cadastrarLogin.senha)
+      if(!cadEndereco.complemento)
           res.status(400).send({error: true, message : 'Campo de senha é obrigatória'});       
-      if(!cadastrarLogin.nome)
+      if(!cadEndereco.bairro)
           res.status(400).send({error: true, message : 'Campo de nome é obrigatório'}); 
-          if(!cadastrarLogin.faixa_salarial)
+          if(!cadEndereco.cidade)
           res.status(400).send({error: true, message : 'Campo de faixa salarial é obrigatório'}); 
-          if(!cadastrarLogin.data_nascimento)
+          if(!cadEndereco.cep)
           res.status(400).send({error: true, message : 'Campo de data de nascimento é obrigatório'}); 
         
       
-          cadastrarLoginDao.inserirUsuario(cadastrarLogin, function(err, result){
+          enderecoDao.inserirEndereco(cadEndereco, function(err, result){
           if(err)
               res.send(err);
           res.status(200).json(result);
       })
     };
-    

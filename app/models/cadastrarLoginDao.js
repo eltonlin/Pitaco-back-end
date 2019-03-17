@@ -7,7 +7,7 @@ var cadastrarLoginDao = function(usuario_final){
     this.nome = usuario_final.nome;
     this.cpf = usuario_final.cpf;
     this.faixa_salarial  = usuario_final.faixa_salarial;
-    this.pontuacao = usuario_final.pontuacao;  
+    this.data_nascimento = usuario_final.data_nascimento;  
 } ;
 
 cadastrarLoginDao.inserirUsuario = function(usuario_final, result){
