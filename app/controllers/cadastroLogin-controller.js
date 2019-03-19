@@ -3,7 +3,7 @@ const cadastrarLoginDao = require('../models/cadastrarLoginDao')
 
     
     exports.inserirUsuario = function(req, res) {
-      console.log(req.body);
+      console.log(req);
       var cadastrarLogin = new cadastrarLoginDao(req.body);
   
       if(!cadastrarLogin.login_usuario)
