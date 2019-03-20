@@ -57,18 +57,15 @@ exports.inserirUsuario = function(req, res) {
     return;
   } 
     
-  consultarLogin(usuarioFinal.login_usuario, usuarioFinal.senha)
-  .then(result => {
-    console.log(result);
+  verificaLoginUsuario(usuarioFinal.login_usuario)
+  .then(() => {    
       usuarioFinalDAO.inserirUsuario(usuarioFinal, function(err, result){
             if(err)
             res.send(err);
         res.status(200).json(result);
     })     
   })
-  .catch(
-      res.send({error : true, message: 'Erro ao efetuar o login, por favor verifique seu usuário e senha'})
-    );
+  .catch(result => res.send(result));
   
 };
 
@@ -79,8 +76,23 @@ function consultarLogin(login_usuario, senha){
                 console.log('não retornou erro', result);
                 resolve(result);
             }                
-            else 
+            else {
+                console.log('Eerro', result);
                 reject(result);
+            }
     })
 })
+}
+
+function verificaLoginUsuario(login_usuario){
+    return new Promise((resolve,reject) => {
+        usuarioFinalDAO.verificaLoginUsuario(login_usuario, function(result){
+            if(result.error == false){
+                resolve();
+            }
+            else { 
+                reject(result);
+            }
+        })
+    })
 }

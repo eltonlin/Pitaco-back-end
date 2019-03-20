@@ -28,17 +28,36 @@ usuarioFinalDAO.consultarLogin = function(usuario_final, senha,result){
     connection.query(`SELECT * FROM usuario_final WHERE login_usuario = '${usuario_final}' and senha = '${senha}' `, function (error, results, fields) {
         console.log(results);
         if(error){
+            console.log('Caiu no if de error' + error);
             result({error : true, message: 'Erro ao efetuar o login, por favor verifique seu usuário e senha'});
         }
-        else if (results[0] == undefined || results[0] == null){
+        else if (results[0].lenght > 0){
+            console.log('Caiu no if de error' + error);
             result({error : true, message: 'Erro ao efetuar o login, por favor verifique seu usuário e senha'}); 
         }
-        else {
-            result({error: false});
+        else if(results[0] == undefined || results[0] == null){
+            
         }
-      });
+    });
     
-    }
+}
+
+
+usuarioFinalDAO.verificaLoginUsuario = function(login_usuario, resultado){
+    connection.query(`SELECT * FROM usuario_final where login_usuario = '${login_usuario}' `, function(error, result){
+        if(error){
+            console.log(error);
+            resultado({error : true, message: 'Ocorreu um erro ao executar a função para buscar o login do usuario'});
+        }
+        else if(result[0] !== null && result[0] !== undefined ){
+            console.log(result);            
+            resultado({error : true, message: 'Já existe um usuário cadastrado com esse login'});
+        }
+        else{
+            resultado({error : false});
+        }
+    })
+}
 
 module.exports = usuarioFinalDAO;
 
