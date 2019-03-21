@@ -6,15 +6,15 @@ const enderecoDao = require('../models/enderecoDao')
       var cadEndereco = new enderecoDao(req.body);
   
       if(!cadEndereco.rua)
-          res.status(400).send({error: true, message : 'Campo de usuário é obrigatório'});    
+          res.status(400).send({code: 400, message : 'Campo de usuário é obrigatório'});    
       if(!cadEndereco.complemento)
-          res.status(400).send({error: true, message : 'Campo de senha é obrigatória'});       
+          res.status(400).send({code: 400, message : 'Campo de senha é obrigatória'});       
       if(!cadEndereco.bairro)
-          res.status(400).send({error: true, message : 'Campo de nome é obrigatório'}); 
+          res.status(400).send({code: 400, message : 'Campo de nome é obrigatório'}); 
           if(!cadEndereco.cidade)
-          res.status(400).send({error: true, message : 'Campo de faixa salarial é obrigatório'}); 
+          res.status(400).send({code: 400, message : 'Campo de faixa salarial é obrigatório'}); 
           if(!cadEndereco.cep)
-          res.status(400).send({error: true, message : 'Campo de data de nascimento é obrigatório'}); 
+          res.status(400).send({code: 400, message : 'Campo de data de nascimento é obrigatório'}); 
         
       
           enderecoDao.inserirEndereco(cadEndereco, function(err, result){

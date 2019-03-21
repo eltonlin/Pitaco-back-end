@@ -29,11 +29,11 @@ exports.inserirPergunta = function(req, res) {
     var pergunta = new perguntaDAO(req.body);
 
     if(!pergunta.descricao_pergunta)
-        res.status(400).send({error: true, message : 'A descriçäo da pergunta é obrigatório'});    
+        res.status(400).send({code: 400, message : 'A descriçäo da pergunta é obrigatório'});    
     if(!pergunta.id_questionario)
-        res.status(400).send({error: true, message : 'O id do questionário é obrigatório'});       
+        res.status(400).send({code: 400, message : 'O id do questionário é obrigatório'});       
     if(!pergunta.tipo_pergunta)
-        res.status(400).send({error: true, message : 'O tipo da pergunta é obrigatório'}); 
+        res.status(400).send({code: 400, message : 'O tipo da pergunta é obrigatório'}); 
     
     perguntaDAO.inserirPergunta(pergunta, function(err, result){
         if(err)

@@ -24,37 +24,35 @@ usuarioFinalDAO.inserirUsuario = function(usuario_final, result){
     });
 };
 
-usuarioFinalDAO.consultarLogin = function(usuario_final, senha,result){  
-    connection.query(`SELECT * FROM usuario_final WHERE login_usuario = '${usuario_final}' and senha = '${senha}' `, function (error, results, fields) {
-        console.log(results);
-        if(error){
-            console.log('Caiu no if de error' + error);
-            result({error : true, message: 'Erro ao efetuar o login, por favor verifique seu usuário e senha'});
-        }
-        else if (results[0].lenght > 0){
-            console.log('Caiu no if de error' + error);
-            result({error : true, message: 'Erro ao efetuar o login, por favor verifique seu usuário e senha'}); 
-        }
+usuarioFinalDAO.login = function(login_usuario, senha,result){  
+    connection.query(`SELECT * FROM usuario_final WHERE login_usuario = '${login_usuario}' and senha = '${senha}' `, function (error, results, fields) {
+        if(error){            
+            result({code : 400, message: 'Erro ao efetuar o login, por favor verifique seu usuário e senha'});
+        }        
         else if(results[0] == undefined || results[0] == null){
-            
+            result({code : 400, message: 'Login ou senha inválido'}); 
+        }
+        else if (results){        
+            result({code : 200, message: 'Login efetuado com sucesso'}); 
         }
     });
     
 }
 
 
-usuarioFinalDAO.verificaLoginUsuario = function(login_usuario, resultado){
+usuarioFinalDAO.verificaLoginExistente = function(login_usuario, resultado){
+    console.log('está passando o usuário: ' + login_usuario);
     connection.query(`SELECT * FROM usuario_final where login_usuario = '${login_usuario}' `, function(error, result){
         if(error){
             console.log(error);
-            resultado({error : true, message: 'Ocorreu um erro ao executar a função para buscar o login do usuario'});
+            resultado({code : 400, message: 'Ocorreu um erro ao executar a função para buscar o login do usuario'});
         }
-        else if(result[0] !== null && result[0] !== undefined ){
+        else if(result[0] !== undefined){
             console.log(result);            
-            resultado({error : true, message: 'Já existe um usuário cadastrado com esse login'});
+            resultado({code : 400, message: 'Já existe um usuário cadastrado com esse login'});
         }
         else{
-            resultado({error : false});
+            resultado({code:200});
         }
     })
 }

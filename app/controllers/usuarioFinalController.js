@@ -1,29 +1,40 @@
 
 const usuarioFinalDAO = require('../models/usuarioFinalDAO')
+const enderecoDAO = require('../models/enderecoDAO')
 
     
 exports.inserirUsuario = function(req, res) {
-  console.log(req.body);
   var usuarioFinal = new usuarioFinalDAO(req.body);
+  var endereco = new enderecoDAO(req.body);
+  console.log(usuarioFinal);
+  console.log(endereco);
 
   if(!usuarioFinal.login_usuario)
-      res.status(400).send({error: true, message : 'Campo de usuário é obrigatório'});    
+      res.status(400).send({code: 400, message : 'Campo de usuário é obrigatório'});    
   if(!usuarioFinal.senha)
-      res.status(400).send({error: true, message : 'Campo de senha é obrigatória'});       
+      res.status(400).send({code: 400, message : 'Campo de senha é obrigatória'});       
   if(!usuarioFinal.nome)
-      res.status(400).send({error: true, message : 'Campo de nome é obrigatório'}); 
+      res.status(400).send({code: 400, message : 'Campo de nome é obrigatório'}); 
   if(!usuarioFinal.faixa_salarial)
-      res.status(400).send({error: true, message : 'Campo de faixa salarial é obrigatório'}); 
+      res.status(400).send({code: 400, message : 'Campo de faixa salarial é obrigatório'}); 
   if(!usuarioFinal.data_nascimento)
-      res.status(400).send({error: true, message : 'Campo de data de nascimento é obrigatório'}); 
+      res.status(400).send({code: 400, message : 'Campo de data de nascimento é obrigatório'}); 
   if(usuarioFinal.pontuacao == null)
       usuarioFinal.pontuacao = 0;
-  
+  if(endereco.rua == null)
+    res.status(400).send({code: 400, message : 'O campo rua é obrigatório'}); 
+  if(endereco.cep == null)
+    res.status(400).send({code: 400, message : 'O campo cep é obrigatório'});
+  if(endereco.bairro == null)
+    res.status(400).send({code: 400, message : 'O bairro é obrigatório'});
+  if(endereco.cidade == null)
+    res.status(400).send({code: 400, message : 'A cidade é obrigatório'});
+
   //validação de cpf
   var numeros, digitos, soma, i, resultado, digitos_iguais;
   digitos_iguais = 1;
   if (usuarioFinal.cpf.length < 11){
-    res.status(400).send({error: true, message : 'O cpf não pode ter menos de 11 caracteres'}); 
+    res.status(400).send({code: 400, message : 'O cpf não pode ter menos de 11 caracteres'}); 
     return;
   }
   for (i = 0; i < usuarioFinal.cpf.length - 1; i++)
@@ -40,7 +51,7 @@ exports.inserirUsuario = function(req, res) {
         soma += numeros.charAt(10 - i) * i;
     resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
     if (resultado != digitos.charAt(0)){
-        res.status(400).send({error: true, message : 'O cpf é inválido'}); 
+        res.status(400).send({code: 400, message : 'O cpf é inválido'}); 
         return;
     }
     numeros = usuarioFinal.cpf.substring(0,10);
@@ -49,45 +60,41 @@ exports.inserirUsuario = function(req, res) {
         soma += numeros.charAt(11 - i) * i;
     resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
     if (resultado != digitos.charAt(1)){
-        res.status(400).send({error: true, message : 'O cpf é inválido'});
+        res.status(400).send({code: 400, message : 'O cpf é inválido'});
         return;        
     }
   } else {
-    res.status(400).send({error: true, message : 'O cpf é inválido'});   
+    res.status(400).send({code: 400, message : 'O cpf é inválido'});   
     return;
   } 
     
-  verificaLoginUsuario(usuarioFinal.login_usuario)
-  .then(() => {    
-      usuarioFinalDAO.inserirUsuario(usuarioFinal, function(err, result){
+  verificaLoginExistente(usuarioFinal.login_usuario)
+  .then(() => {
+      new Promise((resolve, reject) => {
+        usuarioFinalDAO.inserirUsuario(usuarioFinal, function(err, result){
             if(err)
-            res.send(err);
-        res.status(200).json(result);
-    })     
+                reject(err);             
+            resolve();
+      })
+    }).then(() => { 
+        enderecoDAO.inserirEndereco(endereco, function(err, result){
+            if(err)
+                res.send(err);
+            console.log('Está passando aqui no endereço');   
+            res.status(200).send(result);
+        })
+    }).catch(err => {
+        console.log(err);
+        res.send(err)});
   })
-  .catch(result => res.send(result));
-  
+  .catch(err => res.send(err));  
 };
 
-function consultarLogin(login_usuario, senha){
-    return new Promise((resolve, reject) => {
-        usuarioFinalDAO.consultarLogin(login_usuario, senha, function(result){        
-            if(result.error == false){
-                console.log('não retornou erro', result);
-                resolve(result);
-            }                
-            else {
-                console.log('Eerro', result);
-                reject(result);
-            }
-    })
-})
-}
 
-function verificaLoginUsuario(login_usuario){
+function verificaLoginExistente(login_usuario){
     return new Promise((resolve,reject) => {
-        usuarioFinalDAO.verificaLoginUsuario(login_usuario, function(result){
-            if(result.error == false){
+        usuarioFinalDAO.verificaLoginExistente(login_usuario, function(result){
+            if(result.code == 200){
                 resolve();
             }
             else { 
@@ -95,4 +102,12 @@ function verificaLoginUsuario(login_usuario){
             }
         })
     })
+}
+
+exports.login = function(req, res){  
+    const login_usuario = req.body.login_usuario;
+    const senha = req.body.senha;  
+    usuarioFinalDAO.login(login_usuario, senha, function(result){        
+        res.send(result);
+    });
 }

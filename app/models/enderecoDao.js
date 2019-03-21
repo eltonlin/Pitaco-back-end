@@ -2,11 +2,12 @@
 var connection = require('../../config/dbConnection');
 
 var enderecoDAO = function(endereco){
-    this.rua   = endereco .rua ;
-    this.complemento  = endereco .complemento ;
-    this.bairro = endereco .bairro;
-    this.cidade = endereco .cidade;
-    this.cep  = endereco .cep;
+    this.rua  = endereco.rua ;
+    this.complemento  = endereco.complemento ;
+    this.bairro = endereco.bairro;
+    this.cidade = endereco.cidade;
+    this.cep  = endereco.cep;
+    this.login_usuario = endereco.login_usuario;
  
 } ;
 

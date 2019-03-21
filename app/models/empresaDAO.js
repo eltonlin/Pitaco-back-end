@@ -10,7 +10,7 @@ var empresaDAO = function(empresa){
 empresaDAO.listarEmpresas = function getAllEmpresas(result){   
     connection.query('select * from empresa', function(err, res){
         if(err)           
-            result(err, null);        
+            result(err, null);
         else            
             result(null, res);        
     });
