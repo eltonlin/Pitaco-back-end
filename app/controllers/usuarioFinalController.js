@@ -29,6 +29,8 @@ exports.inserirUsuario = function(req, res) {
     res.status(400).send({code: 400, message : 'O bairro é obrigatório'});
   if(endereco.cidade == null)
     res.status(400).send({code: 400, message : 'A cidade é obrigatório'});
+  if(endereco.estado == null) 
+    res.status(400).send({code: 400, message : 'A cidade é obrigatório'});
 
   //validação de cpf
   var numeros, digitos, soma, i, resultado, digitos_iguais;
@@ -77,14 +79,10 @@ exports.inserirUsuario = function(req, res) {
             resolve();
       })
     }).then(() => { 
-        enderecoDAO.inserirEndereco(endereco, function(err, result){
-            if(err)
-                res.send(err);
-            console.log('Está passando aqui no endereço');   
-            res.status(200).send(result);
+        enderecoDAO.inserirEndereco(endereco, function(result){
+           res.send(result);
         })
     }).catch(err => {
-        console.log(err);
         res.send(err)});
   })
   .catch(err => res.send(err));  
