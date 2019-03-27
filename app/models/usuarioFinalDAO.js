@@ -33,7 +33,7 @@ usuarioFinalDAO.login = function(login_usuario, senha,result){
             result({code : 400, message: 'Login ou senha inválido'}); 
         }
         else if (results){        
-            result({code : 200, message: 'Login efetuado com sucesso'}); 
+            result({code : 200, message: 'Login efetuado com sucesso', usuario : results}); 
         }
     });
     
