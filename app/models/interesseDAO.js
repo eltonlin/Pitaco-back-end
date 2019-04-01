@@ -15,3 +15,6 @@ interesseDAO.listarInteresses = function(result){
 
 
 module.exports = interesseDAO;
+
+
+
