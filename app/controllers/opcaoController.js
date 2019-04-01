@@ -13,9 +13,9 @@ exports.inserirOpcao = function(req, res) {
     var opcao = new opcaoDAO(req.body);
 
     if(!opcao.descricao_opcao)
-        res.status(400).send({error: true, message : 'A descriçäo da opção é obrigatória'});    
+        res.status(400).send({code: 400, message : 'A descriçäo da opção é obrigatória'});    
     if(!opcao.id_pergunta)
-        res.status(400).send({error: true, message : 'O id da pergunta é obrigatório'});     
+        res.status(400).send({code: 400, message : 'O id da pergunta é obrigatório'});     
 
     opcaoDAO.inserirOpcao(opcao, function(err, result){
         if(err)

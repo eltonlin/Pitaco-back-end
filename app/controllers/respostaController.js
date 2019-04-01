@@ -6,9 +6,9 @@ exports.inserirResposta = function(req, res) {
     console.log(resposta);
 
     if(!resposta.id_opcao)
-        res.status(400).send({error: true, message : 'A opção é obrigatório'});  
+        res.status(400).send({code: 400, message : 'A opção é obrigatório'});  
     if(!resposta.login_usuario)
-        res.status(400).send({error: true, message : 'O login_usuario é obrigatório'}); 
+        res.status(400).send({code: 400, message : 'O login_usuario é obrigatório'}); 
     
     respostaDAO.inserirResposta(resposta, function(err, result){
         if(err)
@@ -21,7 +21,7 @@ exports.consultarRespostasPorOpcao = function(req, res){
     const id_opcao = req.headers.id_opcao;
 
     if(!id_opcao)
-    res.status(400).send({error: true, message: 'O id da opção é obrigatório'});
+    res.status(400).send({code: 400, message: 'O id da opção é obrigatório'});
 
     respostaDAO.consultarRespostasPorOpcao(id_opcao, function(err, result){
         if(err)

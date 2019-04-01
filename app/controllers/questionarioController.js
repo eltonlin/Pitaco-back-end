@@ -14,11 +14,11 @@ exports.inserirQuestionario = function(req, res) {
     var questionario = new questionarioDAO(req.body);
 
     if(!questionario.descricao_questionario)
-        res.status(400).send({error: true, message : 'A descriçäo do questionario é obrigatório'});    
+        res.status(400).send({code: 400, message : 'A descriçäo do questionario é obrigatório'});    
     if(!questionario.id_empresa)
-        res.status(400).send({error: true, message : 'A empresa é obrigatória'});       
+        res.status(400).send({code: 400, message : 'A empresa é obrigatória'});       
     if(!questionario.login_master)
-        res.status(400).send({error: true, message : 'O login_master é obrigatório'}); 
+        res.status(400).send({code: 400, message : 'O login_master é obrigatório'}); 
     
     questionarioDAO.inserirQuestionario(questionario, function(err, result){
         if(err)

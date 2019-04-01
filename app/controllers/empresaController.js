@@ -13,11 +13,11 @@ exports.inserirEmpresa = function(req, res) {
     var empresa = new empresaDao(req.body);
 
     if(!empresa.cnpj)
-        res.status(400).send({error: true, message : 'O cnpj é obrigatório'});    
+        res.status(400).send({code: 400, message : 'O cnpj é obrigatório'});    
     if(!empresa.nome_empresa)
-        res.status(400).send({error: true, message : 'O nome da empresa é obrigatório'});       
+        res.status(400).send({code: 400, message : 'O nome da empresa é obrigatório'});       
     if(!empresa.login_master)
-        res.status(400).send({error: true, message : 'O login_master é obrigatório'}); 
+        res.status(400).send({code: 400, message : 'O login_master é obrigatório'}); 
     
     empresaDao.inserirEmpresa(empresa, function(err, result){
         if(err)
