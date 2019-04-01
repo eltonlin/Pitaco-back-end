@@ -8,10 +8,11 @@ exports.listarInteresses = function(req, res){
 
 
 exports.insertInteresses = function(req, res){
-    var interesse = req.body;
-    console.log(JSON.parse(interesse));
-    for(i= 0; i < interesse.lenght; i++){
-        console.log(i.interesse);
-    }
+   var interesse = req.body;
+
+   interesseDAO.inserirInteresse(interesse, function(result){
+       res.send(result);
+   })
     
+
 }
