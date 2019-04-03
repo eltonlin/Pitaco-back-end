@@ -1,23 +1,23 @@
 var connection = require('../../config/dbConnection');
 
-var opcaoDAO = function(opcao){
-    this.descricao_opcao  = opcao.descricao_opcao;
+var opcaoDAO = function (opcao) {
+    this.descricao_opcao = opcao.descricao_opcao;
     this.id_pergunta = opcao.id_pergunta;
-} ;
+};
 
 
-opcaoDAO.consultarTodasOpcoes = function(result){   
-    connection.query('select * from opcao', function(err, res){
-        if(err)           
-            result(err, null);        
-        else            
-            result(null, res);        
+opcaoDAO.consultarTodasOpcoes = function (result) {
+    connection.query('select * from opcao', function (err, res) {
+        if (err)
+            result(err, null);
+        else
+            result(null, res);
     });
 };
 
-opcaoDAO.consultarOpcaoPorPergunta = function(id_pergunta, result){
-    connection.query('select * from opcao WHERE id_pergunta = ?', id_pergunta, function(err, res){
-        if(err)
+opcaoDAO.consultarOpcaoPorPergunta = function (id_pergunta, result) {
+    connection.query('select * from opcao WHERE id_pergunta = ?', id_pergunta, function (err, res) {
+        if (err)
             result(err, null);
         else
             result(null, res);
@@ -25,13 +25,13 @@ opcaoDAO.consultarOpcaoPorPergunta = function(id_pergunta, result){
 }
 
 
-opcaoDAO.inserirOpcao = function(opcao, result){
-    connection.query('INSERT into OPCAO set ?', opcao, function(err, res){
-        if(err){
+opcaoDAO.inserirOpcao = function (opcao, result) {
+    connection.query('INSERT into OPCAO set ?', opcao, function (err, res) {
+        if (err) {
             console.log("error : ", err);
             result(err, null);
         }
-        else{
+        else {
             console.log("resultado: ", res);
             result(null, res);
         }

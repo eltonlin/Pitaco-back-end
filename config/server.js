@@ -22,7 +22,7 @@ app.use(cors());
 app.use(express.static('./app/public'));
 
 /* configurar o middleware body-parser */
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
 
@@ -31,7 +31,7 @@ app.use(bodyParser.json());
 
 /* efetua o autoload das rotas, dos models e dos controllers para o objeto app */
 consign()
-	.include('app/routes')	
+	.include('app/routes')
 	.into(app);
 
 
