@@ -17,7 +17,7 @@ usuarioMasterDAO.loginUsuarioMaster = function (login_master, senha, result) {
             result({ message: 'Login ou senha inválido' }, null);
         }
         else if (results) {
-            result(null, { message: 'Login efetuado com sucesso' });
+            result(null, results[0]);
         }
     });
 

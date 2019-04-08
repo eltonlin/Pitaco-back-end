@@ -6,8 +6,8 @@ exports.loginUsuarioMaster = function (req, res) {
     const senha = req.body.senha;
     usuarioMasterDAO.loginUsuarioMaster(login_master, senha, function (err, result) {
         if(err)
-            return res.send(err);
+            return res.status(400).send(err);
         else
-            return res.send(result);
+            return res.status(200).send(result);
     });
 }

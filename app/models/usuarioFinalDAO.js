@@ -51,7 +51,7 @@ usuarioFinalDAO.verificaLoginExistente = function (login_usuario, resultado) {
             console.log(result);
             resultado({ code: 400, message: 'Já existe um usuário cadastrado com esse login' });
         }
-        else {
+        else { 
             resultado({ code: 200 });
         }
     })

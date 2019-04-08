@@ -26,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
 
+
 /* configurar o middleware express-validator */
 // app.use(expressValidator());
 
