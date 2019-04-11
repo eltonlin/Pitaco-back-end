@@ -16,8 +16,22 @@ exports.inserirInteressesPorUsuario = function (req, res) {
 
     usuarioFinalInteressesDAO.inserirInteressesPorUsuario(usuario_final_interesses.usuario_final, usuario_final_interesses.interesses, function (err, resultado) {
         if(err)
-            return res.send(err);
+            return res.status(400).send(err);
         else
             return res.send(resultado);
     })
+}
+
+exports.deletarInteressesPorUsuario = function (req, res) {
+    
+    console.log(req.body);
+    var usuario_final = req.body.usuario_final;
+
+
+    usuarioFinalInteressesDAO.deletarInteressesPorUsuario(usuario_final,function (err, resultado) {
+        if(err)
+            return res.status(400).send(err);
+        else
+            return res.send(resultado);
+    });
 }

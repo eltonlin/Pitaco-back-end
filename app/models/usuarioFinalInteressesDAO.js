@@ -6,7 +6,7 @@ var usuarioFinalInteressesDAO = function (usuarioFinalInteresseDAO) {
 }
 
 usuarioFinalInteressesDAO.listarInteressesPorUsuario = function (usuario_final, resultado) {
-    connection.query(`select descricao from interesse where id_interesse IN (select id_interesse from usuario_final_interesse where login_usuario = '${usuario_final}');`, function (err, result) {
+    connection.query(`select * from interesse where id_interesse IN (select id_interesse from usuario_final_interesse where login_usuario = '${usuario_final}');`, function (err, result) {
         if (err) {
             console.log(err);
             resultado({ message: `Houve um erro ao buscar os interesses do usuário ${usuario_final}` }, null);
@@ -33,6 +33,18 @@ usuarioFinalInteressesDAO.inserirInteressesPorUsuario = function (usuario_final,
             resultado(null, { message: `Interesses do usuário ${usuario_final} foram cadastrados com sucesso` });
         }
 
+    })
+}
+
+usuarioFinalInteressesDAO.deletarInteressesPorUsuario = function(usuario_final, resultado){
+    console.log(usuario_final);
+    connection.query(`DELETE FROM USUARIO_FINAL_INTERESSE WHERE login_usuario = '${usuario_final}'`, function(err, result){
+        if(err){
+            resultado({message: `Ocorreu um erro ao deletar os interesses do usuário ${usuario_final}`}, null );
+        }
+        else{
+            resultado(null, { message: `Deletado os interesses do usuário ${usuario_final}`});
+        }
     })
 }
 
