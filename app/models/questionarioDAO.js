@@ -4,7 +4,8 @@ var questionarioDAO = function (questionario) {
     this.descricao_questionario = questionario.descricao_questionario;
     this.id_empresa = questionario.id_empresa;
     this.pontuacao_questionario = questionario.pontuacao_questionario;
-    this.login_master = questionario.login_master
+    this.login_master = questionario.login_master;
+    this.id_interesse = questionario.id_interesse;
 };
 
 
@@ -27,17 +28,18 @@ questionarioDAO.consultarQuestionarioPorId = function (id_questionario, result) 
 };
 
 
-questionarioDAO.inserirQuestionario = function (questionario, result) {
-    connection.query('INSERT into QUESTIONARIO set ?', questionario, function (err, res) {
-        if (err) {
-            console.log("error : ", err);
-            result(err, null);
-        }
-        else {
-            console.log("resultado: ", res);
-            result(null, res);
-        }
-    })
+questionarioDAO.inserirQuestionario = function (questionario) {
+    return new Promise(function(resolve,reject){
+        connection.query('INSERT into QUESTIONARIO set ?', questionario, function (err, res) {
+            console.log('chegou aqui, mostra oque tu tem ');
+            if (err) {
+                reject(err);
+            }
+            else {
+                resolve(res.insertId);
+            }
+        })
+    }) 
 }
 
 

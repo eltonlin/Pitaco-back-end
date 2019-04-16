@@ -18,7 +18,7 @@ exports.inserirInteressesPorUsuario = function (req, res) {
         if(err)
             return res.status(400).send(err);
         else
-            return res.send(resultado);
+            return res.status(200).send(resultado);
     })
 }
 

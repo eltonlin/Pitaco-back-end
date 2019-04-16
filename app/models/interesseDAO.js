@@ -19,6 +19,7 @@ interesseDAO.inserirInteresse = function (interesse, resultado) {
         if (err) {
             resultado({ mesage: ` Ocorreu um erro ao inserir o interesse ${interesse.descricao}` }, null);
         }
+        console.log(result);
         resultado(null, { message: `O interesse ${interesse.descricao} foi cadastro com sucesso` });
     })
 }
