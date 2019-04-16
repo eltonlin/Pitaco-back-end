@@ -1,5 +1,6 @@
 
 var connection = require('../../config/dbConnection');
+const enderecoDAO = require('./enderecoDao');
 
 var usuarioFinalDAO = function (usuario_final) {
     this.login_usuario = usuario_final.login_usuario;
@@ -65,6 +66,50 @@ usuarioFinalDAO.retornaPontuacaoPorUsuario = function(login_usuario){
             else
                 resolve(result);
         })
+    })
+}
+
+usuarioFinalDAO.retornaUsuarioPorLogin = function(login_usuario){
+    return new Promise((resolve, reject) => {        
+        connection.query(`SELECT * from usuario_final where login_usuario = '${login_usuario}'`, function(error, usuario_final){
+            if(error){
+                reject();
+            } else {
+                enderecoDAO.enderecoPorUsuario(login_usuario)
+                .then(endereco => {     
+                    usuario_final[0].endereco = endereco;  
+                    console.log(usuario_final);                   
+                    resolve(usuario_final);                 
+                })
+                .catch(() =>  reject()); 
+            }                
+        })
+    })
+}
+
+usuarioFinalDAO.atualizarUsuarioFinal = function(usuario){
+    console.log('No inicio');
+    return new Promise((resolve,reject) => {
+        console.log('Antes da conexão');
+        connection.query(
+            `UPDATE usuario_final set nome = '${usuario.nome}', cpf = '${usuario.cpf}' ,
+            faixa_salarial = '${usuario.faixa_salarial}', senha = '${usuario.senha}', 
+            data_nascimento = '${usuario.data_nascimento}' WHERE login_usuario = '${usuario.login_usuario}'`), function(err, resultadoUsuario){
+                console.log('AQUI CHEGUEI');
+                if(err){
+                    console.log('deu erro');
+                    reject();
+                } else {
+                    console.log('chegou aqui' + resultadoUsuario);
+                    enderecoDAO.atualizaEnderecoPorUsuario(usuario.endereco)
+                    .then(resultEndereco => {
+                        console.log('Chega aqui no then');
+                        console.log(resultEndereco);
+                        resolve(resultEndereco);
+                    })
+                    .catch(() => reject());
+                }
+            }
     })
 }
 

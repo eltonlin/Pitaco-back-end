@@ -22,4 +22,35 @@ enderecoDAO.inserirEndereco = function (endereco, result) {
     });
 };
 
+enderecoDAO.enderecoPorUsuario = function(login_usuario) {
+    return new Promise((resolve, reject) => {
+        connection.query(`SELECT * FROM ENDERECO WHERE LOGIN_USUARIO = '${login_usuario}'`, function(err, result){
+            if(err){
+                console.log(err);
+                reject();
+            }          
+            else{
+                console.log(result);
+                resolve(result);          
+            } 
+        });
+    })
+}
+
+enderecoDAO.atualizaEnderecoPorUsuario = function(endereco) {
+    return new Promise((resolve, reject) => {
+        connection.query(
+            `UPDATE ENDERECO SET estado = '${endereco.estado}', cidade = '${endereco.cidade}',
+            bairro = '${endereco.bairro}', rua = '${endereco.rua}', cep = '${endereco.cep}, complemento = '${endereco.complemento}' 
+            WHERE login_usuario = '${endereco.login_usuario} `, function(err, result) {
+                if(err){
+                    reject();
+                }
+                else{
+                    resolve();
+                }
+            });
+    });
+}
+
 module.exports = enderecoDAO;

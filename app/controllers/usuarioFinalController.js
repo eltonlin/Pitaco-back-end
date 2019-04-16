@@ -129,3 +129,24 @@ exports.retornaPontuacaoPorUsuario = function(req, res) {
   .then(result => res.json(result))
   .catch(() => res.status(400).send({message: 'Erro ao retornar a pontuação do usuário'}));
 }
+
+exports.retornaUsuarioPorLogin = function(req, res){
+  const login_usuario = req.params.usuario; 
+  
+  if(!login_usuario){
+    return res.status(400).send({ message: 'O login do usuário é obrigatório' })
+  }
+
+  usuarioFinalDAO.retornaUsuarioPorLogin(login_usuario)
+  .then(result => res.json(result))
+  .catch(() => res.status(400).send({message: 'Erro ao buscar o usuário'}));
+
+}
+
+exports.atualizarUsuarioFinal = function(req, res){
+  usuario = req.body.usuario;
+  usuarioFinalDAO.atualizarUsuarioFinal(usuario)
+  .then(result => res.json(result))
+  .catch(() => res.send(400).send({message: 'Erro ao atualizar as informações do usuário'}));
+
+}
