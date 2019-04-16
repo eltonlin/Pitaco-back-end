@@ -117,3 +117,15 @@ exports.login = function (req, res) {
       return res.status(200).json(sucess);
   });
 }
+
+exports.retornaPontuacaoPorUsuario = function(req, res) { 
+  const login_usuario = req.params.usuario;
+
+  if(!login_usuario){
+    return res.status(400).send({ message: 'O login do usuário é obrigatório' })
+  }
+
+  usuarioFinalDAO.retornaPontuacaoPorUsuario(login_usuario)
+  .then(result => res.json(result))
+  .catch(() => res.status(400).send({message: 'Erro ao retornar a pontuação do usuário'}));
+}

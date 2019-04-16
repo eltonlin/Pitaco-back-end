@@ -4,5 +4,6 @@ module.exports = function (app) {
 
         app.post('/usuario_final/cadastrar_login', usuarioFinalController.inserirUsuario)
         app.post('/usuario_final/login', usuarioFinalController.login);
+        app.get('/usuario_final/:usuario/pontuacao', usuarioFinalController.retornaPontuacaoPorUsuario)
 
 };

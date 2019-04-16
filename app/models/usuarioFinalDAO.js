@@ -57,5 +57,16 @@ usuarioFinalDAO.verificaLoginExistente = function (login_usuario, resultado) {
     })
 }
 
+usuarioFinalDAO.retornaPontuacaoPorUsuario = function(login_usuario){
+    return new Promise((resolve, reject) => { 
+        connection.query(`SELECT PONTUACAO FROM USUARIO_FINAL where login_usuario = '${login_usuario}'`, function(error, result){
+            if(error)
+                reject();
+            else
+                resolve(result);
+        })
+    })
+}
+
 module.exports = usuarioFinalDAO;
 
