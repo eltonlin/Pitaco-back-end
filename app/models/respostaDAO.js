@@ -28,11 +28,9 @@ respostaDAO.consultarOpcaoPorPergunta = function (id_pergunta, result) {
 respostaDAO.inserirResposta = function (resposta, result) {
     connection.query('INSERT into RESPOSTAS set ?', resposta, function (err, res) {
         if (err) {
-            console.log("error : ", err);
             result(err, null);
         }
         else {
-            console.log("resultado: ", res);
             result(null, res);
         }
     })

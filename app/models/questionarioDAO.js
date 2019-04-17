@@ -31,7 +31,6 @@ questionarioDAO.consultarQuestionarioPorId = function (id_questionario, result) 
 questionarioDAO.inserirQuestionario = function (questionario) {
     return new Promise(function(resolve,reject){
         connection.query('INSERT into QUESTIONARIO set ?', questionario, function (err, res) {
-            console.log('chegou aqui, mostra oque tu tem ');
             if (err) {
                 reject(err);
             }

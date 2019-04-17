@@ -6,6 +6,6 @@ module.exports = function (app) {
         app.post('/usuario_final/login', usuarioFinalController.login);
         app.get('/usuario_final/:usuario/pontuacao', usuarioFinalController.retornaPontuacaoPorUsuario)
         app.get('/usuario_final/:usuario', usuarioFinalController.retornaUsuarioPorLogin)
-        app.patch('/usuario_final/atualizar', usuarioFinalController.atualizarUsuarioFinal)
+        app.put('/usuario_final/atualizar', usuarioFinalController.atualizarUsuarioFinal)
 
 };

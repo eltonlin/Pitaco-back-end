@@ -10,7 +10,6 @@ exports.consultarTodasOpcoes = function (req, res) {
 };
 
 exports.inserirOpcao = function (req, res) {
-    console.log(req.body);
     var opcao = new opcaoDAO(req.body);
 
     if (!opcao.descricao_opcao)

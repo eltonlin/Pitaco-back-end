@@ -13,7 +13,6 @@ usuarioMasterDAO.loginUsuarioMaster = function (login_master, senha, result) {
             result({ message: 'Erro ao efetuar o login, por favor verifique seu usuário e senha' }, null);
         }
         else if (results[0] == undefined) {
-            console.log(results[0]);
             result({ message: 'Login ou senha inválido' }, null);
         }
         else if (results) {

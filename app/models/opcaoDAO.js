@@ -28,11 +28,9 @@ opcaoDAO.consultarOpcaoPorPergunta = function (id_pergunta, result) {
 opcaoDAO.inserirOpcao = function (opcao, result) {
     connection.query('INSERT into OPCAO set ?', opcao, function (err, res) {
         if (err) {
-            console.log("error : ", err);
             result(err, null);
         }
         else {
-            console.log("resultado: ", res);
             result(null, res);
         }
     })

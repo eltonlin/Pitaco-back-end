@@ -28,11 +28,9 @@ empresaDAO.consultarEmpresaPorId = function (id_empresa, result) {
 empresaDAO.inserirEmpresa = function (empresa, result) {
     connection.query('INSERT into EMPRESA set ?', empresa, function (err, res) {
         if (err) {
-            console.log("error : ", err);
             result(err, null);
         }
         else {
-            console.log("resultado: ", res);
             result(null, res);
         }
     });

@@ -23,7 +23,6 @@ exports.inserirQuestionario = function (req, res) {
     async function inserirQuestionarioDAO() {
         try {
             response = await questionarioDAO.inserirQuestionario(questionario);
-            console.log(response);
             res.json(response);
         } catch (error) {
             res.status(400).send(error);

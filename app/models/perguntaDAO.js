@@ -37,10 +37,8 @@ perguntaDAO.consultarPerguntaPorId = function (id_pergunta, result) {
 perguntaDAO.inserirPergunta = function (questionario, result) {
     connection.query('INSERT into PERGUNTA set ?', questionario, function (err, res) {
         if (err) {
-            console.log("error : ", err);
             result(err, null);
         } else {
-            console.log("resultado: ", res);
             result(null, res);
         }
     })

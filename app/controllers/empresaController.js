@@ -10,7 +10,6 @@ exports.consutarTodasEmpresas = function (req, res) {
 }
 
 exports.inserirEmpresa = function (req, res) {
-    console.log(req.body);
     var empresa = new empresaDao(req.body);
 
     if (!empresa.cnpj)
@@ -31,7 +30,6 @@ exports.inserirEmpresa = function (req, res) {
 exports.consultarEmpresaPorId = function (req, res) {
     var id_empresa = req.params.id_empresa;
 
-    console.log(id_empresa);
 
     empresaDao.consultarEmpresaPorId(id_empresa, function (err, result) {
         if (err)

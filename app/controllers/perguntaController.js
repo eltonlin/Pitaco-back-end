@@ -27,7 +27,6 @@ exports.consultarPerguntasPorQuestionario = function (req, res) {
 
 
 exports.inserirPergunta = function (req, res) {
-    console.log(req.body);
     var pergunta = new perguntaDAO(req.body);
 
     if (!pergunta.descricao_pergunta)

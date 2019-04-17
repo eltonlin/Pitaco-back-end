@@ -13,10 +13,8 @@ var cadastrarLoginDao = function (usuario_final) {
 cadastrarLoginDao.inserirUsuario = function (usuario_final, result) {
     connection.query('INSERT into usuario_final set ?', usuario_final, function (err, res) {
         if (err) {
-            console.log("error : ", err);
             result(err, null);
         } else {
-            console.log("resultado: ", res);
             result(null, res);
         }
     });

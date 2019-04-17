@@ -146,7 +146,7 @@ exports.retornaUsuarioPorLogin = function(req, res){
 exports.atualizarUsuarioFinal = function(req, res){
   usuario = req.body.usuario;
   usuarioFinalDAO.atualizarUsuarioFinal(usuario)
-  .then(result => res.json(result))
-  .catch(() => res.send(400).send({message: 'Erro ao atualizar as informações do usuário'}));
+  .then(() => res.sendStatus(200))
+  .catch(() => res.status(400).send({message: 'Erro ao atualizar as informações do usuário'}));
 
 }

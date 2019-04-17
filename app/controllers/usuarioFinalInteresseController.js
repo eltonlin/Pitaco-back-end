@@ -24,7 +24,6 @@ exports.inserirInteressesPorUsuario = function (req, res) {
 
 exports.deletarInteressesPorUsuario = function (req, res) {
     
-    console.log(req.body);
     var usuario_final = req.body.usuario_final;
 
 
