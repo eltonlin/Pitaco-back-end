@@ -34,14 +34,16 @@ perguntaDAO.consultarPerguntaPorId = function (id_pergunta, result) {
 }
 
 
-perguntaDAO.inserirPergunta = function (questionario, result) {
-    connection.query('INSERT into PERGUNTA set ?', questionario, function (err, res) {
-        if (err) {
-            result(err, null);
-        } else {
-            result(null, res);
-        }
-    })
+perguntaDAO.inserirPergunta = function (pergunta) {
+    return new Promise((resolve, reject) => {
+        connection.query('INSERT into PERGUNTA set ?', pergunta, function (err, pergunta) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(pergunta.insertId);
+            }
+        });
+    });
 }
 
 

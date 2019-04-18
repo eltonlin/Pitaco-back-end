@@ -1,4 +1,6 @@
-const questionarioDAO = require('../models/questionarioDAO')
+const questionarioDAO = require('../models/questionarioDAO');
+const perguntaDAO = require('../models/perguntaDAO');
+const opcaoDAO = require('../models/opcaoDAO');
 
 exports.consultarTodosQuestionarios = function (req, res) {
     questionarioDAO.consultarTodosQuestionarios(function (err, questionarios) {
@@ -10,8 +12,9 @@ exports.consultarTodosQuestionarios = function (req, res) {
 };
 
 
-exports.inserirQuestionario = function (req, res) {
-    var questionario = new questionarioDAO(req.body);
+exports.inserirQuestionario = async function (req, res) {
+    var questionario = req.body;
+    var questionarioInsert = new questionarioDAO(questionario);
 
     if (!questionario.descricao_questionario)
         return res.status(400).send({ message: 'A descriçäo do questionario é obrigatório' });
@@ -19,17 +22,33 @@ exports.inserirQuestionario = function (req, res) {
         return res.status(400).send({ message: 'A empresa é obrigatória' });
     if (!questionario.login_master)
         return res.status(400).send({ message: 'O login_master é obrigatório' });
-
-    async function inserirQuestionarioDAO() {
-        try {
-            response = await questionarioDAO.inserirQuestionario(questionario);
-            res.json(response);
-        } catch (error) {
-            res.status(400).send(error);
+    for(pergunta of questionario.perguntas){
+        if(!pergunta.descricao_pergunta)
+            return res.status(400).send({message: 'A descrição da pergunta é obrigatório'});
+        if(!pergunta.tipo_pergunta)
+            return res.status(400).send({message: 'O tipo da pergunta é obrigatório'});
+        for(opcao of pergunta.opcoes){
+            if(!opcao.descricao_opcao)
+                return res.status(400).send({message: 'A descrição da opção é obrigatório'});
         }
     }
-
-    inserirQuestionarioDAO();
+    
+    try {
+        questionarioId = await questionarioDAO.inserirQuestionario(questionarioInsert);
+        for(pergunta of questionario.perguntas){                        
+            pergunta.id_questionario = questionarioId;
+            perguntaInsert = new perguntaDAO(pergunta);
+            perguntaId = await perguntaDAO.inserirPergunta(perguntaInsert);
+            for(opcao of pergunta.opcoes){
+                opcao.id_pergunta = perguntaId;
+                opcaoInsert = new opcaoDAO(opcao);
+                await opcaoDAO.inserirOpcao(opcaoInsert);
+            }
+        }
+        res.json({message: 'Questionário incluído com sucesso'});        
+    } catch (error) {        
+        return res.sendStatus(400);        
+    }
 };
 
 exports.consultarQuestionarioPorId = function (req, res) {
@@ -41,5 +60,3 @@ exports.consultarQuestionarioPorId = function (req, res) {
             return res.status(200).json(result);
     })
 }
-
-

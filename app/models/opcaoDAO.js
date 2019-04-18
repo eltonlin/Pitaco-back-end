@@ -25,15 +25,17 @@ opcaoDAO.consultarOpcaoPorPergunta = function (id_pergunta, result) {
 }
 
 
-opcaoDAO.inserirOpcao = function (opcao, result) {
-    connection.query('INSERT into OPCAO set ?', opcao, function (err, res) {
-        if (err) {
-            result(err, null);
-        }
-        else {
-            result(null, res);
-        }
-    })
+opcaoDAO.inserirOpcao = function (opcao) {
+    return new Promise((resolve, reject) => { 
+        connection.query('INSERT into OPCAO set ?', opcao, function (err, res) {
+            if (err) {
+                reject(err);
+            }
+            else {
+                resolve(res);
+            }
+        });        
+    });
 }
 
 
