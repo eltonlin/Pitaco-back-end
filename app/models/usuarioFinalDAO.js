@@ -73,7 +73,7 @@ usuarioFinalDAO.retornaUsuarioPorLogin = function(login_usuario){
                 enderecoDAO.enderecoPorUsuario(login_usuario)
                 .then(endereco => {     
                     usuario_final[0].endereco = endereco;  
-                    resolve(usuario_final);                 
+                    resolve(usuario_final[0]);                 
                 })
                 .catch(() =>  reject()); 
             }                
