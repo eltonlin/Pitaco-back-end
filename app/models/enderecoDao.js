@@ -38,10 +38,10 @@ enderecoDAO.enderecoPorUsuario = function(login_usuario) {
 enderecoDAO.atualizaEnderecoPorUsuario = function(endereco) {
     return new Promise((resolve, reject) => {
         connection.query(
-            `UPDATE ENDERECO SET estado = ${endereco.estado}', cidade = '${endereco.cidade}',
+            `UPDATE ENDERECO SET estado = '${endereco.estado}', cidade = '${endereco.cidade}',
             bairro = '${endereco.bairro}', rua = '${endereco.rua}', cep = '${endereco.cep}', complemento = '${endereco.complemento}' 
             WHERE login_usuario = '${endereco.login_usuario}' `, function(err, result) {
-                if(err){                    
+                if(err){     
                     reject();
                 }
                 else{
