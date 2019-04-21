@@ -2,7 +2,6 @@ CREATE DATABASE pitaco;
 
 USE pitaco;
 
-
 CREATE TABLE usuario_master(
 login_master VARCHAR(30) NOT NULL,
 senha VARCHAR(30) NOT NULL,
