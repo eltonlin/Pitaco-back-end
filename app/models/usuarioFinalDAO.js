@@ -66,7 +66,7 @@ usuarioFinalDAO.retornaPontuacaoPorUsuario = function(login_usuario){
 
 usuarioFinalDAO.retornaUsuarioPorLogin = function(login_usuario){
     return new Promise((resolve, reject) => {        
-        connection.query(`SELECT * from usuario_final where login_usuario = '${login_usuario}'`, function(error, usuario_final){
+        connection.query(`SELECT login_usuario, senha, nome, cpf, faixa_salarial, pontuacao, DATE_FORMAT(data_nascimento, '%Y-%m-%d') data_nascimento from usuario_final where login_usuario = '${login_usuario}'`, function(error, usuario_final){
             if(error){
                 reject();
             } else {
@@ -85,11 +85,13 @@ usuarioFinalDAO.atualizarUsuarioFinal = function(usuario){
     return new Promise((resolve,reject) => {
         connection.query(
             `UPDATE usuario_final set nome = '${usuario.nome}', cpf = '${usuario.cpf}' ,
-            faixa_salarial = '${usuario.faixa_salarial}', senha = '${usuario.senha}', 
+            faixa_salarial = '${usuario.faixa_salarial}', 
             data_nascimento = '${usuario.data_nascimento}' WHERE login_usuario = '${usuario.login_usuario}'`, function(err, resultadoUsuario){
                 if(err){
+                    console.log(err);
                     reject();
                 } else {
+                    usuario.endereco.login_usuario = usuario.login_usuario;
                     enderecoDAO.atualizaEnderecoPorUsuario(usuario.endereco)
                     .then(() => {
                         resolve();
