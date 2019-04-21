@@ -145,8 +145,63 @@ exports.retornaUsuarioPorLogin = function(req, res){
 
 exports.atualizarUsuarioFinal = function(req, res){
   usuario = req.body.usuario;
+
+  if (!usuario.nome)
+    return res.status(401).send({  message: 'Campo de nome é obrigatório' });
+  if (!usuario.cpf) {
+    return res.status(401).send({ message: "Campo cpf é obrigatório" });
+  }
+  if (!usuario.faixa_salarial)
+    return res.status(401).send({  message: 'Campo de faixa salarial é obrigatório' });
+  if (!usuario.data_nascimento)
+    return res.status(401).send({  message: 'Campo de data de nascimento é obrigatório' });
+  if (usuario.endereco.rua == null)
+    return res.status(401).send({  message: 'O campo rua é obrigatório' });
+  if (usuario.endereco.cep == null)
+    return res.status(401).send({  message: 'O campo cep é obrigatório' });
+  if (usuario.endereco.bairro == null)
+    return res.status(401).send({  message: 'O bairro é obrigatório' });
+  if (usuario.endereco.cidade == null)
+    return res.status(401).send({  message: 'A cidade é obrigatório' });
+  if (usuario.endereco.estado == null)
+    return res.status(401).send({  message: 'A cidade é obrigatório' });
+
+  //validação de cpf
+  var numeros, digitos, soma, i, resultado, digitos_iguais;
+  digitos_iguais = 1;
+  if (usuario.cpf.length < 11) {
+    return res.status(401).send({  message: 'O cpf não pode ter menos de 11 caracteres' });
+  }
+  for (i = 0; i < usuario.cpf.length - 1; i++)
+    if (usuario.cpf.charAt(i) != usuario.cpf.charAt(i + 1)) {
+      digitos_iguais = 0;
+      break;
+    }
+  if (!digitos_iguais) {
+    numeros = usuario.cpf.substring(0, 9);
+    digitos = usuario.cpf.substring(9);
+    soma = 0;
+    for (i = 10; i > 1; i--)
+      soma += numeros.charAt(10 - i) * i;
+    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+    if (resultado != digitos.charAt(0)) {
+      return res.status(401).send({  message: 'O cpf é inválido' });
+    }
+    numeros = usuario.cpf.substring(0, 10);
+    soma = 0;
+    for (i = 11; i > 1; i--)
+      soma += numeros.charAt(11 - i) * i;
+    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+    if (resultado != digitos.charAt(1)) {
+      return res.status(401).send({  message: 'O cpf é inválido' });
+
+    }
+  } else {
+    return res.status(401).send({  message: 'O cpf é inválido' });
+  }
+
   usuarioFinalDAO.atualizarUsuarioFinal(usuario)
-  .then(() => res.sendStatus(200))
+  .then(() =>  res.json({message: 'cadastrado com sucesso'}))
   .catch(() => res.status(400).send({message: 'Erro ao atualizar as informações do usuário'}));
 
 }
