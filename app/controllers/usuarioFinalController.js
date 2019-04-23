@@ -205,3 +205,9 @@ exports.atualizarUsuarioFinal = function(req, res){
   .catch(() => res.status(400).send({message: 'Erro ao atualizar as informações do usuário'}));
 
 }
+
+exports.retonarUsuarios = function(req, res){
+  usuarioFinalDAO.retornarUsuarios()
+  .then(usuarios => res.json(usuarios))
+  .catch(() => res.status(400).send({message : 'Erro ao listar os usuários finais'}));
+}
