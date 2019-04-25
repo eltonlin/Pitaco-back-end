@@ -7,5 +7,7 @@ module.exports = function (app) {
         app.get('/usuario_final/:usuario/pontuacao', usuarioFinalController.retornaPontuacaoPorUsuario)
         app.get('/usuario_final/:usuario', usuarioFinalController.retornaUsuarioPorLogin)
         app.put('/usuario_final/atualizar', usuarioFinalController.atualizarUsuarioFinal)
+        app.get('/usuario_final', usuarioFinalController.retonarUsuarios)
+        
 
 };

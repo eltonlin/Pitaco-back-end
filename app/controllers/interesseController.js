@@ -12,6 +12,7 @@ exports.listarInteresses = function (req, res) {
 
 exports.insertInteresses = function (req, res) {
     var interesse = req.body;
+    console.log(req.body);
 
     interesseDAO.inserirInteresse(interesse)
     .then(() => res.json({message: 'Cadastrado com sucesso'}))
