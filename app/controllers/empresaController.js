@@ -10,30 +10,21 @@ exports.consutarTodasEmpresas = function (req, res) {
 }
 
 exports.inserirEmpresa = function (req, res) {
-    //var empresa = new empresaDao(req.body);
-    var empresa = (req.body);
-    console.log(req.body);
+    var empresa = new empresaDao(req.body);
 
     if (!empresa.cnpj)
         return res.status(400).send({ message: 'O cnpj é obrigatório' });
     if (!empresa.nome_empresa)
         return res.status(400).send({ message: 'O nome da empresa é obrigatório' });
-    //if (!empresa.login_master)
-       // return res.status(400).send({ message: 'O login_master é obrigatório' });
+    if (!empresa.login_master)
+        return res.status(400).send({ message: 'O login_master é obrigatório' });
 
-    //empresaDao.inserirEmpresa(empresa, function (err, result) {
-      //  if (err)
-       //     return res.status(400).send(err);
-       // else
-      //      return res.status(200).json(result);
-  //  });
-
-        empresaDAO.inserirEmpresa(empresa, function (err, result) {
-            if (err)
-                res.status(400).send(err);
-            else
-                res.status(200).send(result)
-        })
+    empresaDao.inserirEmpresa(empresa, function (err, result) {
+        if (err)
+            return res.status(400).send(err);
+        else
+            return res.status(200).json(result);
+    });
 }
 
 exports.consultarEmpresaPorId = function (req, res) {
@@ -46,6 +37,4 @@ exports.consultarEmpresaPorId = function (req, res) {
         else
             return res.status(200).json(result);
     })
-
-    
 }

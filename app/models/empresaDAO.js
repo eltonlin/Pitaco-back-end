@@ -25,21 +25,16 @@ empresaDAO.consultarEmpresaPorId = function (id_empresa, result) {
     });
 };
 
-empresaDAO.inserirEmpresa = function (empresa, resultado) {
+empresaDAO.inserirEmpresa = function (empresa, result) {
     connection.query('INSERT into EMPRESA set ?', empresa, function (err, res) {
         if (err) {
-            resultado({ mesage: ` Ocorreu um erro ao inserir a empresa ${empresa.nome_empresa}` }, null);
+            result(err, null);
         }
-        if (err) {
-            resultado({ mesage: ` Ocorreu um erro ao inserir a empresa ${empresa.cnpj}` }, null);
+        else {
+            result(null, res);
         }
-        resultado(null, { message: `A empresa ${empresa.nome_empresa} foi cadastrada com sucesso` });
-        resultado(null, { message: `A empresa ${empresa.cnpj} foi cadastrada com sucesso` });
-    })
-
-}
-    
-
+    });
+};
 
 
 
