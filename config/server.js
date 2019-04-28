@@ -1,12 +1,12 @@
-var express = require('express');
+var express = require("express");
 
 /* importar o módulo do consign */
-var consign = require('consign');
+var consign = require("consign");
 
-var cors = require('cors');
+var cors = require("cors");
 
 /* importar o módulo do body-parser */
-var bodyParser = require('body-parser');
+var bodyParser = require("body-parser");
 
 /* importar o módulo do express-validator */
 // var expressValidator = require('express-validator');
@@ -19,22 +19,20 @@ var app = express();
 //app.set('views', './app/views');
 app.use(cors());
 /* configurar o middleware express.static */
-app.use(express.static('./app/public'));
+app.use(express.static("./app/public"));
 
 /* configurar o middleware body-parser */
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
 
-
 /* configurar o middleware express-validator */
 // app.use(expressValidator());
 
 /* efetua o autoload das rotas, dos models e dos controllers para o objeto app */
 consign()
-	.include('app/routes')
-	.into(app);
-
+  .include("app/routes")
+  .into(app);
 
 /* exportar o objeto app */
 module.exports = app;
