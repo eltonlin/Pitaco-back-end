@@ -36,7 +36,7 @@ FOREIGN KEY (login_usuario) REFERENCES usuario_final (login_usuario)
 
 CREATE TABLE interesse(
 id_interesse INT NOT NULL AUTO_INCREMENT,
-descricao VARCHAR(150) NOT NULL,
+descricao VARCHAR(150) NOT NULL UNIQUE,
 PRIMARY KEY(id_interesse)
 );
 
@@ -49,11 +49,11 @@ FOREIGN KEY (id_interesse) REFERENCES interesse(id_interesse)
 );
 
 CREATE TABLE empresa(
-id_empresa INT NOT NULL auto_increment ,
-nome_empresa VARCHAR(100) NOT NULL,
-cnpj VARCHAR(14) NOT NULL,
+razao_social VARCHAR(100) NOT NULL UNIQUE,
+nome_fantasia VARCHAR(100) NOT NULL,
+cnpj VARCHAR(14) NOT NULL ,
 login_master VARCHAR(30) NOT NULL,
-PRIMARY KEY (id_empresa),
+PRIMARY KEY (cnpj),
 FOREIGN KEY (login_master) REFERENCES usuario_master(login_master)
 );
 
@@ -62,11 +62,11 @@ id_questionario INT NOT NULL auto_increment,
 descricao_questionario VARCHAR(100) NOT NULL, 
 pontuacao_questionario INT,
 login_master VARCHAR(30) NOT NULL,
-id_empresa INT NOT NULL,
+empresa_cnpj CHAR(14) NOT NULL,
 id_interesse INT NOT NULL,
 PRIMARY KEY(id_questionario),
 FOREIGN KEY (login_master) REFERENCES usuario_master(login_master),
-FOREIGN KEY (id_empresa) REFERENCES empresa(id_empresa),
+FOREIGN KEY (empresa_cnpj) REFERENCES empresa(cnpj),
 FOREIGN KEY (id_interesse) REFERENCES interesse(id_interesse)
 );
 
@@ -170,31 +170,31 @@ INSERT INTO usuario_final_interesse VALUES ("jose_garcia", 8),
 #FIM DO INSERT NA TABELA USUARIO_FINAL_INTERESSE--------------------------------------------------------------------------------
 
 #INSERT NA TABELA EMPRESA---------------------------------------------------------------------------------------------
-INSERT INTO empresa (nome_empresa, cnpj, login_master)
-            VALUES ("Cervejaria Buteco","12312289997365","fernando_master"),
-                   ("Lanche Bicicleta Unibratec","12312284567365","renato_master"),
-                   ("Music Shopping","12008284567365","rafael_master"),
-                   ("Crossfit da Morte","12312908567365","juliane_master"),
-                   ("Salesforce do Aranha","34512284567365","jedesson_master"),
-                   ("Livraria do Lapis","12312282447365","adriano_master"),
-                   ("Motoca 123","99912284567365","elton_master"),
-                   ("Master Yi Jungle","87431291228365","elton_master"),
-                   ("Testa a dor","98712384567365","rafael_master"),
-                   ("Dota 2","91212284653365","fernando_master");
+INSERT INTO empresa (razao_social, nome_fantasia, cnpj, login_master)
+            VALUES ("Cervejaria Buteco","Cervejaria Buteco Seu Lunga","46553809000141","fernando_master"),
+                   ("Lanche Bicicleta Unibratec","Lanche Bicicleta Unibratec","02474370000196","renato_master"),
+                   ("Music Shopping","Music Shopping","91178658000143","rafael_master"),
+                   ("Crossfit da Morte","Crossfit da Morte","01154665000112","juliane_master"),
+                   ("Salesforce do Aranha","Salesforce do Aranha","92977492000198","jedesson_master"),
+                   ("Livraria do Lapis","Livraria do Lapis","04902689000109","adriano_master"),
+                   ("Motoca 123","Motoca 123","13554373000156","elton_master"),
+                   ("Master Yi Jungle","Master Yi Jungle","61586574000188","elton_master"),
+                   ("Testa a dor","Testa a dor","14898593000160","rafael_master"),
+                   ("Dota 2","Dota 2","90093202000118","fernando_master");
 #FIM DO INSERT NA TABELA EMPRESA---------------------------------------------------------------------------------------------
 
 #INSERT NA TABELA QUESTIONARIO---------------------------------------------------------------------------------------------
-INSERT INTO questionario (descricao_questionario, pontuacao_questionario, login_master, id_empresa, id_interesse)
-                  VALUES ("Sobre Bebidas", 1000, "fernando_master", 1, 6),
-                         ("Sobre Comida", 700, "renato_master", 2, 5),
-                         ("Sobre Música", 900, "rafael_master", 3, 1),
-                         ("Sobre Esportes", 500, "juliane_master", 4, 2),
-                         ("Sobre Carros", 300, "jedesson_master", 5, 3),
-                         ("Sobre Livros", 400, "adriano_master", 6, 14),
-                         ("Sobre Jogos", 300, "elton_master", 7, 10),
-                         ("Sobre Jogos", 250, "elton_master", 8, 10),
-                         ("Teste", 550, "rafael_master", 9, 9),
-                         ("Sobre Jogos", 999, "fernando_master", 10, 12);
+INSERT INTO questionario (descricao_questionario, pontuacao_questionario, login_master, empresa_cnpj, id_interesse)
+                  VALUES ("Sobre Bebidas", 1000, "fernando_master", "46553809000141", 6),
+                         ("Sobre Comida", 700, "renato_master", "46553809000141", 5),
+                         ("Sobre Música", 900, "rafael_master", "46553809000141", 1),
+                         ("Sobre Esportes", 500, "juliane_master", "46553809000141", 2),
+                         ("Sobre Carros", 300, "jedesson_master", "46553809000141", 3),
+                         ("Sobre Livros", 400, "adriano_master", "46553809000141", 14),
+                         ("Sobre Jogos", 300, "elton_master", "46553809000141", 10),
+                         ("Sobre Jogos", 250, "elton_master", "46553809000141", 10),
+                         ("Teste", 550, "rafael_master", "46553809000141", 9),
+                         ("Sobre Jogos", 999, "fernando_master", "46553809000141", 12);
 #FIM DO INSERT NA TABELA QUESTIONARIO-----------------------------------------------------------------------------------------
 
 #INSERT NA TABELA PERGUNTA----------------------------------------------------------------------------------------
@@ -230,4 +230,4 @@ INSERT INTO respostas (id_opcao, login_usuario)
                       (7, "kinho_jed");
 #FIM DO INSERT NA TABELA RESPOSTAS--------------------------------------------------------------------------------------------
 
- ALTER TABLE INTERESSE ADD UNIQUE(descricao);
+
