@@ -14,24 +14,83 @@ exports.inserirEmpresa = function (req, res) {
 
     if (!empresa.cnpj)
         return res.status(400).send({ message: 'O cnpj é obrigatório' });
-    if (!empresa.nome_empresa)
-        return res.status(400).send({ message: 'O nome da empresa é obrigatório' });
+    if (!empresa.razao_social)
+        return res.status(400).send({ message: 'A razão social da empresa é obrigatória' });
+    if (!empresa.nome_fantasia)
+        return res.status(400).send({ message: 'O nome fantasia é obrigatório' });
     if (!empresa.login_master)
         return res.status(400).send({ message: 'O login_master é obrigatório' });
 
-    empresaDao.inserirEmpresa(empresa, function (err, result) {
-        if (err)
-            return res.status(400).send(err);
-        else
-            return res.status(200).json(result);
-    });
+    empresa.cnpj = empresa.cnpj.replace(/[^\d]+/g, '');
+
+    if (empresa.cnpj == '') return false;
+
+    if (empresa.cnpj.length != 14)
+        return res.status(400).send({ message: 'O Cnpj tem que ter 14 caracteres' });
+
+    // Elimina CNPJs invalidos conhecidos
+    if (empresa.cnpj == "00000000000000" ||
+        empresa.cnpj == "11111111111111" ||
+        empresa.cnpj == "22222222222222" ||
+        empresa.cnpj == "33333333333333" ||
+        empresa.cnpj == "44444444444444" ||
+        empresa.cnpj == "55555555555555" ||
+        empresa.cnpj == "66666666666666" ||
+        empresa.cnpj == "77777777777777" ||
+        empresa.cnpj == "88888888888888" ||
+        empresa.cnpj == "99999999999999")
+        return false;
+
+    // Valida DVs
+    tamanho = empresa.cnpj.length - 2
+    numeros = empresa.cnpj.substring(0, tamanho);
+    digitos = empresa.cnpj.substring(tamanho);
+    soma = 0;
+    pos = tamanho - 7;
+    for (i = tamanho; i >= 1; i--) {
+        soma += numeros.charAt(tamanho - i) * pos--;
+        if (pos < 2)
+            pos = 9;
+    }
+    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+    if (resultado != digitos.charAt(0))
+        return res.status(400).send({ message: 'O Cnpj inválido' });
+
+    tamanho = tamanho + 1;
+    numeros = empresa.cnpj.substring(0, tamanho);
+    soma = 0;
+    pos = tamanho - 7;
+    for (i = tamanho; i >= 1; i--) {
+        soma += numeros.charAt(tamanho - i) * pos--;
+        if (pos < 2)
+            pos = 9;
+    }
+    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+    if (resultado != digitos.charAt(1))
+        return res.status(400).send({ message: 'O Cnpj inválido' });
+
+    empresaDao.verificarCnpj(empresa.cnpj)
+        .then(() => {
+            empresaDao.verificarRazaoSocial(empresa.razao_social)
+                .then(() => {
+                    empresaDao.inserirEmpresa(empresa, function (err, result) {
+                        if (err)
+                            return res.status(400).send({ message: 'Erro no cadastro da empresa' });
+                        else
+                            return res.status(200).json(result);
+                    })
+
+                })
+                .catch(() => res.status(400).send({ message: 'A razão social já foi cadastrada.' }));
+        })
+        .catch(() => res.status(400).send({ message: 'Este cnpj já foi cadastrado por outra empresa' }));
+
 }
 
-exports.consultarEmpresaPorId = function (req, res) {
-    var id_empresa = req.params.id_empresa;
+exports.consultarEmpresaPorCnpj = function (req, res) {
+    var empresa_cnpj = req.params.cnpj;
 
-
-    empresaDao.consultarEmpresaPorId(id_empresa, function (err, result) {
+    empresaDao.consultarEmpresaPorCnpj(empresa_cnpj, function (err, result) {
         if (err)
             return res.status(400).send(err);
         else

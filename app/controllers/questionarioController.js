@@ -18,8 +18,8 @@ exports.inserirQuestionario = async function (req, res) {
 
     if (!questionario.descricao_questionario)
         return res.status(400).send({ message: 'A descriçäo do questionario é obrigatório' });
-    if (!questionario.id_empresa)
-        return res.status(400).send({ message: 'A empresa é obrigatória' });
+    if (!questionario.empresa_cnpj)
+        return res.status(400).send({ message: 'O cnpj da empresa é obrigatório' });
     if (!questionario.login_master)
         return res.status(400).send({ message: 'O login_master é obrigatório' });
     for(pergunta of questionario.perguntas){

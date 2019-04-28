@@ -2,7 +2,7 @@ var connection = require('../../config/dbConnection');
 
 var questionarioDAO = function (questionario) {
     this.descricao_questionario = questionario.descricao_questionario;
-    this.id_empresa = questionario.id_empresa;
+    this.empresa_cnpj = questionario.empresa_cnpj;
     this.pontuacao_questionario = questionario.pontuacao_questionario;
     this.login_master = questionario.login_master;
     this.id_interesse = questionario.id_interesse;

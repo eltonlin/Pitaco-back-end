@@ -4,5 +4,5 @@ module.exports = function (app) {
     app.get('/empresas', empresaController.consutarTodasEmpresas)
         .post('/empresas', empresaController.inserirEmpresa);
 
-    app.get('/empresa/:id_empresa', empresaController.consultarEmpresaPorId);
+    app.get('/empresa/:cnpj', empresaController.consultarEmpresaPorCnpj);
 };
