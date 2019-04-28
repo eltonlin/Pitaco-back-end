@@ -228,3 +228,5 @@ INSERT INTO respostas (id_opcao, login_usuario)
                       (6, "lidia_fernandes"),
                       (7, "kinho_jed");
 #FIM DO INSERT NA TABELA RESPOSTAS--------------------------------------------------------------------------------------------
+
+ ALTER TABLE INTERESSE ADD UNIQUE(descricao);

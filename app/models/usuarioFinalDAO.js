@@ -131,4 +131,14 @@ usuarioFinalDAO.atualizarUsuarioFinal = function(usuario) {
   });
 };
 
+usuarioFinalDAO.retornarUsuarios = function(){
+    return new Promise((resolve, reject) => {
+        connection.query(`SELECT login_usuario, cpf, nome, faixa_salarial, pontuacao, DATE_FORMAT(data_nascimento, '%d/%m/%Y') data_nascimento from usuario_final`, function(err, result){
+            if(err)
+                reject();
+            resolve(result);
+        });
+    })
+}
+
 module.exports = usuarioFinalDAO;
