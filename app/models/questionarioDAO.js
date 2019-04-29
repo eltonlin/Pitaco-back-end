@@ -41,6 +41,18 @@ questionarioDAO.inserirQuestionario = function (questionario) {
     }) 
 }
 
+questionarioDAO.questionariosPorInteressesPorUsuarios = function(usuario) {
+    return new Promise((resolve, reject) => {
+        connection.query(`select * from questionario where id_interesse in (select id_interesse from usuario_final_interesse where login_usuario = '${usuario}') `, function(err, result){
+            if(err){
+                reject();
+            }
+            else {
+                resolve(result);
+            }
+        })
+    })
+}
 
 
 module.exports = questionarioDAO;

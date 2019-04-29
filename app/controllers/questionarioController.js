@@ -60,3 +60,10 @@ exports.consultarQuestionarioPorId = function (req, res) {
             return res.status(200).json(result);
     })
 }
+
+exports.questionariosPorInteressesPorUsuarios = function(req,res) {
+    const usuario = req.params.usuario;
+    questionarioDAO.questionariosPorInteressesPorUsuarios(usuario)
+    .then(result => res.json(result))
+    .catch(() => res.status(400).send({message : `Erro ao buscar os questionários do usuário ${usuario}`}));
+}
