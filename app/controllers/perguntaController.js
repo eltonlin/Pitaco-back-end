@@ -1,4 +1,5 @@
-const perguntaDAO = require('../models/perguntaDAO')
+const perguntaDAO = require('../models/perguntaDAO');
+const opcaoDAO = require('../models/opcaoDAO')
 
 exports.consultarTodasPerguntas = function (req, res) {
     perguntaDAO.consultarTodasPerguntas(function (err, perguntas) {
@@ -16,12 +17,22 @@ exports.consultarPerguntasPorQuestionario = function (req, res) {
     if (!id_questionario)
         return res.status(400).send({ message: 'O id do questionário é obrigatório' })
 
-    perguntaDAO.consultarPerguntasPorQuestionario(function (id_questionario, err, perguntas) {
-        if (err)
-            return res.status(400).send(err);
-        else 
-            return res.status(200).json(perguntas);
+    perguntaDAO.consultarPerguntasPorQuestionario(id_questionario)
+    .then(perguntas => {
+        for(let pergunta of perguntas){            
+            opcaoDAO.consultarOpcaoPorPergunta(pergunta.id_pergunta)
+            .then(opcao => {
+                pergunta.opcoes = opcao;
+            })
+            .catch(() => res.send({message: 'Erro ao buscar as perguntas'}))
+        }  
+        setTimeout(() => {
+            res.json(perguntas);
+        }, 2000);
     })
+    .catch(() => res.status(400).send({message: 'Erro ao buscar as perguntas'}))
+       
+
 };
 
 

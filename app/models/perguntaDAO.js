@@ -16,13 +16,15 @@ perguntaDAO.consultarTodasPerguntas = function (result) {
     });
 };
 perguntaDAO.consultarPerguntasPorQuestionario = function (id_questionario, result) {
-    connection.query('select * from pergunta where id_questionario = ?', id_questionario, function (err, res) {
+    return new Promise((resolve, reject) => {
+        connection.query('select * from pergunta where id_questionario = ?', id_questionario, function (err, res) {
         if (err)
-            result(err, null);
+            reject();
         else
-            result(null, res);
+            resolve(res);
+        });
     });
-};
+}
 
 perguntaDAO.consultarPerguntaPorId = function (id_pergunta, result) {
     connection.query('select * from pergunta WHERE id_pergunta = ?', id_pergunta, function (err, res) {

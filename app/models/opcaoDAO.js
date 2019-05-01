@@ -15,14 +15,16 @@ opcaoDAO.consultarTodasOpcoes = function (result) {
     });
 };
 
-opcaoDAO.consultarOpcaoPorPergunta = function (id_pergunta, result) {
-    connection.query('select * from opcao WHERE id_pergunta = ?', id_pergunta, function (err, res) {
-        if (err)
-            result(err, null);
-        else
-            result(null, res);
-    })
-}
+opcaoDAO.consultarOpcaoPorPergunta = function (id_pergunta) {
+    return new Promise((resolve,reject) => {
+        connection.query('select * from opcao WHERE id_pergunta = ?', id_pergunta, function (err, opcao) {
+            if (err)
+                reject();
+            else
+                resolve(opcao);
+        });
+    });
+};
 
 
 opcaoDAO.inserirOpcao = function (opcao) {

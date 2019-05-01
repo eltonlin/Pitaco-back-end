@@ -47,7 +47,7 @@ exports.inserirQuestionario = async function (req, res) {
         }
         res.json({message: 'Questionário incluído com sucesso'});        
     } catch (error) {        
-        return res.sendStatus(400);        
+        return res.status(400).send({message: 'Falha ao cadastrra o questionário'});        
     }
 };
 
