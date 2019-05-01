@@ -62,6 +62,20 @@ empresaDAO.inserirEmpresa = function (empresa, result) {
     });
 };
 
+empresaDAO.atualizarEmpresa = function(empresa){
+    return new Promise((resolve ,reject ) => {
+        connection.query(    `UPDATE empresa set razao_social = '${empresa.razao_social}', nome_fantasia = '${empresa.nome_fantasia}' ,
+        cnpj = '${empresa.cnpj}' 
+        WHERE login_master = '${empresa.login_master}'`, function(err, resultadoEmpresa){
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resolve();
+                }
+            });
+        })
+    }
 
 
 module.exports = empresaDAO;
