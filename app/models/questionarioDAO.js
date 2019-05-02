@@ -32,7 +32,6 @@ questionarioDAO.inserirQuestionario = function (questionario) {
     return new Promise(function(resolve,reject){
         connection.query('INSERT into QUESTIONARIO set ?', questionario, function (err, res) {
             if (err) {
-                console.log(err);
                 reject(err);
             }
             else {

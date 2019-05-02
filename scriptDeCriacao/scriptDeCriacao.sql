@@ -55,7 +55,6 @@ cnpj VARCHAR(14) NOT NULL ,
 login_master VARCHAR(30) NOT NULL,
 PRIMARY KEY (cnpj),
 FOREIGN KEY (login_master) REFERENCES usuario_master(login_master)
-ON DELETE CASCADE
 );
 
 CREATE TABLE questionario(
@@ -67,9 +66,8 @@ empresa_cnpj CHAR(14) NOT NULL,
 id_interesse INT NOT NULL,
 PRIMARY KEY(id_questionario),
 FOREIGN KEY (login_master) REFERENCES usuario_master(login_master),
-FOREIGN KEY (empresa_cnpj) REFERENCES empresa(cnpj),
+FOREIGN KEY (empresa_cnpj) REFERENCES empresa(cnpj) ON DELETE CASCADE,
 FOREIGN KEY (id_interesse) REFERENCES interesse(id_interesse)
-ON DELETE CASCADE
 );
 
 
@@ -96,10 +94,8 @@ CREATE TABLE respostas(
 id_opcao INT NOT NULL,
 login_usuario VARCHAR(30) NOT NULL,
 CONSTRAINT PK_respostas PRIMARY KEY (id_opcao, login_usuario),
-FOREIGN KEY (id_opcao) REFERENCES opcao(id_opcao),
+FOREIGN KEY (id_opcao) REFERENCES opcao(id_opcao) ON DELETE CASCADE,
 FOREIGN KEY (login_usuario) REFERENCES usuario_final(login_usuario)
-ON DELETE CASCADE
-
 );
 
 
