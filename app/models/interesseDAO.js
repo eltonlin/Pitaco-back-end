@@ -41,6 +41,17 @@ interesseDAO.atualizarInteresse = function(interesse){
         })
     }
 
+    interesseDAO.deletarInteresse = function(interesse, resultado){
+        connection.query(`DELETE FROM INTERESSE WHERE id_interesse = '${interesse}'`, function(err, result){
+            if(err){
+                resultado({message: `Interesse não pode ser deletado' ${interesse}`}, null );
+            }
+            else{
+                resultado(null, { message: `Deletado com sucesso' ${interesse}`});
+            }
+        })
+    }
+
  
 
 

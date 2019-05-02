@@ -4,6 +4,6 @@ module.exports = function (app) {
     app.get('/interesses', interesseController.listarInteresses);
     app.post('/interesse_usuario/cadastrar', interesseController.insertInteresses);
     app.put('/interesses/atualizar', interesseController.atualizarInteresse);
-    //app.delete('/interesses/deletar', interesseController.deletarInteresse);
+    app.delete('/interesses/deletar', interesseController.deletarInteresse);
 
 }

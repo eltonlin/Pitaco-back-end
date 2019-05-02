@@ -43,3 +43,17 @@ exports.atualizarInteresse = function(req, res){
         }
     })
 }
+
+exports.deletarInteresse = function (req, res) {
+    
+    var interesse = req.body.id_interesse;
+    console.log(req.body);
+
+
+    interesseDAO.deletarInteresse(interesse,function (err, resultado) {
+        if(err)
+            return res.status(400).send(err);
+        else
+            return res.send(resultado);
+    });
+}
