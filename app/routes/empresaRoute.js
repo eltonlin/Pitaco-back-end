@@ -6,5 +6,6 @@ module.exports = function (app) {
 
     app.get('/empresa/:cnpj', empresaController.consultarEmpresaPorCnpj);
     app.put('/empresas/atualizar', empresaController.atualizarEmpresa);
+    app.delete('/empresas/deletar', empresaController.deletarEmpresa);
     
 };

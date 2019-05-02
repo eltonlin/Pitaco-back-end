@@ -77,5 +77,16 @@ empresaDAO.atualizarEmpresa = function(empresa){
         })
     }
 
+    empresaDAO.deletarEmpresa = function(empresa, resultado){
+        connection.query(`DELETE FROM EMPRESA WHERE cnpj = '${empresa}'`, function(err, result){
+            if(err){
+                resultado({message: `Empresa não pode ser deletada' ${empresa}`}, null );
+            }
+            else{
+                resultado(null, { message: `Deletada com sucesso' ${empresa}`});
+            }
+        })
+    }
+
 
 module.exports = empresaDAO;

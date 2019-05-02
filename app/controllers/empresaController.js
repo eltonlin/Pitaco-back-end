@@ -113,3 +113,18 @@ exports.atualizarEmpresa = function(req, res){
         }
     })
 }
+
+exports.deletarEmpresa = function (req, res) {
+    
+    var empresa = req.body.cnpj;
+    console.log(req.body);
+
+
+    empresaDao.deletarEmpresa(empresa,function (err, resultado) {
+        if(err)
+            return res.status(400).send(err);
+        else
+            return res.send(resultado);
+    });
+}
+
