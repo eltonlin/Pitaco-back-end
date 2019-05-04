@@ -74,8 +74,8 @@ questionarioDAO.deletarQuestionario = function(questionario) {
 
 questionarioDAO.atualizarQuestionario = function(questionario) {
     return new Promise((resolve, reject) => {
-        connection.query(`update questionario set descricao_questionario = ${questionario.descricao_questionario}, 
-        id_interesse = ${questionario.id_interesse}, pontuacao = ${questionario.pontuacao_questionario} where id_questionario = ${questionario.id_questionario}` ,
+        connection.query(`update questionario set descricao_questionario = '${questionario.descricao_questionario}', 
+        id_interesse = ${questionario.id_interesse}, pontuacao_questionario = ${questionario.pontuacao_questionario} where id_questionario = ${questionario.id_questionario}` ,
         function(err, result) {
             if(err) {
                 reject();
@@ -86,6 +86,6 @@ questionarioDAO.atualizarQuestionario = function(questionario) {
     });
 }
 
-
+ 
 
 module.exports = questionarioDAO;
