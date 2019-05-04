@@ -23,7 +23,7 @@ PRIMARY KEY(login_usuario)
 CREATE TABLE endereco (
 id_endereco INT AUTO_INCREMENT,
 login_usuario VARCHAR(30) NOT NULL,
-rua VARCHAR(30) NOT NULL,
+rua VARCHAR(255) NOT NULL,
 cidade VARCHAR(50) NOT NULL,
 cep CHAR(8) NOT NULL,
 bairro VARCHAR(30) NOT NULL,
