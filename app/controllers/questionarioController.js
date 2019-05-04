@@ -70,7 +70,7 @@ exports.questionariosPorInteressesPorUsuarios = function(req,res) {
 
 
 exports.deletarQuestionario = function(req, res) {
-    const questionario = req.body;
+    const questionario = req.params.id_questionario;
 
     questionarioDAO.deletarQuestionario(questionario)
     .then(() => res.json({message: 'Questionário deletado com sucesso'}))
@@ -78,9 +78,9 @@ exports.deletarQuestionario = function(req, res) {
 }
 
 exports.atualizarQuestionario = function(req, res) {
-    const questionario = req.params.id_questionario;
+    const questionario = req.body;
 
     questionarioDAO.atualizarQuestionario(questionario)
     .then(() => res.json({message: 'Questionário atualizado com sucesso'}))
     .catch(() => res.status(400).send({message: 'Erro ao atualizar o questionário'}));
-} 
+}   
