@@ -65,7 +65,7 @@ empresa_cnpj CHAR(14) NOT NULL,
 id_interesse INT NOT NULL,
 PRIMARY KEY(id_questionario),
 FOREIGN KEY (login_master) REFERENCES usuario_master(login_master),
-FOREIGN KEY (empresa_cnpj) REFERENCES empresa(cnpj),
+FOREIGN KEY (empresa_cnpj) REFERENCES empresa(cnpj) ON DELETE CASCADE,
 FOREIGN KEY (id_interesse) REFERENCES interesse(id_interesse)
 );
 
@@ -77,6 +77,7 @@ tipo_pergunta CHAR(1),
 id_questionario INT NOT NULL,
 PRIMARY KEY (id_pergunta),
 FOREIGN KEY (id_questionario) REFERENCES questionario(id_questionario) 
+ON DELETE CASCADE
 );
 
 CREATE TABLE opcao(
@@ -85,19 +86,16 @@ descricao_opcao VARCHAR(100),
 id_pergunta INT NOT NULL,
 PRIMARY KEY (id_opcao),
 FOREIGN KEY(id_pergunta) REFERENCES pergunta(id_pergunta)
+ON DELETE CASCADE
 );
 
 CREATE TABLE respostas(
 id_opcao INT NOT NULL,
 login_usuario VARCHAR(30) NOT NULL,
 CONSTRAINT PK_respostas PRIMARY KEY (id_opcao, login_usuario),
-FOREIGN KEY (id_opcao) REFERENCES opcao(id_opcao),
+FOREIGN KEY (id_opcao) REFERENCES opcao(id_opcao) ON DELETE CASCADE,
 FOREIGN KEY (login_usuario) REFERENCES usuario_final(login_usuario)
 );
-
-
-/*                           usuário final, senha,     Nome,           CPF,   faixa sal., pontuação */       
-/*INSERT INTO usuario_final VALUES ("Elton", "1234", "Elton Linconl", "12345678989", 1235, 0 );*/
 
 
 #INSERT DA TABELA USUARIO_MASTER-----------------------------------------------------------------
@@ -170,63 +168,173 @@ INSERT INTO usuario_final_interesse VALUES ("jose_garcia", 8),
 
 #INSERT NA TABELA EMPRESA---------------------------------------------------------------------------------------------
 INSERT INTO empresa (razao_social, nome_fantasia, cnpj, login_master)
-            VALUES ("Cervejaria Buteco","Cervejaria Buteco Seu Lunga","46553809000141","fernando_master"),
-                   ("Lanche Bicicleta Unibratec","Lanche Bicicleta Unibratec","02474370000196","renato_master"),
-                   ("Music Shopping","Music Shopping","91178658000143","rafael_master"),
-                   ("Crossfit da Morte","Crossfit da Morte","01154665000112","juliane_master"),
-                   ("Salesforce do Aranha","Salesforce do Aranha","92977492000198","jedesson_master"),
-                   ("Livraria do Lapis","Livraria do Lapis","04902689000109","adriano_master"),
-                   ("Motoca 123","Motoca 123","13554373000156","elton_master"),
-                   ("Master Yi Jungle","Master Yi Jungle","61586574000188","elton_master"),
-                   ("Testa a dor","Testa a dor","14898593000160","rafael_master"),
-                   ("Dota 2","Dota 2","90093202000118","fernando_master");
+            VALUES ("Cerveja Devassa", "Cervejaria Buteco Seu Lunga", "46553809000141", "fernando_master"),
+                   ("Mc Donald's", "Lanche Bicicleta Unibratec", "02474370000196", "renato_master"),
+                   ("VEVO MUSIC", "Music Shopping", "91178658000143", "rafael_master"),
+                   ("SMART FIT Academias", "Crossfit da Morte", "01154665000112", "juliane_master"),
+                   ("FIAT", "FIAT", "92977492000198", "jedesson_master"),
+                   ("Editora Moderna", "Editora Moderna", "04902689000109", "adriano_master"),
+                   ("Riot Games", "Riot","13554373000156", "elton_master");
 #FIM DO INSERT NA TABELA EMPRESA---------------------------------------------------------------------------------------------
 
 #INSERT NA TABELA QUESTIONARIO---------------------------------------------------------------------------------------------
 INSERT INTO questionario (descricao_questionario, pontuacao_questionario, login_master, empresa_cnpj, id_interesse)
                   VALUES ("Sobre Bebidas", 1000, "fernando_master", "46553809000141", 6),
-                         ("Sobre Comida", 700, "renato_master", "46553809000141", 5),
-                         ("Sobre Música", 900, "rafael_master", "46553809000141", 1),
-                         ("Sobre Esportes", 500, "juliane_master", "46553809000141", 2),
-                         ("Sobre Carros", 300, "jedesson_master", "46553809000141", 3),
-                         ("Sobre Livros", 400, "adriano_master", "46553809000141", 14),
-                         ("Sobre Jogos", 300, "elton_master", "46553809000141", 10),
-                         ("Sobre Jogos", 250, "elton_master", "46553809000141", 10),
-                         ("Teste", 550, "rafael_master", "46553809000141", 9),
-                         ("Sobre Jogos", 999, "fernando_master", "46553809000141", 12);
+                         ("Sobre Comida", 700, "renato_master", "02474370000196", 5),
+                         ("Sobre Música", 900, "rafael_master", "91178658000143", 1),
+                         ("Sobre Esportes", 500, "juliane_master", "01154665000112", 2),
+                         ("Sobre Carros", 300, "jedesson_master", "92977492000198", 3),
+                         ("Sobre Livros", 400, "adriano_master", "04902689000109", 14),
+                         ("Sobre Jogos Eletrônicos", 300, "elton_master", "13554373000156", 10);
 #FIM DO INSERT NA TABELA QUESTIONARIO-----------------------------------------------------------------------------------------
 
 #INSERT NA TABELA PERGUNTA----------------------------------------------------------------------------------------
 INSERT INTO pergunta (descricao_pergunta, tipo_pergunta, id_questionario)
-              VALUES ("Gosta de Cerveja?", "s", 1),
-                     ("Gosta de Sushi?", "s", 2),
-                     ("Gosta de Beatles?", "s", 3),
-                     ("Gosta de Crossfit?", "s", 4),
-                     ("Gosta da Aston Martin?", "s", 5),
-                     ("Gosta de Sherlock Holmes?", "s", 6),
-                     ("Gosta de Liga das Lendas?", "s", 7);
+              VALUES ("Gosta de Cerveja?", "C", 1),
+                     ("Entre as cervejas Devassa, Schin, Brahma e Itaipava, quais você beberia?", "M", 1),
+                     ("Você bebe cerveja com frenquencia?", "C", 1),
+                     ("Você prefere as cervejas nacionais ou as importadadas?", "C", 1),
+                     ("Você gostaria de receber notícias sobre cervejas?", "C", 1),                     
+                     ("Gosta de Comida Asiática?", "C", 2),
+                     ("Você gosta de comida Mexicana?", "C", 2),
+                     ("Você gosta de comida Brasileira?", "C", 2),
+                     ("Você gosta de comida Francesa?", "C", 2),
+                     ("Você gostaria de receber notícias sobre culinária?", "C", 2),                     
+                     ("Você gosta de música?", "C", 3),
+                     ("Dentre violão, guitarra, flauta, bateria, baixo. Quais você sabe tocar?", "M", 3),
+                     ("Você gosta de ir a shows ao vivo?", "C", 3),
+                     ("Você prefere escutar pagode, samba, Rock'n'Roll baby, MPB ou forró?", "M", 3),
+                     ("Você gosta de escutar músicas de Rock'n'Roll, baby?", "M", 3),
+                     ("Você gostaria de receber notícias sobre músicas e shows na sua região?", "C", 3),                     
+                     ("Você faz exercícios físicos?", "C", 4),
+                     ("Quais exercícios você gostaria de praticar: Corrida, Crossfit, Musculação, Natação ou Futebol?", "M", 4),
+                     ("Você faz uso de suplementos?", "C", 4),
+                     ("Existe alguma academia perto da sua casa?", "C", 4),                     
+                     ("Você possui um carro?", "C", 5),
+                     ("Dentre as marcas FIAT, Chevrolet, Nissan, Hyundai e Honda, quais você prefere?", "M", 5),
+                     ("Sobre os carros fabricados no brasil, você acha que eles são de boa qualidade?", "C", 5),
+                     ("Você compraria um carro importado?", "C", 5),
+                     ("Você pesquisas sobre as novidades de carros?", "C", 5),
+                     ("Você gostaria de receber notícias sobre carros nacionais?", "C", 5),
+                     ("Você gostaria de receber notícias sobre carros importados?", "C", 5),                     
+                     ("Você gosta de ler livros físicos?", "C", 6),
+                     ("Você gosta de ler livros digitais?", "C", 6),
+                     ("Você gosta de ler notícias nos jornais impressos?", "C", 6),
+                     ("Você gosta de ler notícias nos jornais digitais?", "C", 6),
+                     ("Você gostaria de ler livros de Ficção Científica, Ação, Romance ou Terror?", "M", 6),
+                     ("Você gostaria de receber notícias sobre livros digitais, revistas digitais ou jornais digitais?", "M", 6),                     
+                     ("Você joga jogos digitais, seja no celular, computador ou console?", "M", 7),
+                     ("Você gosta de assistir pessoas jogando jogos eletrônicos?", "C", 7),
+                     ("Você possui um Playstation 3/4 OU XBOX 360/ONE?", "M", 7),
+                     ("Você acompanha notícias sobre jogos digitais online? Ex.: League of Legends, Dota 2, CS:GO, PUBG etc.", "M", 7),
+                     ("Você gostaria de receber notícias sobre jogos online?", "C", 7),
+                     ("Você acha League of Legends um jogo bom?", "C", 7);                     
 #FIM DO INSERT NA TABELA PERGUNTA----------------------------------------------------------------------------------------
 
 #INSERT NA TABELA OPCAO--------------------------------------------------------------------------------------------------
 INSERT INTO opcao (descricao_opcao, id_pergunta)
            VALUES ("SIM", 1),
-                  ("NÃO", 2),
-                  ("SIM", 3),
-                  ("NÃO", 4),
-                  ("SIM", 5),
-                  ("NÃO", 6),
-                  ("SIM", 7);
+                  ("Schin", 2),
+                  ("Devassa", 2),
+                  ("NÃO", 3),
+                  ("Nacionais", 4),
+                  ("SIM", 5),                  
+                  ("SIM", 6),
+                  ("NÂO", 7),
+                  ("SIM", 8),
+                  ("NÂO", 9),
+                  ("SIM", 10),                  
+                  ("SIM", 11),
+                  ("Violão", 12),
+                  ("Guitarra", 12),
+                  ("SIM", 13),
+                  ("Forró", 14),
+                  ("Pagode", 14),
+                  ("Rock'n'Roll baby", 14),
+                  ("SIM", 15),                  
+                  ("SIM", 16),
+                  ("Corrida", 17),
+                  ("Futebol", 17),
+                  ("Crossfit", 17),
+                  ("SIM", 18),
+                  ("SIM", 19),                  
+                  ("SIM", 20),
+                  ("Honda", 21),
+                  ("FIAT", 21),
+                  ("Nissan", 21),
+                  ("NÃO", 22),
+                  ("SIM", 23),
+                  ("NÃO", 24),
+                  ("SIM", 25),
+                  ("SIM", 26),                  
+                  ("SIM", 27),
+                  ("NÃo", 28),
+                  ("SIM", 29),
+                  ("NÃO", 30),
+                  ("Ação", 31),
+                  ("Terror", 31),
+                  ("Livros Digitais", 32),                  
+                  ("Celular", 33),
+                  ("Console", 33),
+                  ("SIM", 34),
+                  ("Playstation 4", 35),
+                  ("Dota 2", 36),
+                  ("CS:GO", 36),
+                  ("Outros", 36),
+                  ("SIM", 37),
+                  ("NÃO", 38);
 #FIM DO INSERT NA TABELA OPCAO-----------------------------------------------------------------------------------------
         
 #INSERT NA TABELA RESPOSTAS--------------------------------------------------------------------------------------------
 INSERT INTO respostas (id_opcao, login_usuario)
                VALUES (1, "jose_garcia"),
-                      (2, "carla_perez"),
-                      (3, "cristiano_ronaldo"),
-                      (4, "rui_costa"),
-                      (5, "renata_maria"),
-                      (6, "lidia_fernandes"),
-                      (7, "kinho_jed");
+                      (2, "jose_garcia"),
+                      (3, "jose_garcia"),
+                      (4, "jose_garcia"),
+                      (5, "jose_garcia"),
+                      (6, "jose_garcia"),
+                      (7, "carla_perez"),
+                      (8, "carla_perez"),
+                      (9, "carla_perez"),
+                      (10, "carla_perez"),
+                      (11, "carla_perez"),
+                      (12, "cristiano_ronaldo"),
+                      (13, "cristiano_ronaldo"),
+                      (14, "cristiano_ronaldo"),
+                      (15, "cristiano_ronaldo"),
+                      (16, "cristiano_ronaldo"),
+                      (17, "cristiano_ronaldo"),
+                      (18, "cristiano_ronaldo"),
+                      (19, "cristiano_ronaldo"),
+                      (20, "rui_costa"),
+                      (21, "rui_costa"),
+                      (22, "rui_costa"),
+                      (23, "rui_costa"),
+                      (24, "rui_costa"),
+                      (25, "rui_costa"),
+                      (26, "renata_maria"),
+                      (27, "renata_maria"),
+                      (28, "renata_maria"),
+                      (29, "renata_maria"),
+                      (30, "renata_maria"),
+                      (31, "renata_maria"),
+                      (32, "renata_maria"),
+                      (33, "renata_maria"),
+                      (34, "renata_maria"),
+                      (35, "lidia_fernandes"),
+                      (36, "lidia_fernandes"),
+                      (37, "lidia_fernandes"),
+                      (38, "lidia_fernandes"),
+                      (39, "lidia_fernandes"),
+                      (40, "lidia_fernandes"),
+                      (41, "lidia_fernandes"),
+                      (42, "kinho_jed"),
+                      (43, "kinho_jed"),
+                      (44, "kinho_jed"),
+                      (45, "kinho_jed"),
+                      (46, "kinho_jed"),
+                      (47, "kinho_jed"),
+                      (48, "kinho_jed"),
+                      (49, "kinho_jed"),
+                      (50, "kinho_jed");
 #FIM DO INSERT NA TABELA RESPOSTAS--------------------------------------------------------------------------------------------
-
-

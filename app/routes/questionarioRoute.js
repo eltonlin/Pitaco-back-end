@@ -5,5 +5,10 @@ module.exports = function (app) {
         .post('/questionario', questionarioController.inserirQuestionario);
 
     app.get('/questionario/:id_questionario', questionarioController.consultarQuestionarioPorId);
+    app.get('/questionario/usuario/:usuario', questionarioController.questionariosPorInteressesPorUsuarios);
+
+    app.delete('/questionario/deletar/:id_questionario', questionarioController.deletarQuestionario);
+    
+    app.put('/questionario/atualizar', questionarioController.atualizarQuestionario);
 
 };

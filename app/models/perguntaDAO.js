@@ -16,16 +16,18 @@ perguntaDAO.consultarTodasPerguntas = function (result) {
     });
 };
 perguntaDAO.consultarPerguntasPorQuestionario = function (id_questionario, result) {
-    connection.query('select * from pergunta where id_questionario = ?', id_questionario, function (err, res) {
-        if (err)
-            result(err, null);
-        else
-            result(null, res);
+    return new Promise((resolve, reject) => {
+        connection.query('select * from pergunta where id_questionario = ?', id_questionario, function (err, res) {
+            if (err)
+                reject();
+            else
+                resolve(res);
+        });
     });
-};
+}
 
-perguntaDAO.consultarPerguntaPorId = function (id_pergunta, result) {
-    connection.query('select * from pergunta WHERE id_pergunta = ?', id_pergunta, function (err, res) {
+perguntaDAO.perguntasPorIdQuestionario = function (id_pergunta, result) {
+    connection.query(`select * from pergunta WHERE id_questionario = ${id_pergunta}`, function (err, res) {
         if (err)
             result(err, null);
         else
@@ -45,6 +47,31 @@ perguntaDAO.inserirPergunta = function (pergunta) {
         });
     });
 }
+
+perguntaDAO.atualizarPergunta = function (pergunta) {
+    return new Promise((resolve, reject) => {
+        connection.query(`UPDATE PERGUNTA SET descricao_pergunta = '${pergunta.descricao_pergunta}', 
+                        tipo_pergunta = '${pergunta.tipo_pergunta}' where id_pergunta = ${pergunta.id_pergunta} `, function (err, result) {
+                if (err) {
+                    reject();
+                } else {
+                    resolve();
+                }
+            });
+    });
+};
+
+perguntaDAO.deletarPergunta = function (pergunta) {
+    return new Promise((resolve,reject) => {
+        connection.query(`delete from pergunta where id_pergunta = ${pergunta}`, function(err, result){
+            if(err){
+                reject();
+            } else { 
+                resolve();
+            }
+        });
+    });
+};
 
 
 

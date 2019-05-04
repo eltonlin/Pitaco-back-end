@@ -27,12 +27,27 @@ exports.inserirOpcao = function (req, res) {
 
 exports.consultarOpcaoPorPergunta = function (req, res) {
     var id_pergunta = req.params.id_pergunta;
-    opcaoDAO.consultarOpcaoPorPergunta(id_pergunta, function (err, result) {
-        if (err)
-            return res.status(400).send(err);
-        else 
-            return res.status(200).json(result);
-    })
+    console.log(id_pergunta);
+    opcaoDAO.consultarOpcaoPorPergunta(id_pergunta)
+    .then(opcao => res.json(opcao))
+    .catch(err => res.status(400).send({message: 'Erro ao buscar as opções'}))
 }
 
+
+exports.atualizarOpcao = function (req, res) {
+    opcao = req.body;
+
+    opcaoDAO.atualizarOpcao(opcao)
+    .then(() => res.json({message: `A opção foi atualizada com sucesso`}))
+    .catch(() => res.status(400).send({message: 'Erro ao atualizar a opção'}));
+}
+
+
+exports.deletarOpcao = function(req, res) {
+    opcao = req.params.id_opcao;
+
+    opcaoDAO.deletarOpcao(opcao)
+    .then(() => res.json({message: 'Opção deletada com sucesso'}))
+    .catch(() => res.status(400).send({message: 'Erro ao deletar a opção'}));
+}
 

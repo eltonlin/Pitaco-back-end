@@ -47,7 +47,7 @@ exports.inserirQuestionario = async function (req, res) {
         }
         res.json({message: 'Questionário incluído com sucesso'});        
     } catch (error) {        
-        return res.sendStatus(400);        
+        return res.status(400).send({message: 'Falha ao cadastrra o questionário'});        
     }
 };
 
@@ -60,3 +60,27 @@ exports.consultarQuestionarioPorId = function (req, res) {
             return res.status(200).json(result);
     })
 }
+
+exports.questionariosPorInteressesPorUsuarios = function(req,res) {
+    const usuario = req.params.usuario;
+    questionarioDAO.questionariosPorInteressesPorUsuarios(usuario)
+    .then(result => res.json(result))
+    .catch(() => res.status(400).send({message : `Erro ao buscar os questionários do usuário ${usuario}`}));
+}
+
+
+exports.deletarQuestionario = function(req, res) {
+    const questionario = req.params.id_questionario;
+
+    questionarioDAO.deletarQuestionario(questionario)
+    .then(() => res.json({message: 'Questionário deletado com sucesso'}))
+    .catch(() => res.status(400).send({message: 'Erro ao deletar o questionário'}));
+}
+
+exports.atualizarQuestionario = function(req, res) {
+    const questionario = req.body;
+
+    questionarioDAO.atualizarQuestionario(questionario)
+    .then(() => res.json({message: 'Questionário atualizado com sucesso'}))
+    .catch(() => res.status(400).send({message: 'Erro ao atualizar o questionário'}));
+}  

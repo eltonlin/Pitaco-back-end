@@ -27,6 +27,37 @@ interesseDAO.inserirInteresse = function (interesse) {
     })
 }
 
+interesseDAO.atualizarInteresse = function(interesse){
+    return new Promise((resolve ,reject ) => {
+        connection.query( `UPDATE interesse set descricao = '${interesse.descricao}'
+            WHERE id_interesse = '${interesse.id_interesse}'`, function(err, resultadoInteresse){
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resolve();
+                }
+            });
+        })
+    }
+
+    interesseDAO.deletarInteresse = function(interesse, resultado){
+        connection.query(`DELETE FROM INTERESSE WHERE id_interesse = '${interesse}'`, function(err, result){
+            if(err){
+                resultado({message: `Interesse não pode ser deletado' ${interesse}`}, null );
+            }
+            else{
+                resultado(null, { message: `Deletado com sucesso' ${interesse}`});
+            }
+        })
+    }
+
+ 
+
+
+
+
+
 module.exports = interesseDAO;
 
 

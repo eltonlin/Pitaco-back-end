@@ -97,3 +97,34 @@ exports.consultarEmpresaPorCnpj = function (req, res) {
             return res.status(200).json(result);
     })
 }
+
+exports.atualizarEmpresa = function(req, res){
+    var empresa = req.body;
+    console.log(req.body);
+
+    empresaDao.atualizarEmpresa(empresa)
+    .then(() => res.json({message: 'Atualizado com sucesso'}))
+    .catch(err => {
+        if(err.errno == 1062){
+            return res.status(400).send({message: 'Não é possível atualizar a empresa igual'});
+        }
+        else{
+            return res.status(400).send({message: 'Ocorreu um erro ao atualizar a empresa'});
+        }
+    })
+}
+
+exports.deletarEmpresa = function (req, res) {
+    
+    var empresa = req.body.cnpj;
+    console.log(req.body);
+
+
+    empresaDao.deletarEmpresa(empresa,function (err, resultado) {
+        if(err)
+            return res.status(400).send(err);
+        else
+            return res.send(resultado);
+    });
+}
+

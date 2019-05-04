@@ -62,6 +62,32 @@ empresaDAO.inserirEmpresa = function (empresa, result) {
     });
 };
 
+empresaDAO.atualizarEmpresa = function(empresa){
+    return new Promise((resolve ,reject ) => {
+        connection.query( `UPDATE empresa set razao_social = '${empresa.razao_social}', nome_fantasia = '${empresa.nome_fantasia}' ,
+        login_master = '${empresa.login_master}' 
+        WHERE cnpj = '${empresa.cnpj}'`, function(err, resultadoEmpresa){
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resolve();
+                }
+            });
+        })
+    }
+
+    empresaDAO.deletarEmpresa = function(empresa, resultado){
+        connection.query(`DELETE FROM EMPRESA WHERE cnpj = '${empresa}'`, function(err, result){
+            if(err){
+                console.log(err);
+                resultado({message: `Empresa não pode ser deletada' ${empresa}`}, null );
+            }
+            else{
+                resultado(null, { message: `Deletada com sucesso' ${empresa}`});
+            }
+        })
+    }
 
 
 module.exports = empresaDAO;
