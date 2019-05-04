@@ -98,10 +98,7 @@ FOREIGN KEY (id_opcao) REFERENCES opcao(id_opcao) ON DELETE CASCADE,
 FOREIGN KEY (login_usuario) REFERENCES usuario_final(login_usuario)
 );
 
-
-/*                           usuário final, senha,     Nome,           CPF,   faixa sal., pontuação */       
-/*INSERT INTO usuario_final VALUES ("Elton", "1234", "Elton Linconl", "12345678989", 1235, 0 );*/
-
+#OS INSERTS COMEÇAM AQUI-----------------------------------------------------------------------------------------------------
 
 #INSERT DA TABELA USUARIO_MASTER-----------------------------------------------------------------
 INSERT INTO usuario_master VALUES ("fernando_master", "2233", "Fernando Araujo"),
@@ -173,63 +170,87 @@ INSERT INTO usuario_final_interesse VALUES ("jose_garcia", 8),
 
 #INSERT NA TABELA EMPRESA---------------------------------------------------------------------------------------------
 INSERT INTO empresa (razao_social, nome_fantasia, cnpj, login_master)
-            VALUES ("Cervejaria Buteco","Cervejaria Buteco Seu Lunga","46553809000141","fernando_master"),
-                   ("Lanche Bicicleta Unibratec","Lanche Bicicleta Unibratec","02474370000196","renato_master"),
-                   ("Music Shopping","Music Shopping","91178658000143","rafael_master"),
-                   ("Crossfit da Morte","Crossfit da Morte","01154665000112","juliane_master"),
-                   ("Salesforce do Aranha","Salesforce do Aranha","92977492000198","jedesson_master"),
-                   ("Livraria do Lapis","Livraria do Lapis","04902689000109","adriano_master"),
-                   ("Motoca 123","Motoca 123","13554373000156","elton_master"),
-                   ("Master Yi Jungle","Master Yi Jungle","61586574000188","elton_master"),
-                   ("Testa a dor","Testa a dor","14898593000160","rafael_master"),
-                   ("Dota 2","Dota 2","90093202000118","fernando_master");
+            VALUES ("Cerveja Devassa", "Cervejaria Buteco Seu Lunga", "46553809000141", "fernando_master"),
+                   ("Mc Donald's", "Lanche Bicicleta Unibratec", "02474370000196", "renato_master"),
+                   ("VEVO MUSIC", "Music Shopping", "91178658000143", "rafael_master"),
+                   ("SMART FIT Academias", "Crossfit da Morte", "01154665000112", "juliane_master"),
+                   ("FIAT", "FIAT", "92977492000198", "jedesson_master"),
+                   ("Editora Moderna", "Editora Moderna", "04902689000109", "adriano_master"),
+                   ("Riot Games", "Riot","13554373000156", "elton_master");
 #FIM DO INSERT NA TABELA EMPRESA---------------------------------------------------------------------------------------------
 
 #INSERT NA TABELA QUESTIONARIO---------------------------------------------------------------------------------------------
 INSERT INTO questionario (descricao_questionario, pontuacao_questionario, login_master, empresa_cnpj, id_interesse)
                   VALUES ("Sobre Bebidas", 1000, "fernando_master", "46553809000141", 6),
-                         ("Sobre Comida", 700, "renato_master", "46553809000141", 5),
-                         ("Sobre Música", 900, "rafael_master", "46553809000141", 1),
-                         ("Sobre Esportes", 500, "juliane_master", "46553809000141", 2),
-                         ("Sobre Carros", 300, "jedesson_master", "46553809000141", 3),
-                         ("Sobre Livros", 400, "adriano_master", "46553809000141", 14),
-                         ("Sobre Jogos", 300, "elton_master", "46553809000141", 10),
-                         ("Sobre Jogos", 250, "elton_master", "46553809000141", 10),
-                         ("Teste", 550, "rafael_master", "46553809000141", 9),
-                         ("Sobre Jogos", 999, "fernando_master", "46553809000141", 12);
+                         ("Sobre Comida", 700, "renato_master", "02474370000196", 5),
+                         ("Sobre Música", 900, "rafael_master", "91178658000143", 1),
+                         ("Sobre Esportes", 500, "juliane_master", "01154665000112", 2),
+                         ("Sobre Carros", 300, "jedesson_master", "92977492000198", 3),
+                         ("Sobre Livros", 400, "adriano_master", "04902689000109", 14),
+                         ("Sobre Jogos Eletrônicos", 300, "elton_master", "13554373000156", 10);
 #FIM DO INSERT NA TABELA QUESTIONARIO-----------------------------------------------------------------------------------------
 
 #INSERT NA TABELA PERGUNTA----------------------------------------------------------------------------------------
 INSERT INTO pergunta (descricao_pergunta, tipo_pergunta, id_questionario)
               VALUES ("Gosta de Cerveja?", "s", 1),
-                     ("Gosta de Sushi?", "s", 2),
-                     ("Gosta de Beatles?", "s", 3),
-                     ("Gosta de Crossfit?", "s", 4),
-                     ("Gosta da Aston Martin?", "s", 5),
-                     ("Gosta de Sherlock Holmes?", "s", 6),
-                     ("Gosta de Liga das Lendas?", "s", 7);
+                     ("Você prefere cerveja mais amarga?", "s", 1),
+                     ("Você bebe cerveja com frenquencia?", "s", 1),
+                     ("Você prefere as cervejas nacionais?", "s", 1),
+                     ("Você gostaria de receber notícias sobre cervejas?", "s", 1),
+                     ("Gosta de Comida Asiática?", "s", 2),
+                     ("Você gosta de comida Mexicana?", "s", 2),
+                     ("Você gosta de comida Brasielira?", "s", 2),
+                     ("Você gosta de comida Francesa?", "s", 2),
+                     ("Você gostaria de receber notícias sobre culinária?", "s", 2),
+                     ("Você gosta de música?", "s", 3),
+                     ("Você sabe cantar ou tocar algum instrumento?", "s", 3),
+                     ("Você gosta de ir a shows ao vivo?", "s", 3),
+                     ("Você gosta de escutar pagode?", "s", 3),
+                     ("Você gosta de escutar músicas de Rock'n'Roll, baby?", "s", 3),
+                     ("Você gostaria de receber notícias sobre músicas e shows na sua região?", "s", 3),
+                     ("Você faz exercícios físicos?", "s", 4),
+                     ("Você gostaria de praticar exercícios físicos?", "s", 4),
+                     ("Você faz uso de suplementos?", "s", 4),
+                     ("Existe alguma academia perto da sua casa?", "s", 4),
+                     ("Você possui um carro?", "s", 5),
+                     ("Você gostaria de comprar um carro novo?", "s", 5),
+                     ("Sobre os carros nacionais, você que eles são de boa qualidade?", "s", 5),
+                     ("Você compraria um carro importado?", "s", 5),
+                     ("Você pesquisas sobre as novidades de carros?", "s", 5),
+                     ("Você gostaria de receber notícias sobre carros nacionais?", "s", 5),
+                     ("Você gostaria de receber notícias sobre carros importados?", "s", 5),
+                     ("Você gosta de ler livros físicos?", "s", 6),
+                     ("Você gosta de ler livros digitais?", "s", 6),
+                     ("Você gosta de ler notícias nos jornais impressos?", "s", 6),
+                     ("Você gosta de ler notícias nos jornais digitais?", "s", 6),
+                     ("Você gostaria de ler livros de ficção científica?", "s", 6),
+                     ("Você gostaria de receber notícias sobre livros, revistas e jornais digitais?", "s", 6),
+                     ("Você joga jogos digitais, seja no celular, computador ou console?", "s", 7),
+                     ("Você gosta de assistir pessoas jogando jogos eletrônicos?", "s", 7),
+                     ("Você possui um Playstation 3/4 OU XBOX 360/ONE?", "s", 7),
+                     ("Você acompanha notícias sobre jogos digitais online? Ex.: League of Legends, Dota 2, CS:GO, PUBG etc.", "s", 7),
+                     ("Você gostaria de receber notícias sobre jogos online?", "s", 7),
+                     ("Você acha League of Legends um jogo bom?", "s", 7);                     
 #FIM DO INSERT NA TABELA PERGUNTA----------------------------------------------------------------------------------------
 
 #INSERT NA TABELA OPCAO--------------------------------------------------------------------------------------------------
-INSERT INTO opcao (descricao_opcao, id_pergunta)
-           VALUES ("SIM", 1),
-                  ("NÃO", 2),
-                  ("SIM", 3),
-                  ("NÃO", 4),
-                  ("SIM", 5),
-                  ("NÃO", 6),
-                  ("SIM", 7);
+#INSERT INTO opcao (descricao_opcao, id_pergunta)
+#           VALUES ("SIM", 1),
+#                  ("NÃO", 2),
+#                  ("SIM", 3),
+#                  ("NÃO", 4),
+#                  ("SIM", 5),
+#                  ("NÃO", 6),
+#                  ("SIM", 7);
 #FIM DO INSERT NA TABELA OPCAO-----------------------------------------------------------------------------------------
         
 #INSERT NA TABELA RESPOSTAS--------------------------------------------------------------------------------------------
-INSERT INTO respostas (id_opcao, login_usuario)
-               VALUES (1, "jose_garcia"),
-                      (2, "carla_perez"),
-                      (3, "cristiano_ronaldo"),
-                      (4, "rui_costa"),
-                      (5, "renata_maria"),
-                      (6, "lidia_fernandes"),
-                      (7, "kinho_jed");
+#INSERT INTO respostas (id_opcao, login_usuario)
+#               VALUES (1, "jose_garcia"),
+#                      (2, "carla_perez"),
+#                      (3, "cristiano_ronaldo"),
+#                      (4, "rui_costa"),
+#                      (5, "renata_maria"),
+#                      (6, "lidia_fernandes"),
+#                      (7, "kinho_jed");
 #FIM DO INSERT NA TABELA RESPOSTAS--------------------------------------------------------------------------------------------
-
-
