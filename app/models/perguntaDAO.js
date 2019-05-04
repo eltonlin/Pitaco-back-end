@@ -63,7 +63,7 @@ perguntaDAO.atualizarPergunta = function (pergunta) {
 
 perguntaDAO.deletarPergunta = function (pergunta) {
     return new Promise((resolve,reject) => {
-        connection.query(`delete from pergunta where id_pergunta = ${pergunta.id_pergunta}`, function(err, result){
+        connection.query(`delete from pergunta where id_pergunta = ${pergunta}`, function(err, result){
             if(err){
                 reject();
             } else { 
