@@ -62,7 +62,7 @@ questionarioDAO.questionariosPorInteressesPorUsuarios = function(usuario) {
 
 questionarioDAO.deletarQuestionario = function(questionario) {
     return new Promise((resolve, reject) => {
-        connection.query(`delete from questionario where id_questionario = ${questionario.id_questionario}`, function(err, result){
+        connection.query(`delete from questionario where id_questionario = ${questionario}`, function(err, result){
             if(err) {
                 reject();
             } else {
@@ -85,6 +85,7 @@ questionarioDAO.atualizarQuestionario = function(questionario) {
         });
     });
 }
+
 
 
 module.exports = questionarioDAO;
