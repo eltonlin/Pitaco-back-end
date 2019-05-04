@@ -4,8 +4,11 @@ module.exports = function (app) {
     app.get('/pergunta', perguntaController.consultarTodasPerguntas)
         .post('/pergunta', perguntaController.inserirPergunta);
 
-    // app.get('/pergunta/:id_pergunta', perguntaController.consultarPerguntaPorId);
 
+    //este lista apenas as perguntas por questionário    
+    app.get('/pergunta/listar_por_questionario/:id_pergunta', perguntaController.perguntasPorIdQuestionario);
+
+    // Este liste as perguntas com as opções
     app.get('/pergunta/:id_questionario', perguntaController.consultarPerguntasPorQuestionario)
 
 };

@@ -26,8 +26,8 @@ perguntaDAO.consultarPerguntasPorQuestionario = function (id_questionario, resul
     });
 }
 
-perguntaDAO.consultarPerguntaPorId = function (id_pergunta, result) {
-    connection.query('select * from pergunta WHERE id_pergunta = ?', id_pergunta, function (err, res) {
+perguntaDAO.perguntasPorIdQuestionario = function (id_pergunta, result) {
+    connection.query(`select * from pergunta WHERE id_questionario = ${id_pergunta}`, function (err, res) {
         if (err)
             result(err, null);
         else
