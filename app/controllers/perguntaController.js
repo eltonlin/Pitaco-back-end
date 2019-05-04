@@ -87,7 +87,7 @@ exports.atualizarPergunta = function (req, res) {
 
 
 exports.deletarPergunta = function(req, res) {
-    pergunta = req.body;
+    pergunta = req.params.id_pergunta;
 
     perguntaDAO.deletarPergunta(pergunta)
     .then(() => res.json({message: 'Pergunta deletada com sucesso'}))

@@ -67,3 +67,20 @@ exports.questionariosPorInteressesPorUsuarios = function(req,res) {
     .then(result => res.json(result))
     .catch(() => res.status(400).send({message : `Erro ao buscar os questionários do usuário ${usuario}`}));
 }
+
+
+exports.deletarQuestionario = function(req, res) {
+    const questionario = req.body;
+
+    questionarioDAO.deletarQuestionario(questionario)
+    .then(() => res.json({message: 'Questionário deletado com sucesso'}))
+    .catch(() => res.status(400).send({message: 'Erro ao deletar o questionário'}));
+}
+
+exports.atualizarQuestionario = function(req, res) {
+    const questionario = req.params.id_questionario;
+
+    questionarioDAO.atualizarQuestionario(questionario)
+    .then(() => res.json({message: 'Questionário atualizado com sucesso'}))
+    .catch(() => res.status(400).send({message: 'Erro ao atualizar o questionário'}));
+} 

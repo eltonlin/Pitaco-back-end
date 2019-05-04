@@ -9,7 +9,7 @@ module.exports = function (app) {
 
     app.put('/pergunta/atualizar', perguntaController.atualizarPergunta);
 
-    app.delete('/pergunta/deletar', perguntaController.deletarPergunta);
+    app.delete('/pergunta/deletar/:id_pergunta', perguntaController.deletarPergunta);
     // Este liste as perguntas com as opções
     app.get('/pergunta/:id_questionario', perguntaController.consultarPerguntasPorQuestionario)
 

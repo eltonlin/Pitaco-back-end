@@ -60,5 +60,31 @@ questionarioDAO.questionariosPorInteressesPorUsuarios = function(usuario) {
     })
 }
 
+questionarioDAO.deletarQuestionario = function(questionario) {
+    return new Promise((resolve, reject) => {
+        connection.query(`delete from questionario where id_questionario = ${questionario.id_questionario}`, function(err, result){
+            if(err) {
+                reject();
+            } else {
+                resolve();
+            }
+        })
+    })
+}
+
+questionarioDAO.atualizarQuestionario = function(questionario) {
+    return new Promise((resolve, reject) => {
+        connection.query(`update questionario set descricao_questionario = ${questionario.descricao_questionario}, 
+        id_interesse = ${questionario.id_interesse}, pontuacao = ${questionario.pontuacao_questionario} where id_questionario = ${questionario.id_questionario}` ,
+        function(err, result) {
+            if(err) {
+                reject();
+            } else {
+                resolve();
+            }
+        });
+    });
+}
+
 
 module.exports = questionarioDAO;

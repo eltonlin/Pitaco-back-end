@@ -69,9 +69,9 @@ perguntaDAO.deletarPergunta = function (pergunta) {
             } else { 
                 resolve();
             }
-        })
-    })
-}
+        });
+    });
+};
 
 
 
