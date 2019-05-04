@@ -77,4 +77,20 @@ exports.perguntasPorIdQuestionario = function (req, res) {
     })
 }
 
+exports.atualizarPergunta = function (req, res) {
+    pergunta = req.body;
+
+    perguntaDAO.atualizarPergunta(pergunta)
+    .then(() => res.json({message: `A pergunta foi atualizada com sucesso`}))
+    .catch(() => res.status(400).send({message: 'Erro ao atualizar a pergunta'}));
+}
+
+
+exports.deletarPergunta = function(req, res) {
+    pergunta = req.body;
+
+    perguntaDAO.deletarPergunta(pergunta)
+    .then(() => res.json({message: 'Pergunta deletada com sucesso'}))
+    .catch(() => res.status(400).send({message: 'Erro ao deletar a pergunta'}));
+}
 

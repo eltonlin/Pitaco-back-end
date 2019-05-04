@@ -18,10 +18,10 @@ perguntaDAO.consultarTodasPerguntas = function (result) {
 perguntaDAO.consultarPerguntasPorQuestionario = function (id_questionario, result) {
     return new Promise((resolve, reject) => {
         connection.query('select * from pergunta where id_questionario = ?', id_questionario, function (err, res) {
-        if (err)
-            reject();
-        else
-            resolve(res);
+            if (err)
+                reject();
+            else
+                resolve(res);
         });
     });
 }
@@ -46,6 +46,31 @@ perguntaDAO.inserirPergunta = function (pergunta) {
             }
         });
     });
+}
+
+perguntaDAO.atualizarPergunta = function (pergunta) {
+    return new Promise((resolve, reject) => {
+        connection.query(`UPDATE PERGUNTA SET descricao_pergunta = '${pergunta.descricao_pergunta}', 
+                        tipo_pergunta = '${pergunta.tipo_pergunta}' where id_pergunta = ${pergunta.id_pergunta} `, function (err, result) {
+                if (err) {
+                    reject();
+                } else {
+                    resolve();
+                }
+            });
+    });
+};
+
+perguntaDAO.deletarPergunta = function (pergunta) {
+    return new Promise((resolve,reject) => {
+        connection.query(`delete from pergunta where id_pergunta = ${pergunta.id_pergunta}`, function(err, result){
+            if(err){
+                reject();
+            } else { 
+                resolve();
+            }
+        })
+    })
 }
 
 
