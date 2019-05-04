@@ -43,5 +43,22 @@ respostaDAO.inserirResposta = function (respostas) {
 };
 
 
+respostaDAO.consultarQuantidadeRespostasPorQuestionario = function(id_questionario) {
+    return new Promise((resolve,reject) => {
+        connection.query(`select respostas.id_opcao, count(respostas.id_opcao) as quantidade from respostas 
+        inner join opcao on respostas.id_opcao = opcao.id_opcao
+        inner join pergunta on pergunta.id_pergunta = opcao.id_pergunta
+        inner join questionario on questionario.id_questionario = pergunta.id_questionario where questionario.id_questionario = 1 group by respostas.id_opcao `, function(err, result){
+            if(err){
+                reject();
+            }
+            else{
+                resolve(result);
+            }
+        });
+    });
+};
+
+
 
 module.exports = respostaDAO;

@@ -28,3 +28,11 @@ exports.consultarRespostasPorOpcao = function (req, res) {
     });
 
 };
+
+exports.consultarQuantidadeRespostasPorQuestionario = function(req, res) {
+    const id_questionario = req.params.id_questionario;
+
+    respostaDAO.consultarQuantidadeRespostasPorQuestionario(id_questionario)
+    .then(resposta => res.json(resposta))
+    .catch(() => res.status(400).send({message: 'Ocorreu um erro há buscar a quantidade respostas por questionário'}));
+}

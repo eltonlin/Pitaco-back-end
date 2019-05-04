@@ -6,4 +6,6 @@ module.exports = function (app) {
 
     app.get('/pergunta/:id_pergunta/opcao', opcaoController.consultarOpcaoPorPergunta);
 
+    app.get('/opcao/count/:id_questionario')
+
 };

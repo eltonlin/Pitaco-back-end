@@ -10,7 +10,9 @@ var questionarioDAO = function (questionario) {
 
 
 questionarioDAO.consultarTodosQuestionarios = function (result) {
-    connection.query('select * from questionario', function (err, res) {
+    connection.query(`select questionario.*, interesse.descricao as interesse_descricao, empresa.razao_social from questionario 
+                    inner join interesse on interesse.id_interesse = questionario.id_interesse
+                    inner join empresa on empresa.cnpj = questionario.empresa_cnpj`, function (err, res) {
         if (err)
             result(err, null);
         else
@@ -47,7 +49,7 @@ questionarioDAO.questionariosPorInteressesPorUsuarios = function(usuario) {
                         and id_questionario not in (select questionario.id_questionario from respostas 
                             inner join opcao on respostas.id_opcao = opcao.id_opcao
                             inner join pergunta on pergunta.id_pergunta = opcao.id_pergunta
-                            inner join questionario on questionario.id_questionario = pergunta.id_questionario)  `, function(err, result){
+                            inner join questionario on questionario.id_questionario = pergunta.id_questionario where respostas.login_usuario = '${usuario}')  `, function(err, result){
             if(err){
                 reject();
             }
