@@ -48,7 +48,7 @@ respostaDAO.consultarQuantidadeRespostasPorQuestionario = function(id_questionar
         connection.query(`select count(respostas.id_opcao) as quantidade from respostas 
         inner join opcao on respostas.id_opcao = opcao.id_opcao
         inner join pergunta on pergunta.id_pergunta = opcao.id_pergunta
-        inner join questionario on questionario.id_questionario = pergunta.id_questionario where questionario.id_questionario = 1 and opcao.id_opcao = ${id_opcao}`, function(err, result){
+        inner join questionario on questionario.id_questionario = pergunta.id_questionario where questionario.id_questionario = ${id_questionario} and opcao.id_opcao = ${id_opcao}`, function(err, result){
             if(err){
                 reject();
             }
