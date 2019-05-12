@@ -20,6 +20,17 @@ data_nascimento DATE NOT NULL,
 PRIMARY KEY(login_usuario)
 );
 
+CREATE TABLE contas_usuario (
+    usuario_final VARCHAR(30) NOT NULL,
+    banco VARCHAR(100) NOT NULL,
+    tipo_conta VARCHAR(8),
+    agencia VARCHAR(4) NOT NULL,
+    conta VARCHAR(10) NOT NULL,
+    valor NUMERIC(2),
+    pago CHAR(3) DEFAULT 'NAO',
+    FOREIGN KEY (usuario_final) REFERENCES usuario_final(login_usuario)
+);
+
 CREATE TABLE endereco (
 id_endereco INT AUTO_INCREMENT,
 login_usuario VARCHAR(30) NOT NULL,
