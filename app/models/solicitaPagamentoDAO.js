@@ -15,7 +15,9 @@ var solicitaPagamentoDAO = function (solicitaPagamento) {
 
 solicitaPagamentoDAO.listarSolicitacoesNaoPAGAS = function(){
     return new Promise((resolve, reject) => {
-        connection.query(`select * from solicita_pagamento where pago = 'NAO' `, function(err, result){
+        connection.query(`select solicita_pagamento.*, usuario_final.cpf, usuario_final.nome from solicita_pagamento
+        inner join usuario_final on solicita_pagamento.usuario_final = usuario_final.login_usuario
+        WHERE solicita_pagamento.pago = 'NAO' `, function(err, result){
             if(err)
                 reject();
             else
