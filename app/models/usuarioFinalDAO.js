@@ -141,4 +141,14 @@ usuarioFinalDAO.retornarUsuarios = function(){
     })
 }
 
+usuarioFinalDAO.atualizaPontuacao = function(usuario){
+    return new Promise((resolve, reject) => {
+        connection.query(`UPDATE usuario_final set pontuacao = ${usuario.pontuacao} WHERE login_usuario = '${usuario.login_usuario}' `, function(err, result){
+            if(err)
+                reject();
+            resolve(result);
+        })
+    })
+}
+
 module.exports = usuarioFinalDAO;

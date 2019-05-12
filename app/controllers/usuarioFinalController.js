@@ -211,3 +211,10 @@ exports.retonarUsuarios = function(req, res){
   .then(usuarios => res.json(usuarios))
   .catch(() => res.status(400).send({message : 'Erro ao listar os usuários finais'}));
 }
+
+exports.atualizaPontuacao = function(req, res){
+  const usuarioFinal = new usuarioFinalDAO(req.body);
+  usuarioFinalDAO.atualizaPontuacao(usuarioFinal)
+  .then(result => res.json(result))
+  .catch(() => res.status(400).send({message : 'Erro ao atualizar a pontuação'}))
+}
