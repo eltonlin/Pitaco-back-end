@@ -1,6 +1,7 @@
 const questionarioDAO = require('../models/questionarioDAO');
 const perguntaDAO = require('../models/perguntaDAO');
 const opcaoDAO = require('../models/opcaoDAO');
+const respostaDAO = require('../models/respostaDAO')
 
 exports.consultarTodosQuestionarios = function (req, res) {
     questionarioDAO.consultarTodosQuestionarios(function (err, questionarios) {
@@ -83,4 +84,77 @@ exports.atualizarQuestionario = function(req, res) {
     questionarioDAO.atualizarQuestionario(questionario)
     .then(() => res.json({message: 'Questionário atualizado com sucesso'}))
     .catch(() => res.status(400).send({message: 'Erro ao atualizar o questionário'}));
-}  
+}
+
+
+exports.consultarPerguntasPorQuestionarioComQuantidade = function (req, res) {
+    const id_questionario = req.params.id_questionario;
+    const params = req.body;
+
+    console.log(params);
+
+    if (!id_questionario)
+        return res.status(400).send({ message: 'O id do questionário é obrigatório' })
+    
+    if(params.idadeInicial){
+        console.log('entra porque tem idade inicial');
+        dataInicial = new Date();
+
+        dataInicial.setFullYear(dataInicial.getFullYear() - params.idadeInicial);
+
+        params.dataInicial = formatDate(dataInicial);
+
+        
+    }
+
+    if(params.idadeFinal){
+        console.log('entra porque tem idade final');
+        dataFinal = new Date();
+
+        dataFinal.setFullYear(dataFinal.getFullYear() - params.idadeFinal);
+
+        params.dataFinal = formatDate(dataFinal);       
+
+    }
+
+
+    perguntaDAO.consultarPerguntasPorQuestionario(id_questionario)
+    .then(perguntas => {
+        for(let pergunta of perguntas){            
+            opcaoDAO.consultarOpcaoPorPergunta(pergunta.id_pergunta)
+            .then(opcao => {
+                pergunta.opcoes = opcao;                
+            })
+            .catch(() => res.status(400).send({message: 'Erro ao buscar as perguntas'}))      
+        }  
+        setTimeout(() => {
+            for(let pergunta of perguntas){
+                for(let opcao of pergunta.opcoes){                    
+                    respostaDAO.consultarQuantidadeRespostasPorQuestionario(id_questionario, opcao.id_opcao, params)
+                    .then(quantidade => {
+                        opcao.quantidade = quantidade[0].quantidade;
+                    })
+                    .catch(() => res.status(400).send({message: 'Erro ao buscar as perguntas'}))
+                }      
+            }            
+        }, 0500);      
+        setTimeout(() => {
+            res.json(perguntas);
+        }, 1000);
+    })
+    .catch(() => res.status(400).send({message: 'Erro ao buscar as perguntas'}))
+       
+
+};
+
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+}

@@ -11,4 +11,6 @@ module.exports = function (app) {
     
     app.put('/questionario/atualizar', questionarioController.atualizarQuestionario);
 
+    app.post('/questionario/:id_questionario/detalhe/', questionarioController.consultarPerguntasPorQuestionarioComQuantidade)
+
 };
