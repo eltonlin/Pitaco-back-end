@@ -41,7 +41,7 @@ cidade VARCHAR(50) NOT NULL,
 cep CHAR(8) NOT NULL,
 bairro VARCHAR(30) NOT NULL,
 complemento VARCHAR(255),
-estado VARCHAR(100),
+estado VARCHAR(2),
 PRIMARY KEY (id_endereco),
 FOREIGN KEY (login_usuario) REFERENCES usuario_final (login_usuario)
 );
@@ -136,16 +136,16 @@ INSERT INTO usuario_final VALUES ("jose_garcia", "2233", "Jose Garcia", "0891247
 
 #INSERT NA TABELA ENDERECO--------------------------------------------------------------------------
 INSERT INTO endereco (login_usuario, rua, cidade, cep, bairro, complemento, estado)
-              VALUES ("jose_garcia", "Rua do Jose Garcia 111" , "Recife", "50060080", "Boa Vista", "Apt 605", "Pernambuco"),
-                     ("renata_maria", "Rua da Renata Maria 777", "Recife", "50070080", "Beira Rio", "Apt 900", "Pernambuco"),
-                     ("lidia_fernandes", "Rua da Lidia 555", "Recife", "55060080", "Torre", "Apt 505", "Pernambuco"),
-                     ("carla_perez", "Rua do Tchan 131", "Recife", "30060080", "Boa Viagem", "Apt 305", "Pernambuco"),
-                     ("kinho_jed", "Rua do Camaragibe 411", "Recife", "50060089", "Camaragibe", "Apt 105", "Pernambuco"),
-                     ("mario_costa", "Rua das Costas 333", "Recife", "57037080", "Cohab", "Apt 205", "Pernambuco"),
-                     ("cristiano_ronaldo", "Rua Portugal 110", "Recife", "91160080", "Jordao", "Apt 600", "Pernambuco"),
-                     ("neymar_junior", "Rua Marquezine 10", "Recife", "67145080", "Paris", "Apt 100", "Pernambuco"),
-                     ("rui_costa", "Rua Dali 70", "5116876", "Recife", "Portuga", "Apt 129", "Pernambuco"),
-                     ("steve_rodgers", "Rua Avengers 110", "Recife", "98760080", "USA", "Apt 777", "Pernambuco");
+              VALUES ("jose_garcia", "Rua do Jose Garcia 111" , "Recife", "50060080", "Boa Vista", "Apt 605", "PE"),
+                     ("renata_maria", "Rua da Renata Maria 777", "Recife", "50070080", "Beira Rio", "Apt 900", "PE"),
+                     ("lidia_fernandes", "Rua da Lidia 555", "Recife", "55060080", "Torre", "Apt 505", "PE"),
+                     ("carla_perez", "Rua do Tchan 131", "Recife", "30060080", "Boa Viagem", "Apt 305", "PE"),
+                     ("kinho_jed", "Rua do Camaragibe 411", "Recife", "50060089", "Camaragibe", "Apt 105", "PE"),
+                     ("mario_costa", "Rua das Costas 333", "Recife", "57037080", "Cohab", "Apt 205", "PE"),
+                     ("cristiano_ronaldo", "Rua Portugal 110", "Recife", "91160080", "Jordao", "Apt 600", "PE"),
+                     ("neymar_junior", "Rua Marquezine 10", "Recife", "67145080", "Paris", "Apt 100", "PE"),
+                     ("rui_costa", "Rua Dali 70", "5116876", "Recife", "Portuga", "Apt 129", "PE"),
+                     ("steve_rodgers", "Rua Avengers 110", "Recife", "98760080", "USA", "Apt 777", "PE");
 #FIM DO INSERT NA TABELA ENDERECO--------------------------------------------------------------------------
 
 #INSERT NA TABELA INTERESSE--------------------------------------------------------------------------------
