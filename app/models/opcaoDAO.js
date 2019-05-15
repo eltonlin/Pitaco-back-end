@@ -19,11 +19,9 @@ opcaoDAO.consultarOpcaoPorPergunta = function (id_pergunta) {
     return new Promise((resolve,reject) => {
         connection.query(`select * from opcao WHERE id_pergunta = ${id_pergunta}`, function (err, opcao) {
             if (err){
-                console.log(err);
                 reject();
             }
             else{
-                console.log(opcao);
                 resolve(opcao);
             }
         });

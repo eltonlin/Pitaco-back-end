@@ -27,19 +27,7 @@ exports.consultarPerguntasPorQuestionario = function (req, res) {
                 pergunta.opcoes = opcao;                
             })
             .catch(() => res.send({message: 'Erro ao buscar as perguntas'}))      
-        }  
-        setTimeout(() => {
-            for(let pergunta of perguntas){
-                for(let opcao of pergunta.opcoes){                    
-                    respostaDAO.consultarQuantidadeRespostasPorQuestionario(id_questionario, opcao.id_opcao)
-                    .then(quantidade => {
-                        opcao.quantidade = quantidade;
-                        console.log(opcao);
-                    })
-                    .catch(() => res.send({message: 'Erro ao buscar as perguntas'}))
-                }      
-            }            
-        }, 0500);      
+        }        
         setTimeout(() => {
             res.json(perguntas);
         }, 1000);
@@ -48,6 +36,9 @@ exports.consultarPerguntasPorQuestionario = function (req, res) {
        
 
 };
+
+
+
 
 
 

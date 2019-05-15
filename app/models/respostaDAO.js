@@ -43,17 +43,45 @@ respostaDAO.inserirResposta = function (respostas) {
 };
 
 
-respostaDAO.consultarQuantidadeRespostasPorQuestionario = function(id_questionario, id_opcao) {
+respostaDAO.consultarQuantidadeRespostasPorQuestionario = function(id_questionario, id_opcao, params) {
     return new Promise((resolve,reject) => {
-        connection.query(`select count(respostas.id_opcao) as quantidade from respostas 
+        let sql = `select count(respostas.id_opcao) as quantidade from respostas 
         inner join opcao on respostas.id_opcao = opcao.id_opcao
         inner join pergunta on pergunta.id_pergunta = opcao.id_pergunta
-        inner join questionario on questionario.id_questionario = pergunta.id_questionario where questionario.id_questionario = ${id_questionario} and opcao.id_opcao = ${id_opcao}`, function(err, result){
+        inner join questionario on questionario.id_questionario = pergunta.id_questionario where questionario.id_questionario = ${id_questionario} and opcao.id_opcao = ${id_opcao}
+        and respostas.login_usuario in (select user.login_usuario from usuario_final user inner join endereco as ed on ed.login_usuario = user.login_usuario where 1 = 1`;
+
+
+        if(params.dataInicial && params.dataFinal){                       
+            sql += ` and user.data_nascimento between '${params.dataFinal}' and '${params.dataInicial}' ` ;
+        }
+        else if (params.dataInicial){
+            sql += ` and user.data_nascimento < '${params.dataInicial}'  ` ;
+        }
+        else if (params.dataFinal) {
+            sql += ` and user.data_nascimento > '${params.dataFinal}'  ` ;
+        }
+
+        if(params.estado){
+            sql += ` and ed.estado = '${params.estado}' `;
+        }
+        if (params.cidade){
+            sql += ` and ed.cidade = '${params.cidade}' `;
+        }
+
+        sql += `)`;
+
+        console.log(sql);
+        
+
+        connection.query(sql , function(err, result){
             if(err){
+                console.log(err);
                 reject();
             }
             else{
-                resolve(result[0]);
+                console.log(result);
+                resolve(result);
             }
         });
     });
