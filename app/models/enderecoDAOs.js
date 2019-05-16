@@ -54,4 +54,4 @@ enderecoDAO.atualizaEnderecoPorUsuario = function(endereco) {
     });
 }
 
-module.exports = enderecoDAO;
+module.exports = enderecoDAO; 
