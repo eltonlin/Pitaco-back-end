@@ -2,6 +2,9 @@ var usuarioFinalController = require('../controllers/usuarioFinalController');
 
 module.exports = function (app) {
 
+        app.get("/", (req, res) => {
+                res.send("Hello to Pitaco Back-end");
+        })            
         app.post('/usuario_final/cadastrar_login', usuarioFinalController.inserirUsuario)
         app.post('/usuario_final/login', usuarioFinalController.login);
         app.get('/usuario_final/:usuario/pontuacao', usuarioFinalController.retornaPontuacaoPorUsuario)
