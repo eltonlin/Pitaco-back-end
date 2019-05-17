@@ -1,5 +1,5 @@
 var connection = require("../../config/dbConnection");
-const enderecoDAO = require("./enderecoDao");
+const enderecoDAO = require("./enderecoDAO");
 
 var usuarioFinalDAO = function(usuario_final) {
   this.login_usuario = usuario_final.login_usuario;
