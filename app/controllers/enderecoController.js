@@ -1,4 +1,4 @@
-const enderecoDao = require('../models/enderecoDao')
+const enderecoDao = require('../models/enderecoDAO')
 
 
 exports.inserirEndereco = function (req, res) {
