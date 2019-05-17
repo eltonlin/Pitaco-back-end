@@ -21,6 +21,7 @@ exports.inserirEmpresa = function (req, res) {
     if (!empresa.login_master)
         return res.status(400).send({ message: 'O login_master é obrigatório' });
 
+    empresa.cnpj = empresa.cnpj.replace(/[^\d]+/g, '');
 
     if (empresa.cnpj == '') return false;
 
