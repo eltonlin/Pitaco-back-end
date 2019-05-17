@@ -21,6 +21,8 @@ app.use(cors());
 /* configurar o middleware express.static */
 app.use(express.static("./app/public"));
 
+app.options('*', cors());
+
 /* configurar o middleware body-parser */
 app.use(bodyParser.urlencoded({ extended: true }));
 
