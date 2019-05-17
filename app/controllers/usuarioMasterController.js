@@ -11,3 +11,11 @@ exports.loginUsuarioMaster = function (req, res) {
             return res.status(200).send(result);
     });
 }
+
+exports.cadastrarUsuarioMaster = function(req, res) {
+    const usuarioMaster = new usuarioMasterDAO(req.body);
+
+    usuarioMasterDAO.cadastrarUsuarioMaster(usuarioMaster)
+    .then(() => res.json({message: 'Usuário Master cadastrado com sucesso!'}))
+    .catch(() => res.status(400).send({message: 'Erro ao cadastrar o usuário Master'}));
+}
