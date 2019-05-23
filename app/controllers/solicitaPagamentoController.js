@@ -42,3 +42,15 @@ exports.atualizaSolicitacaoParaPago = function(req, res) {
     .then(() => res.json({message: 'Atualizado com sucesso'}))
     .catch(() => res.status(400).send({message: 'Erro ao atualizar a solicitação para pago'}))
 }
+
+exports.historicoSolicitacaoPorUsuario = function(req, res) {
+    loginUsuario = req.params.usuario;
+
+    if(!loginUsuario){
+        return res.status(400).send({message: 'O login do usuário é obrigatório'});
+    }
+
+    solicitaPagamentoDAO.historicoSolicitacaoPorUsuario(loginUsuario)
+    .then(solicitacoes => res.json(solicitacoes))
+    .catch(() => res.status(400).send({message : `Erro ao buscar o histórico de solicitações do usuário ${loginUsuario}`}))
+}

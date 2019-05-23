@@ -52,4 +52,18 @@ solicitaPagamentoDAO.atualizaSolicitacaoParaPago = function(idSolicitacao) {
     });
 }
 
+
+solicitaPagamentoDAO.historicoSolicitacaoPorUsuario = function(loginUsuario) {
+    return new Promise((resolve,reject) => {
+        connection.query(`SELECT * from solicita_pagamento where solicita_pagamento.usuario_final = '${loginUsuario}' `, function(err, result){
+            if(err){
+                reject();
+            }
+            else {
+                resolve(result);
+            }
+        });
+    });
+}
+
 module.exports = solicitaPagamentoDAO;
