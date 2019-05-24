@@ -70,17 +70,13 @@ respostaDAO.consultarQuantidadeRespostasPorQuestionario = function(id_questionar
         }
 
         sql += `)`;
-
-        console.log(sql);
         
 
         connection.query(sql , function(err, result){
             if(err){
-                console.log(err);
                 reject();
             }
             else{
-                console.log(result);
                 resolve(result);
             }
         });

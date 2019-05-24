@@ -27,12 +27,10 @@ usuarioMasterDAO.cadastrarUsuarioMaster = function(usuarioMaster) {
     return new Promise((resolve, reject) => {
         connection.query('INSERT INTO USUARIO_MASTER SET ?', usuarioMaster, function(err, result) {
             if(err){
-                console.log(err);
                 reject();
             }
             else
             {
-                console.log(result);
                 resolve();
             }
         })

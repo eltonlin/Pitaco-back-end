@@ -115,7 +115,6 @@ usuarioFinalDAO.atualizarUsuarioFinal = function(usuario) {
             }' WHERE login_usuario = '${usuario.login_usuario}'`,
       function(err, resultadoUsuario) {
         if (err) {
-          console.log(err);
           reject();
         } else {
           usuario.endereco.login_usuario = usuario.login_usuario;

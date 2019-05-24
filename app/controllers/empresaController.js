@@ -73,13 +73,9 @@ exports.inserirEmpresa = function (req, res) {
         .then(() => {
             empresaDao.verificarRazaoSocial(empresa.razao_social)
                 .then(() => {
-                    empresaDao.inserirEmpresa(empresa, function (err, result) {
-                        if (err)
-                            return res.status(400).send({ message: 'Erro no cadastro da empresa' });
-                        else
-                            return res.status(200).json(result);
-                    })
-
+                    empresaDao.inserirEmpresa(empresa)
+                    .then(result => res.status(200).json(result))
+                    .catch(() => res.status(400).send({ message: 'Erro no cadastro da empresa' }))
                 })
                 .catch(() => res.status(400).send({ message: 'A razão social já foi cadastrada.' }));
         })
@@ -100,7 +96,6 @@ exports.consultarEmpresaPorCnpj = function (req, res) {
 
 exports.atualizarEmpresa = function(req, res){
     var empresa = req.body;
-    console.log(req.body);
 
     empresaDao.atualizarEmpresa(empresa)
     .then(() => res.json({message: 'Atualizado com sucesso'}))
@@ -117,7 +112,6 @@ exports.atualizarEmpresa = function(req, res){
 exports.deletarEmpresa = function (req, res) {
     
     var empresa = req.body.cnpj;
-    console.log(req.body);
 
 
     empresaDao.deletarEmpresa(empresa,function (err, resultado) {

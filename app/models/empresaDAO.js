@@ -41,7 +41,7 @@ empresaDAO.verificarCnpj = function(cnpj) {
 empresaDAO.verificarRazaoSocial = function(razao_social){
     return new Promise((resolve, reject) => {
         connection.query(`select * from empresa where razao_social = '${razao_social}'`, function(err, result){
-            if (result[0] !== undefined){                
+            if (result[0] !== undefined){  
                 reject();
             }
             else
@@ -50,15 +50,16 @@ empresaDAO.verificarRazaoSocial = function(razao_social){
     })
 }
 
-empresaDAO.inserirEmpresa = function (empresa, result) {
-    connection.query('INSERT into EMPRESA set ?', empresa, function (err, res) {
-        if (err) {
-            console.log(err);
-            result(err, null);
-        }
-        else {
-            result(null, res);
-        }
+empresaDAO.inserirEmpresa = function (empresa) {
+    return new Promise((resolve, reject) => {
+        connection.query('INSERT into EMPRESA set ?', empresa, function (err, res) {
+            if (err) {
+                reject();
+            }
+            else {
+                resolve();
+            }
+        });
     });
 };
 
@@ -80,7 +81,6 @@ empresaDAO.atualizarEmpresa = function(empresa){
     empresaDAO.deletarEmpresa = function(empresa, resultado){
         connection.query(`DELETE FROM EMPRESA WHERE cnpj = '${empresa}'`, function(err, result){
             if(err){
-                console.log(err);
                 resultado({message: `Empresa não pode ser deletada' ${empresa}`}, null );
             }
             else{

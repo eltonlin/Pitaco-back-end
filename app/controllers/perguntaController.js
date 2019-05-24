@@ -23,7 +23,6 @@ exports.consultarPerguntasPorQuestionario = function (req, res) {
         for(let pergunta of perguntas){            
             opcaoDAO.consultarOpcaoPorPergunta(pergunta.id_pergunta)
             .then(opcao => {
-                console.log(opcao);
                 pergunta.opcoes = opcao;                
             })
             .catch(() => res.send({message: 'Erro ao buscar as perguntas'}))      

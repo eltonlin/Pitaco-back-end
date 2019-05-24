@@ -6,6 +6,15 @@ exports.listarSolicitacoesNaoPagas = function(req, res){
     .catch(() => res.status(400).send({message: 'Erro ao listar as solicitações' }))
 }
 
+
+
+exports.listarSolicitacoesPagas = function(req, res){
+    console.log('chega aqui');
+    solicitaPagamentoDAO.listarSolicitacoesPAGAS()
+    .then(result => res.json(result))
+    .catch(() => res.status(400).send({message: 'Erro ao listar as solicitações' }))
+}
+
 exports.inserirSolicitacao = function(req, res){
     solicitaPagamento = new solicitaPagamentoDAO(req.body);
 
@@ -21,6 +30,8 @@ exports.inserirSolicitacao = function(req, res){
         return res.status(400).send({message: 'O tipo da conta é obrigatório'});
     if(!solicitaPagamento.valor)
         return res.status(400).send({message: 'O valor é obrigatório'});
+    
+    solicitaPagamento.data_solicitacao = new Date();
     
     solicitaPagamento.pago = 'NAO';
 

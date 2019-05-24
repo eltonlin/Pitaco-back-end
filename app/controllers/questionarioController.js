@@ -91,13 +91,10 @@ exports.consultarPerguntasPorQuestionarioComQuantidade = function (req, res) {
     const id_questionario = req.params.id_questionario;
     const params = req.body;
 
-    console.log(params);
-
     if (!id_questionario)
         return res.status(400).send({ message: 'O id do questionário é obrigatório' })
     
     if(params.idadeInicial){
-        console.log('entra porque tem idade inicial');
         dataInicial = new Date();
 
         dataInicial.setFullYear(dataInicial.getFullYear() - params.idadeInicial);
@@ -108,7 +105,6 @@ exports.consultarPerguntasPorQuestionarioComQuantidade = function (req, res) {
     }
 
     if(params.idadeFinal){
-        console.log('entra porque tem idade final');
         dataFinal = new Date();
 
         dataFinal.setFullYear(dataFinal.getFullYear() - params.idadeFinal);

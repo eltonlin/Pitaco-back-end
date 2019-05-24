@@ -12,7 +12,6 @@ exports.listarInteresses = function (req, res) {
 
 exports.insertInteresses = function (req, res) {
     var interesse = req.body;
-    console.log(req.body);
 
     interesseDAO.inserirInteresse(interesse)
     .then(() => res.json({message: 'Cadastrado com sucesso'}))
@@ -30,7 +29,6 @@ exports.insertInteresses = function (req, res) {
 
 exports.atualizarInteresse = function(req, res){
     var interesse = req.body;
-    console.log(req.body);
 
     interesseDAO.atualizarInteresse(interesse)
     .then(() => res.json({message: 'Atualizado com sucesso'}))
@@ -47,7 +45,6 @@ exports.atualizarInteresse = function(req, res){
 exports.deletarInteresse = function (req, res) {
     
     var interesse = req.body.id_interesse;
-    console.log(req.body);
 
 
     interesseDAO.deletarInteresse(interesse,function (err, resultado) {

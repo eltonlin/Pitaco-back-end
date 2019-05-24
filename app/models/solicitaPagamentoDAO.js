@@ -9,19 +9,37 @@ var solicitaPagamentoDAO = function (solicitaPagamento) {
     this.pago = solicitaPagamento.pago;
     this.tipo_conta = solicitaPagamento.tipo_conta;
     this.banco = solicitaPagamento.banco;
+    this.data_solicitacao = solicitaPagamento.data_solicitacao;
+    this.data_pagamento = solicitaPagamento.data_pagamento;
 };
 
 
 
 solicitaPagamentoDAO.listarSolicitacoesNaoPAGAS = function(){
     return new Promise((resolve, reject) => {
-        connection.query(`select solicita_pagamento.*, usuario_final.cpf, usuario_final.nome from solicita_pagamento
-        inner join usuario_final on solicita_pagamento.usuario_final = usuario_final.login_usuario
-        WHERE solicita_pagamento.pago = 'NAO' `, function(err, result){
+        connection.query(`select sol.id_solicitacao, sol.usuario_final, sol.banco, sol.tipo_conta, sol.agencia, sol.conta, sol.valor, DATE_FORMAT(sol.data_solicitacao, '%d/%m/%Y') data_solicitacao, usuario_final.cpf, usuario_final.nome from solicita_pagamento sol
+        inner join usuario_final on sol.usuario_final = usuario_final.login_usuario
+        WHERE sol.pago = 'NAO' `, function(err, result){
             if(err)
                 reject();
             else
                 resolve(result);
+        });
+    });
+}
+
+
+solicitaPagamentoDAO.listarSolicitacoesPAGAS = function(){
+    return new Promise((resolve, reject) => {
+        connection.query(`select sol.id_solicitacao, sol.usuario_final, sol.banco, sol.tipo_conta, sol.agencia, sol.conta, sol.valor, DATE_FORMAT(sol.data_pagamento, '%d/%m/%Y') data_pagamento, usuario_final.cpf, usuario_final.nome from solicita_pagamento sol
+        inner join usuario_final on sol.usuario_final = usuario_final.login_usuario
+        WHERE sol.pago = 'SIM' `, function(err, result){
+            if(err){
+                reject();
+            }
+            else{
+                resolve(result);
+            }
         });
     });
 }
@@ -43,7 +61,7 @@ solicitaPagamentoDAO.inserirSolicitacao = function(solicitacao){
 
 solicitaPagamentoDAO.atualizaSolicitacaoParaPago = function(idSolicitacao) {
     return new Promise((resolve, reject) => {
-        connection.query(`update solicita_pagamento set pago = 'SIM' where id_solicitacao = ${idSolicitacao} `, function(err, result){
+        connection.query(`update solicita_pagamento set pago = 'SIM', data_pagamento = NOW() where id_solicitacao = ${idSolicitacao} `, function(err, result){
             if(err)
                 reject();
             else

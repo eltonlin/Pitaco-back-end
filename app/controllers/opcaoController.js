@@ -27,7 +27,6 @@ exports.inserirOpcao = function (req, res) {
 
 exports.consultarOpcaoPorPergunta = function (req, res) {
     var id_pergunta = req.params.id_pergunta;
-    console.log(id_pergunta);
     opcaoDAO.consultarOpcaoPorPergunta(id_pergunta)
     .then(opcao => res.json(opcao))
     .catch(err => res.status(400).send({message: 'Erro ao buscar as opções'}))
