@@ -10,7 +10,7 @@ var questionarioDAO = function (questionario) {
 
 
 questionarioDAO.consultarTodosQuestionarios = function (result) {
-    connection.query(`select questionario.*, interesse.descricao as interesse_descricao, empresa.razao_social from questionario 
+    connection.query(`select questionario.*, interesse.descricao as interesse_descricao, interesse.id_interesse, empresa.razao_social from questionario 
                     inner join interesse on interesse.id_interesse = questionario.id_interesse
                     inner join empresa on empresa.cnpj = questionario.empresa_cnpj`, function (err, res) {
         if (err)
